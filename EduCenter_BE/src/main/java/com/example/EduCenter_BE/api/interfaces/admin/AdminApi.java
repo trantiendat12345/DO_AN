@@ -33,4 +33,6 @@ public interface AdminApi {
     @RequestMapping(value = UriAdmin.CREATE_CLASSROOM, method = RequestMethod.POST)
     ResponseEntity<ClassroomAdminResponse> createClassroom(@RequestBody CreateClassroomAdminRequest request);
 
+//    @RequestMapping(value = UriAdmin.)
+
 }

@@ -33,10 +33,15 @@ public class AdminServiceImpl extends BaseService implements AdminService {
     private ClassroomRepository classroomRepository;
 
     public Student createStudent (CreateStudentAdminRequest request) {
-        String studentCode = request.getStudentCode();
-        Student checkStudent = studentRepository.getStudentByCode(studentCode);
+        String codeStudent = request.getStudentCode();
+        String emailStudent = request.getEmail();
+        String phoneStudent = request.getPhone();
 
-        if (!Objects.isNull(checkStudent)) {
+        Student checkStudentByCode = studentRepository.getStudentByCode(codeStudent);
+        Student checkStudentByEmail = studentRepository.getStudentByEmail(emailStudent);
+        Student checkStudentByPhone = studentRepository.getStudentByPhone(phoneStudent);
+
+        if (!Objects.isNull(checkStudentByCode) || !Objects.isNull(checkStudentByEmail) || !Objects.isNull(checkStudentByPhone)) {
             throw new RuntimeException(MessageAdmin.STUDENT_EXITS);
         }
 
@@ -58,9 +63,12 @@ public class AdminServiceImpl extends BaseService implements AdminService {
     @Override
     public Role createRole(CreateRoleAdminRequest request) {
         Integer id = request.getId();
-        Role checkRole = roleRepository.getById(id);
+        String name = request.getName();
 
-        if (!Objects.isNull(checkRole)) {
+        Role checkRoleById = roleRepository.getRoleById(id);
+        Role checkRoleByName = roleRepository.getRoleByName(name);
+
+        if (!Objects.isNull(checkRoleById) || !Objects.isNull(checkRoleByName)) {
             throw new RuntimeException(MessageAdmin.ROLE_EXITS);
         }
 
@@ -74,6 +82,7 @@ public class AdminServiceImpl extends BaseService implements AdminService {
     @Override
     public Course createCourse(CreateCourseAdminRequest request) {
         String name = request.getName();
+
         Course checkCourse = courseRepository.getCourseByName(name);
 
         if (!Objects.isNull(checkCourse)) {
@@ -91,9 +100,12 @@ public class AdminServiceImpl extends BaseService implements AdminService {
     @Override
     public Parent createParent(CreateParentAdminRequest request) {
         String email = request.getEmail();
-        Parent checkParent = parentRepository.getParentByEmail(email);
+        String phone = request.getPhone();
 
-        if (!Objects.isNull(checkParent)) {
+        Parent checkParentByEmail = parentRepository.getParentByEmail(email);
+        Parent checkParentByPhone = parentRepository.getParentByPhone(phone);
+
+        if (!Objects.isNull(checkParentByEmail) || !Objects.isNull(checkParentByPhone)) {
             throw new RuntimeException(MessageAdmin.PARENT_EXITS);
         }
 
@@ -108,9 +120,14 @@ public class AdminServiceImpl extends BaseService implements AdminService {
     @Override
     public Teacher createTeacher(CreateTeacherAdminRequest request) {
         String teacherCode = request.getTeacherCode();
-        Teacher checkTeacher = teacherRepository.getTeacherByCode(teacherCode);
+        String teacherEmail = request.getEmail();
+        String teacherPhone = request.getPhone();
 
-        if (!Objects.isNull(checkTeacher)) {
+        Teacher checkTeacherByCode = teacherRepository.getTeacherByCode(teacherCode);
+        Teacher checkTeacherByEmail = teacherRepository.getTeacherByEmail(teacherEmail);
+        Teacher checkTeacherByPhone = teacherRepository.getTeacherByPhone(teacherPhone);
+
+        if (!Objects.isNull(checkTeacherByCode) || !Objects.isNull(checkTeacherByEmail) || !Objects.isNull(checkTeacherByPhone)) {
             throw new RuntimeException(MessageAdmin.TEACHER_EXITS);
         }
 
@@ -126,6 +143,7 @@ public class AdminServiceImpl extends BaseService implements AdminService {
     @Override
     public Classroom createClassroom(CreateClassroomAdminRequest request) {
         String name = request.getName();
+
         Classroom checkClassroom = classroomRepository.getClassroomByName(name);
 
         if (!Objects.isNull(checkClassroom)) {

@@ -1,9 +1,11 @@
 package com.example.EduCenter_BE.response.admin;
 
 import com.example.EduCenter_BE.entity.Course;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CourseAdminResponse {
 
     private String description;

@@ -14,7 +14,7 @@ public class ClassroomAdminResponse {
     private Integer maxStudent;
     private String name;
     private ClassroomStatus status;
-    private Long courseId;
+    private String nameCourse;
 
     public ClassroomAdminResponse(Classroom classroom) {
         this.startDate = classroom.getStartDate();
@@ -22,7 +22,7 @@ public class ClassroomAdminResponse {
         this.maxStudent = classroom.getMaxStudent();
         this.name = classroom.getName();
         this.status = classroom.getStatus();
-        this.courseId = classroom.getCourse().getId();
+        this.nameCourse = classroom.getCourse().getName();
     }
 
 }

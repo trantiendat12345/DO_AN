@@ -12,4 +12,10 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     @Query("SELECT t FROM Teacher AS t WHERE t.teacherCode = :code")
     Teacher getTeacherByCode(@Param("code") String code);
 
+    @Query("SELECT t FROM Teacher AS t WHERE t.phone = :phone")
+    Teacher getTeacherByPhone(@Param("phone") String phone);
+
+    @Query("SELECT t FROM Teacher AS t WHERE t.email = :email")
+    Teacher getTeacherByEmail(@Param("email") String email);
+
 }

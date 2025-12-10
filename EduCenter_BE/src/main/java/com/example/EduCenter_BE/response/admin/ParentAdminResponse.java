@@ -1,9 +1,11 @@
 package com.example.EduCenter_BE.response.admin;
 
 import com.example.EduCenter_BE.entity.Parent;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ParentAdminResponse {
 
     private String address;

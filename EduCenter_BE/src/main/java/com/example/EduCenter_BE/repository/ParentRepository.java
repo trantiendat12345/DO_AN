@@ -12,4 +12,7 @@ public interface ParentRepository extends JpaRepository<Parent, Long> {
     @Query("SELECT p FROM Parent AS p WHERE p.email = :email")
     Parent getParentByEmail(@Param("email") String email);
 
+    @Query("SELECT p FROM Parent AS p WHERE p.phone = :phone")
+    Parent getParentByPhone(@Param("phone") String phone);
+
 }
