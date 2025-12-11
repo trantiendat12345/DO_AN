@@ -37,9 +37,9 @@ public class AdminServiceImpl extends BaseService implements AdminService {
         String emailStudent = request.getEmail();
         String phoneStudent = request.getPhone();
 
-        Student checkStudentByCode = studentRepository.getStudentByCode(codeStudent);
-        Student checkStudentByEmail = studentRepository.getStudentByEmail(emailStudent);
-        Student checkStudentByPhone = studentRepository.getStudentByPhone(phoneStudent);
+        Student checkStudentByCode = studentRepository.findStudentByCode(codeStudent);
+        Student checkStudentByEmail = studentRepository.findStudentByEmail(emailStudent);
+        Student checkStudentByPhone = studentRepository.findStudentByPhone(phoneStudent);
 
         if (!Objects.isNull(checkStudentByCode) || !Objects.isNull(checkStudentByEmail) || !Objects.isNull(checkStudentByPhone)) {
             throw new RuntimeException(MessageAdmin.STUDENT_EXITS);
@@ -65,8 +65,8 @@ public class AdminServiceImpl extends BaseService implements AdminService {
         Integer id = request.getId();
         String name = request.getName();
 
-        Role checkRoleById = roleRepository.getRoleById(id);
-        Role checkRoleByName = roleRepository.getRoleByName(name);
+        Role checkRoleById = roleRepository.findRoleById(id);
+        Role checkRoleByName = roleRepository.findRoleByName(name);
 
         if (!Objects.isNull(checkRoleById) || !Objects.isNull(checkRoleByName)) {
             throw new RuntimeException(MessageAdmin.ROLE_EXITS);
@@ -83,7 +83,7 @@ public class AdminServiceImpl extends BaseService implements AdminService {
     public Course createCourse(CreateCourseAdminRequest request) {
         String name = request.getName();
 
-        Course checkCourse = courseRepository.getCourseByName(name);
+        Course checkCourse = courseRepository.findCourseByName(name);
 
         if (!Objects.isNull(checkCourse)) {
             throw new RuntimeException(MessageAdmin.COURSE_EXITS);
@@ -102,8 +102,8 @@ public class AdminServiceImpl extends BaseService implements AdminService {
         String email = request.getEmail();
         String phone = request.getPhone();
 
-        Parent checkParentByEmail = parentRepository.getParentByEmail(email);
-        Parent checkParentByPhone = parentRepository.getParentByPhone(phone);
+        Parent checkParentByEmail = parentRepository.findParentByEmail(email);
+        Parent checkParentByPhone = parentRepository.findParentByPhone(phone);
 
         if (!Objects.isNull(checkParentByEmail) || !Objects.isNull(checkParentByPhone)) {
             throw new RuntimeException(MessageAdmin.PARENT_EXITS);
@@ -123,9 +123,9 @@ public class AdminServiceImpl extends BaseService implements AdminService {
         String teacherEmail = request.getEmail();
         String teacherPhone = request.getPhone();
 
-        Teacher checkTeacherByCode = teacherRepository.getTeacherByCode(teacherCode);
-        Teacher checkTeacherByEmail = teacherRepository.getTeacherByEmail(teacherEmail);
-        Teacher checkTeacherByPhone = teacherRepository.getTeacherByPhone(teacherPhone);
+        Teacher checkTeacherByCode = teacherRepository.findTeacherByCode(teacherCode);
+        Teacher checkTeacherByEmail = teacherRepository.findTeacherByEmail(teacherEmail);
+        Teacher checkTeacherByPhone = teacherRepository.findTeacherByPhone(teacherPhone);
 
         if (!Objects.isNull(checkTeacherByCode) || !Objects.isNull(checkTeacherByEmail) || !Objects.isNull(checkTeacherByPhone)) {
             throw new RuntimeException(MessageAdmin.TEACHER_EXITS);
@@ -144,13 +144,13 @@ public class AdminServiceImpl extends BaseService implements AdminService {
     public Classroom createClassroom(CreateClassroomAdminRequest request) {
         String name = request.getName();
 
-        Classroom checkClassroom = classroomRepository.getClassroomByName(name);
+        Classroom checkClassroom = classroomRepository.findClassroomByName(name);
 
         if (!Objects.isNull(checkClassroom)) {
             throw new RuntimeException(MessageAdmin.CLASSROOM_EXITS);
         }
 
-        Course course = courseRepository.getCourseByName(request.getNameCourse());
+        Course course = courseRepository.findCourseByName(request.getNameCourse());
 
         if (Objects.isNull(course)) {
             throw new RuntimeException(MessageAdmin.COURSE_EXIST);

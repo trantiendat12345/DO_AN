@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
 
     @Query("SELECT c FROM Classroom AS c WHERE c.name = :name")
-    Classroom getClassroomByName(@Param("name") String name);
+    Classroom findClassroomByName(@Param("name") String name);
 
 }
