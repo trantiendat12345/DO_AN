@@ -1,9 +1,11 @@
 package com.example.EduCenter_BE.api.interfaces.admin;
 
 import com.example.EduCenter_BE.constant.uri.UriAdmin;
-import com.example.EduCenter_BE.request.admin.add.AddStudentToClassAdminRequest;
-import com.example.EduCenter_BE.request.admin.create.*;
-import com.example.EduCenter_BE.response.admin.*;
+import com.example.EduCenter_BE.request.*;
+import com.example.EduCenter_BE.request.AddStudentToClassRequest;
+import com.example.EduCenter_BE.response.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,25 +18,31 @@ public interface AdminApi {
 
     // CREATE
     @RequestMapping(value = UriAdmin.CREATE_STUDENT, method = RequestMethod.POST)
-    ResponseEntity<StudentAdminResponse> createStudent(@RequestBody CreateStudentAdminRequest request);
+    ResponseEntity<StudentResponse> createStudent(@RequestBody CreateStudentRequest request);
 
     @RequestMapping(value = UriAdmin.CREATE_ROLE, method = RequestMethod.POST)
-    ResponseEntity<RoleAdminResponse> createRole(@RequestBody CreateRoleAdminRequest request);
+    ResponseEntity<RoleResponse> createRole(@RequestBody CreateRoleRequest request);
 
     @RequestMapping(value = UriAdmin.CREATE_COURSE, method = RequestMethod.POST)
-    ResponseEntity<CourseAdminResponse> createCourse(@RequestBody CreateCourseAdminRequest request);
+    ResponseEntity<CourseResponse> createCourse(@RequestBody CreateCourseRequest request);
 
     @RequestMapping(value = UriAdmin.CREATE_PARENT, method = RequestMethod.POST)
-    ResponseEntity<ParentAdminResponse> createParent(@RequestBody CreateParentAdminRequest request);
+    ResponseEntity<ParentResponse> createParent(@RequestBody CreateParentRequest request);
 
     @RequestMapping(value = UriAdmin.CREATE_TEACHER, method = RequestMethod.POST)
-    ResponseEntity<TeacherAdminResponse> createTeacher(@RequestBody CreateTeacherAdminRequest request);
+    ResponseEntity<TeacherResponse> createTeacher(@RequestBody CreateTeacherRequest request);
 
     @RequestMapping(value = UriAdmin.CREATE_CLASSROOM, method = RequestMethod.POST)
-    ResponseEntity<ClassroomAdminResponse> createClassroom(@RequestBody CreateClassroomAdminRequest request);
+    ResponseEntity<ClassroomResponse> createClassroom(@RequestBody CreateClassroomRequest request);
 
     // ADD
     @RequestMapping(value = UriAdmin.ADD_STUDENT_TO_CLASSROOM, method = RequestMethod.POST)
-    ResponseEntity<StudentAdminResponse> addStudentToClass(@RequestBody AddStudentToClassAdminRequest request);
+    ResponseEntity<StudentResponse> addStudentToClass(@RequestBody AddStudentToClassRequest request);
+
+    // UPDATE
+
+    // GET
+//    @RequestMapping(value = UriAdmin.GET_ALL_STUDENTS, method = RequestMethod.GET)
+//    ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable);
 
 }

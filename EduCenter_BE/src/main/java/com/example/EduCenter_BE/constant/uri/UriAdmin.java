@@ -23,4 +23,7 @@ public class UriAdmin {
     // URI PARAM ADD
     public final static String ADD_STUDENT_TO_CLASSROOM = "/add-student-to-classroom";
 
+    // URI PARAM GET
+    public final static String GET_ALL_STUDENTS = "/get-all-students";
+
 }

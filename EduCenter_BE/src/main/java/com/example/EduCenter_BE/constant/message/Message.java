@@ -1,6 +1,6 @@
 package com.example.EduCenter_BE.constant.message;
 
-public class MessageAdmin {
+public class Message {
 
     //EXISTED
     public final static String STUDENT_EXISTED = "HỌC VIÊN ĐÃ TỒN TẠI";

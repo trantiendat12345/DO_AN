@@ -1,4 +1,4 @@
-package com.example.EduCenter_BE.request.admin.create;
+package com.example.EduCenter_BE.request;
 
 import com.example.EduCenter_BE.constant.enums.Gender;
 import com.example.EduCenter_BE.constant.enums.StudentStatus;
@@ -7,7 +7,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class CreateStudentAdminRequest {
+public class CreateStudentRequest {
 
     private String studentCode;
     private String fullName;

@@ -1,11 +1,11 @@
-package com.example.EduCenter_BE.request.admin.create;
+package com.example.EduCenter_BE.request;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class CreateCourseAdminRequest {
+public class CreateCourseRequest {
 
     private String description;
     private String duration;

@@ -1,4 +1,4 @@
-package com.example.EduCenter_BE.response.admin;
+package com.example.EduCenter_BE.response;
 
 import com.example.EduCenter_BE.constant.enums.Gender;
 import com.example.EduCenter_BE.constant.enums.StudentStatus;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StudentAdminResponse {
+public class StudentResponse {
 
     private String studentCode;
     private String fullName;
@@ -26,7 +26,7 @@ public class StudentAdminResponse {
 
     private String classroomName;
 
-    public StudentAdminResponse(Student student) {
+    public StudentResponse(Student student) {
         this.fullName = student.getFullName();
         this.studentCode = student.getStudentCode();
         this.email = student.getEmail();
@@ -39,7 +39,7 @@ public class StudentAdminResponse {
         this.note = student.getNote();
     }
 
-    public StudentAdminResponse(Student student, Classroom classroom) {
+    public StudentResponse(Student student, Classroom classroom) {
         this.fullName = student.getFullName();
         this.studentCode = student.getStudentCode();
         this.email = student.getEmail();

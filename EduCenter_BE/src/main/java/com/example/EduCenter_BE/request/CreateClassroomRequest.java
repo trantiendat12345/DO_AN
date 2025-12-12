@@ -1,4 +1,4 @@
-package com.example.EduCenter_BE.request.admin.create;
+package com.example.EduCenter_BE.request;
 
 import com.example.EduCenter_BE.constant.enums.ClassroomStatus;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class CreateClassroomAdminRequest {
+public class CreateClassroomRequest {
 
     private LocalDate startDate;
     private LocalDate endDate;
