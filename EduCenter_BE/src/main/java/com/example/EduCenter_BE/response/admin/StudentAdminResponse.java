@@ -2,6 +2,7 @@ package com.example.EduCenter_BE.response.admin;
 
 import com.example.EduCenter_BE.constant.enums.Gender;
 import com.example.EduCenter_BE.constant.enums.StudentStatus;
+import com.example.EduCenter_BE.entity.Classroom;
 import com.example.EduCenter_BE.entity.Student;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
@@ -23,6 +24,8 @@ public class StudentAdminResponse {
     private String level;
     private String note;
 
+    private String classroomName;
+
     public StudentAdminResponse(Student student) {
         this.fullName = student.getFullName();
         this.studentCode = student.getStudentCode();
@@ -34,6 +37,20 @@ public class StudentAdminResponse {
         this.status = student.getStatus();
         this.level = student.getLevel();
         this.note = student.getNote();
+    }
+
+    public StudentAdminResponse(Student student, Classroom classroom) {
+        this.fullName = student.getFullName();
+        this.studentCode = student.getStudentCode();
+        this.email = student.getEmail();
+        this.dob = student.getDateOfBirth();
+        this.gender = student.getGender();
+        this.phone = student.getPhone();
+        this.address = student.getAddress();
+        this.status = student.getStatus();
+        this.level = student.getLevel();
+        this.note = student.getNote();
+        this.classroomName = classroom.getName();
     }
 
 }

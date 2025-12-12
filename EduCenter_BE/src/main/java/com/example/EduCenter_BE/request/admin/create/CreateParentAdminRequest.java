@@ -1,4 +1,4 @@
-package com.example.EduCenter_BE.request.admin;
+package com.example.EduCenter_BE.request.admin.create;
 
 import lombok.Getter;
 import lombok.Setter;

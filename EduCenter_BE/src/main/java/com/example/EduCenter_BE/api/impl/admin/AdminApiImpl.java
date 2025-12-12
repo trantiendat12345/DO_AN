@@ -2,7 +2,8 @@ package com.example.EduCenter_BE.api.impl.admin;
 
 import com.example.EduCenter_BE.api.interfaces.admin.AdminApi;
 import com.example.EduCenter_BE.entity.*;
-import com.example.EduCenter_BE.request.admin.*;
+import com.example.EduCenter_BE.request.admin.add.AddStudentToClassAdminRequest;
+import com.example.EduCenter_BE.request.admin.create.*;
 import com.example.EduCenter_BE.response.admin.*;
 import com.example.EduCenter_BE.service.interfaces.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,12 @@ public class AdminApiImpl implements AdminApi {
     public ResponseEntity<ClassroomAdminResponse> createClassroom(CreateClassroomAdminRequest request) {
         Classroom classroom = adminService.createClassroom(request);
         ClassroomAdminResponse response = new ClassroomAdminResponse(classroom);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<StudentAdminResponse> addStudentToClass(AddStudentToClassAdminRequest request) {
+        StudentAdminResponse response = adminService.addStudentToClassroom(request);
         return ResponseEntity.ok().body(response);
     }
 

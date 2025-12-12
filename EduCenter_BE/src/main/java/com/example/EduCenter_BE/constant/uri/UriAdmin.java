@@ -5,7 +5,7 @@ public class UriAdmin {
     // URI
     public final static String ADMIN = "/admin";
 
-    //URI Pram
+    //URI PARAM CREATE
     public final static String CREATE_STUDENT = "/create-student";
 
     public final static String CREATE_ACCOUNT = "/create-account";
@@ -19,5 +19,8 @@ public class UriAdmin {
     public final static String CREATE_TEACHER = "/create-teacher";
 
     public final static String CREATE_CLASSROOM = "/create-classroom";
+
+    // URI PARAM ADD
+    public final static String ADD_STUDENT_TO_CLASSROOM = "/add-student-to-classroom";
 
 }

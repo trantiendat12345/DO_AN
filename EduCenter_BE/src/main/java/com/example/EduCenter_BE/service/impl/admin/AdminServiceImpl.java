@@ -3,7 +3,9 @@ package com.example.EduCenter_BE.service.impl.admin;
 import com.example.EduCenter_BE.constant.message.MessageAdmin;
 import com.example.EduCenter_BE.entity.*;
 import com.example.EduCenter_BE.repository.*;
-import com.example.EduCenter_BE.request.admin.*;
+import com.example.EduCenter_BE.request.admin.add.AddStudentToClassAdminRequest;
+import com.example.EduCenter_BE.request.admin.create.*;
+import com.example.EduCenter_BE.response.admin.StudentAdminResponse;
 import com.example.EduCenter_BE.service.BaseService;
 import com.example.EduCenter_BE.service.interfaces.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class AdminServiceImpl extends BaseService implements AdminService {
     @Autowired
     private ClassroomRepository classroomRepository;
 
+    @Autowired
+    private StudentClassroomRepository studentClassroomRepository;
+
     public Student createStudent (CreateStudentAdminRequest request) {
         String codeStudent = request.getStudentCode();
         String emailStudent = request.getEmail();
@@ -42,7 +47,7 @@ public class AdminServiceImpl extends BaseService implements AdminService {
         Student checkStudentByPhone = studentRepository.findStudentByPhone(phoneStudent);
 
         if (!Objects.isNull(checkStudentByCode) || !Objects.isNull(checkStudentByEmail) || !Objects.isNull(checkStudentByPhone)) {
-            throw new RuntimeException(MessageAdmin.STUDENT_EXITS);
+            throw new RuntimeException(MessageAdmin.STUDENT_EXISTED);
         }
 
         Student student = new Student();
@@ -69,7 +74,7 @@ public class AdminServiceImpl extends BaseService implements AdminService {
         Role checkRoleByName = roleRepository.findRoleByName(name);
 
         if (!Objects.isNull(checkRoleById) || !Objects.isNull(checkRoleByName)) {
-            throw new RuntimeException(MessageAdmin.ROLE_EXITS);
+            throw new RuntimeException(MessageAdmin.ROLE_EXISTED);
         }
 
         Role role = new Role();
@@ -86,7 +91,7 @@ public class AdminServiceImpl extends BaseService implements AdminService {
         Course checkCourse = courseRepository.findCourseByName(name);
 
         if (!Objects.isNull(checkCourse)) {
-            throw new RuntimeException(MessageAdmin.COURSE_EXITS);
+            throw new RuntimeException(MessageAdmin.COURSE_EXISTED);
         }
 
         Course course = new Course();
@@ -106,7 +111,7 @@ public class AdminServiceImpl extends BaseService implements AdminService {
         Parent checkParentByPhone = parentRepository.findParentByPhone(phone);
 
         if (!Objects.isNull(checkParentByEmail) || !Objects.isNull(checkParentByPhone)) {
-            throw new RuntimeException(MessageAdmin.PARENT_EXITS);
+            throw new RuntimeException(MessageAdmin.PARENT_EXISTED);
         }
 
         Parent parent = new Parent();
@@ -128,7 +133,7 @@ public class AdminServiceImpl extends BaseService implements AdminService {
         Teacher checkTeacherByPhone = teacherRepository.findTeacherByPhone(teacherPhone);
 
         if (!Objects.isNull(checkTeacherByCode) || !Objects.isNull(checkTeacherByEmail) || !Objects.isNull(checkTeacherByPhone)) {
-            throw new RuntimeException(MessageAdmin.TEACHER_EXITS);
+            throw new RuntimeException(MessageAdmin.TEACHER_EXISTED);
         }
 
         Teacher teacher = new Teacher();
@@ -147,13 +152,13 @@ public class AdminServiceImpl extends BaseService implements AdminService {
         Classroom checkClassroom = classroomRepository.findClassroomByName(name);
 
         if (!Objects.isNull(checkClassroom)) {
-            throw new RuntimeException(MessageAdmin.CLASSROOM_EXITS);
+            throw new RuntimeException(MessageAdmin.CLASSROOM_EXISTED);
         }
 
         Course course = courseRepository.findCourseByName(request.getNameCourse());
 
         if (Objects.isNull(course)) {
-            throw new RuntimeException(MessageAdmin.COURSE_EXIST);
+            throw new RuntimeException(MessageAdmin.COURSE_DOES_NOT_EXIST);
         }
 
         Classroom classroom = new Classroom();
@@ -164,6 +169,29 @@ public class AdminServiceImpl extends BaseService implements AdminService {
         classroom.setMaxStudent(request.getMaxStudent());
         classroom.setCourse(course);
         return classroomRepository.save(classroom);
+    }
+
+    @Override
+    public StudentAdminResponse addStudentToClassroom(AddStudentToClassAdminRequest request) {
+        Student student = studentRepository.findStudentByCode(request.getStudentCode());
+        Classroom classroom = classroomRepository.findClassroomByName(request.getClassName());
+
+        if (Objects.isNull(classroom) ||  Objects.isNull(student)) {
+            throw new RuntimeException(MessageAdmin.STUDENT_OR_CLASSROOM_DOES_NOT_EXIST);
+        }
+
+        StudentClassroom isAssigned = studentClassroomRepository.existedByStudentCodeAndClassroomName(student.getStudentCode(), classroom.getName());
+
+        if (isAssigned != null) {
+            throw new RuntimeException(MessageAdmin.STUDENT_WAS_ALREADY_PRESENT_IN_THE_CLASS);
+        }
+
+        StudentClassroom studentClassroom = new StudentClassroom();
+        studentClassroom.setClassroom(classroom);
+        studentClassroom.setStudent(student);
+        studentClassroomRepository.save(studentClassroom);
+
+        return new StudentAdminResponse(student, classroom);
     }
 
 }

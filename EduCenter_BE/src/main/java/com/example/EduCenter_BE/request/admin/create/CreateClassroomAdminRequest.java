@@ -1,7 +1,6 @@
-package com.example.EduCenter_BE.request.admin;
+package com.example.EduCenter_BE.request.admin.create;
 
 import com.example.EduCenter_BE.constant.enums.ClassroomStatus;
-import com.example.EduCenter_BE.entity.Course;
 import lombok.Data;
 
 import java.time.LocalDate;

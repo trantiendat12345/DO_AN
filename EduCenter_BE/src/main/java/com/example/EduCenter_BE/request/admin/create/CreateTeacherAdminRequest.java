@@ -1,4 +1,4 @@
-package com.example.EduCenter_BE.request.admin;
+package com.example.EduCenter_BE.request.admin.create;
 
 import com.example.EduCenter_BE.constant.enums.TeacherStatus;
 import lombok.Data;
