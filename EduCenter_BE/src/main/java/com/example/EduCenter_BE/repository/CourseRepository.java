@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    @Query("SELECT c FROM Course AS c WHERE c.name = :name")
+    @Query("SELECT c FROM Course AS c WHERE c.name = :name AND c.isDeleted = false")
     Course findCourseByName(@Param("name") String name);
 
 }

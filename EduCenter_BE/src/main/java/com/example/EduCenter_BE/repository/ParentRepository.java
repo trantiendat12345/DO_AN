@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ParentRepository extends JpaRepository<Parent, Long> {
 
-    @Query("SELECT p FROM Parent AS p WHERE p.email = :email")
+    @Query("SELECT p FROM Parent AS p WHERE p.email = :email AND p.isDeleted = false")
     Parent findParentByEmail(@Param("email") String email);
 
-    @Query("SELECT p FROM Parent AS p WHERE p.phone = :phone")
+    @Query("SELECT p FROM Parent AS p WHERE p.phone = :phone AND p.isDeleted = false")
     Parent findParentByPhone(@Param("phone") String phone);
 
 }

@@ -7,10 +7,7 @@ import com.example.EduCenter_BE.response.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = UriAdmin.ADMIN)
@@ -40,9 +37,18 @@ public interface AdminApi {
     ResponseEntity<StudentResponse> addStudentToClass(@RequestBody AddStudentToClassRequest request);
 
     // UPDATE
+    @RequestMapping(value = UriAdmin.UPDATE_STUDENT, method = RequestMethod.PUT)
+    ResponseEntity<StudentResponse> updateStudent(@RequestBody UpdateStudentRequest request, @PathVariable("code") String studentCode);
 
     // GET
-//    @RequestMapping(value = UriAdmin.GET_ALL_STUDENTS, method = RequestMethod.GET)
-//    ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable);
+    @RequestMapping(value = UriAdmin.GET_ALL_STUDENTS, method = RequestMethod.GET)
+    ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable);
+
+    @RequestMapping(value = UriAdmin.GET_STUDENT_BY_CODE, method = RequestMethod.GET)
+    ResponseEntity<StudentResponse> getStudent(@PathVariable("code") String studentCode);
+
+    // DELETE
+    @RequestMapping(value = UriAdmin.DELETE_STUDENT, method = RequestMethod.DELETE)
+    ResponseEntity<String> deleteStudent(@PathVariable("code") String studentCode);
 
 }

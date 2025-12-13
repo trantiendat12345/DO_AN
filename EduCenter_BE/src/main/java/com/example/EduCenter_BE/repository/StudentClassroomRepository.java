@@ -13,7 +13,7 @@ public interface StudentClassroomRepository extends JpaRepository<StudentClassro
             "FROM student s \n" +
             "LEFT JOIN student_classroom sc ON s.id = sc.student_id \n" +
             "LEFT JOIN classroom c ON c.id = sc.classroom_id \n" +
-            "WHERE s.student_code  = :code AND c.name  = :name", nativeQuery = true)
+            "WHERE s.student_code  = :code AND c.name  = :name AND sc.is_deleted = false", nativeQuery = true)
     StudentClassroom existedByStudentCodeAndClassroomName(@Param("code") String studentCode, @Param("name") String classroomName);
 
 }

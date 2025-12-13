@@ -1,5 +1,6 @@
 package com.example.EduCenter_BE.entity;
 
+import jakarta.annotation.PreDestroy;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
@@ -16,7 +17,7 @@ public abstract class BaseEntity {
     private LocalDateTime createdAt;
 
     @Column(name = "created_by", updatable = false)
-    private Integer createdBy;
+    private Long createdBy;
 
     @Column(name = "is_deleted")
     private Boolean isDeleted = false;
@@ -25,13 +26,13 @@ public abstract class BaseEntity {
     private LocalDateTime deletedAt;
 
     @Column(name = "deleted_by")
-    private Integer deletedBy;
+    private Long deletedBy;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @Column(name = "updated_by")
-    private Integer updatedBy;
+    private Long updatedBy;
 
     @PrePersist
     protected void onCreate() {

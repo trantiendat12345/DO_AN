@@ -9,13 +9,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
-    @Query("SELECT t FROM Teacher AS t WHERE t.teacherCode = :code")
+    @Query("SELECT t FROM Teacher AS t WHERE t.teacherCode = :code AND t.isDeleted = false")
     Teacher findTeacherByCode(@Param("code") String code);
 
-    @Query("SELECT t FROM Teacher AS t WHERE t.phone = :phone")
+    @Query("SELECT t FROM Teacher AS t WHERE t.phone = :phone AND t.isDeleted = false")
     Teacher findTeacherByPhone(@Param("phone") String phone);
 
-    @Query("SELECT t FROM Teacher AS t WHERE t.email = :email")
+    @Query("SELECT t FROM Teacher AS t WHERE t.email = :email AND t.isDeleted = false")
     Teacher findTeacherByEmail(@Param("email") String email);
 
 }
