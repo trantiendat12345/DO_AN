@@ -76,8 +76,12 @@ public class StudentServiceImpl implements StudentService {
             throw new RuntimeException(Message.STUDENT_DOES_NOT_EXIST);
         }
 
-        if (!Objects.isNull(email) && !Objects.isNull(phone)) {
-            throw new RuntimeException(Message.STUDENT_EMAIL_OR_PHONE_EXISTED);
+        if (email != null && !email.getId().equals(student.getId())) {
+            throw new RuntimeException(Message.EMAIL_EXISTED);
+        }
+
+        if (phone != null && !phone.getId().equals(student.getId())) {
+            throw new RuntimeException(Message.PHONE_EXISTED);
         }
 
         student.setFullName(request.getFullName());
@@ -93,8 +97,8 @@ public class StudentServiceImpl implements StudentService {
         student.setUpdatedBy(1L);
 
         Student updatedStudent = studentRepository.save(student);
-        return new StudentResponse(updatedStudent);
 
+        return new StudentResponse(updatedStudent);
     }
 
     @Override

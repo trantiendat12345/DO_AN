@@ -26,12 +26,20 @@ public class UriAdmin {
     // URI PARAM GET
     public final static String GET_ALL_STUDENTS = "/get-all-students";
 
-    public final static  String GET_STUDENT_BY_CODE = "/get-student/{code}";
+    public final static String GET_STUDENT_BY_CODE = "/get-student/{code}";
+
+    public final static String GET_ALL_TEACHERS = "/get-all-teachers";
+
+    public final static String GET_TEACHER_BY_CODE = "/get-teacher/{code}";
 
     // URI PARAM UPDATE
     public final static String UPDATE_STUDENT = "/update-student/{code}";
 
+    public final static String UPDATE_TEACHER = "/update-teacher/{code}";
+
     // URI PARAM DELETE
     public final static String DELETE_STUDENT = "/delete-student/{code}";
+
+    public final static String DELETE_TEACHER = "/delete-teacher/{code}";
 
 }

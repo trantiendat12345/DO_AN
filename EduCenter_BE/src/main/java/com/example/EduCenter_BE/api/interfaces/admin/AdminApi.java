@@ -1,6 +1,7 @@
 package com.example.EduCenter_BE.api.interfaces.admin;
 
 import com.example.EduCenter_BE.constant.uri.UriAdmin;
+import com.example.EduCenter_BE.entity.Teacher;
 import com.example.EduCenter_BE.request.*;
 import com.example.EduCenter_BE.request.AddStudentToClassRequest;
 import com.example.EduCenter_BE.response.*;
@@ -40,6 +41,9 @@ public interface AdminApi {
     @RequestMapping(value = UriAdmin.UPDATE_STUDENT, method = RequestMethod.PUT)
     ResponseEntity<StudentResponse> updateStudent(@RequestBody UpdateStudentRequest request, @PathVariable("code") String studentCode);
 
+    @RequestMapping(value = UriAdmin.UPDATE_TEACHER, method = RequestMethod.PUT)
+    ResponseEntity<TeacherResponse> updateTeacher(@RequestBody UpdateTeacherRequest request, @PathVariable("code") String teacherCode);
+
     // GET
     @RequestMapping(value = UriAdmin.GET_ALL_STUDENTS, method = RequestMethod.GET)
     ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable);
@@ -47,8 +51,17 @@ public interface AdminApi {
     @RequestMapping(value = UriAdmin.GET_STUDENT_BY_CODE, method = RequestMethod.GET)
     ResponseEntity<StudentResponse> getStudent(@PathVariable("code") String studentCode);
 
+    @RequestMapping(value = UriAdmin.GET_ALL_TEACHERS, method = RequestMethod.GET)
+    ResponseEntity<Page<TeacherResponse>> getAllTeachers(Pageable pageable);
+
+    @RequestMapping(value = UriAdmin.GET_TEACHER_BY_CODE, method = RequestMethod.GET)
+    ResponseEntity<TeacherResponse> getTeacher(@PathVariable("code") String teacherCode);
+
     // DELETE
     @RequestMapping(value = UriAdmin.DELETE_STUDENT, method = RequestMethod.DELETE)
     ResponseEntity<String> deleteStudent(@PathVariable("code") String studentCode);
+
+    @RequestMapping(value = UriAdmin.DELETE_TEACHER, method = RequestMethod.DELETE)
+    ResponseEntity<String> deleteTeacher(@PathVariable("code") String teacherCode);
 
 }

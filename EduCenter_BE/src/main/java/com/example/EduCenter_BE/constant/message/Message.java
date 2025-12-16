@@ -15,7 +15,9 @@ public class Message {
 
     public final static String CLASSROOM_EXISTED = "LỚP HỌC ĐÃ TỒN TẠI";
 
-    public final static String STUDENT_EMAIL_OR_PHONE_EXISTED = "EMAIL HOẶC SỐ ĐIỆN THOẠI HỌC VIÊN ĐÃ TỒN TẠI";
+    public final static String EMAIL_EXISTED = "EMAIL ĐÃ TỒN TẠI";
+
+    public final static String PHONE_EXISTED = "SỐ ĐIỆN THOẠI ĐÃ TỒN TẠI";
 
     // DOES NOT EXIST
     public final static String COURSE_DOES_NOT_EXIST = "KHOÁ HỌC KHÔNG TỒN TẠI";
@@ -23,6 +25,8 @@ public class Message {
     public final static String STUDENT_OR_CLASSROOM_DOES_NOT_EXIST = "HỌC VIÊN HOẶC LỚP HỌC KHÔNG TỒN TẠI";
 
     public final static String STUDENT_DOES_NOT_EXIST = "HỌC VIÊN KHÔNG TỒN TẠI";
+
+    public final static String TEACHER_DOES_NOT_EXIST = "GIÁO VIÊN KHÔNG TỒN TẠI";
 
     // ALREADY
     public final static String STUDENT_WAS_ALREADY_PRESENT_IN_THE_CLASS = "HỌC VIÊN ĐÃ TỒN TẠI TRONG LỚP HỌC";

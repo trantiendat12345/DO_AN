@@ -1,6 +1,8 @@
 package com.example.EduCenter_BE.repository;
 
 import com.example.EduCenter_BE.entity.Teacher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,5 +19,8 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
     @Query("SELECT t FROM Teacher AS t WHERE t.email = :email AND t.isDeleted = false")
     Teacher findTeacherByEmail(@Param("email") String email);
+
+    @Query("SELECT t FROM Teacher AS t WHERE t.isDeleted = false")
+    Page<Teacher> findAllTeachers(Pageable pageable);
 
 }
