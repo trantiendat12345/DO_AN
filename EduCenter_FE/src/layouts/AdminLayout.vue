@@ -1,0 +1,19 @@
+<template>
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <Sidebar />
+      <main class="col-md-9 col-lg-10 px-4 py-4">
+        <router-view />
+        <footer class="text-center py-3 border-top mt-4">
+          <small class="text-secondary">
+            © 2025 English Center Management System
+          </small>
+        </footer>
+      </main>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import Sidebar from '../components/admin/Sidebar.vue';
+</script>
