@@ -17,3 +17,7 @@
 <script setup lang="ts">
 import Sidebar from '../components/admin/Sidebar.vue';
 </script>
+
+<style scoped>
+@import '../assets/css/admin.css';
+</style>

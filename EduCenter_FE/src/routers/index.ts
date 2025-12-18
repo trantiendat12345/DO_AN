@@ -7,6 +7,10 @@ const router = createRouter({
   routes: [
     // LOGIN (không sidebar)
     {
+      path: '/',
+      redirect: '/login'
+    },
+    {
       path: '/login',
       component: LoginView
     },
@@ -15,15 +19,16 @@ const router = createRouter({
     {
       path: '/admin',
       component: AdminLayout,
+      redirect: '/admin/dashboard',
       children: [
         {
           path: 'dashboard',
           component: () => import('../views/admin/DashboardView.vue')
+        },
+        {
+          path: 'students',
+          component: () => import('../views/admin/StudentView.vue')
         }
-        // {
-        //   path: '/students',
-        //   component: () => import('../views/admin/StudentView.vue')
-        // }
       ]
     }
   ]
