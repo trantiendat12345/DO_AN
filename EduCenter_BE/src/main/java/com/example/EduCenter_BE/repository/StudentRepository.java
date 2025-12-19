@@ -20,7 +20,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("SELECT s FROM Student AS s WHERE s.email = :email AND s.isDeleted = false")
     Student findStudentByEmail(@Param("email") String email);
 
-    @Query("SELECT s FROM Student AS s WHERE s.isDeleted = false")
+    @Query("SELECT s FROM Student AS s WHERE s.isDeleted = false ORDER BY s.createdAt DESC")
     Page<Student> findAllStudents(Pageable pageable);
 
 }
