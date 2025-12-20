@@ -82,3 +82,11 @@ body {
 .pagination .page-link {
   border-radius: 6px !important;
 }
+
+.table-wrapper {
+  min-height: 520px; /* tùy layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+

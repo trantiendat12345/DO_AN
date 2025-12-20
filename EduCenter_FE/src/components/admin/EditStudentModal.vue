@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="modal fade" id="editStudentModal" tabindex="-1">
     <div class="modal-dialog">
       <form class="modal-content" @submit.prevent="submit">
@@ -7,16 +7,16 @@
           <button class="btn-close" data-bs-dismiss="modal"></button>
         </div>
 
-        <div class="modal-body" v-if="student">
+        <div class="modal-body" v-if="students">
           <input
-            v-model="student.name"
+            v-model="students.fullName"
             class="form-control mb-3"
             placeholder="Tên học sinh"
             required
           />
 
           <input
-            v-model="student.email"
+            v-model="students.email"
             class="form-control mb-3"
             placeholder="Email"
           />
@@ -44,9 +44,9 @@
 <script setup lang="ts">
 import { useStudents } from '../../composables/UseStudents';
 
-const { selectedStudent: student, updateStudent } = useStudents()
+const { students, updateStudent } = useStudents()
 
 function submit() {
   updateStudent()
 }
-</script>
+</script> -->
