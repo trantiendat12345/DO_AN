@@ -10,3 +10,7 @@ export function getAllStudents(page = 0, size = 10) {
 export function createStudent(data: Partial<Student>) {
   return api.post("/admin/create-student", data);
 }
+
+export function updateStudent(code: string, data: Partial<Student>) {
+  return api.put(`/admin/update-student/${code}`, data);
+}

@@ -47,14 +47,30 @@ export function useStudents() {
     }
   }
 
+  async function updateStudent(student: Student) {
+    loading.value = true;
+    try {
+      await StudentService.updateStudent(student.studentCode, student);
+
+      console.log("Student updated:", student);
+
+      await fetchStudents(); // ✅ RELOAD DATA
+    } catch (e: any) {
+      error(e.response?.data?.message || Message.STUDENT_UPDATE_ERROR);
+      throw e;
+    } finally {
+      loading.value = false;
+    }
+  }
+
   onMounted(fetchStudents);
 
   return {
     students,
     page,
     totalPages,
-    loading,
     goToPage,
     createStudent,
+    updateStudent,
   };
 }
