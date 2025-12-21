@@ -10,17 +10,13 @@
         <div class="modal-body">
           <p>
             Bạn có chắc chắn muốn xoá
-            <strong>{{ name }}</strong> không?
+            <strong>{{ fullName }}</strong> không?
           </p>
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">
-            Huỷ
-          </button>
-          <button class="btn btn-danger" @click="confirm">
-            Xoá
-          </button>
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+          <button class="btn btn-danger" @click="confirm">Xoá</button>
         </div>
       </div>
     </div>
@@ -29,12 +25,15 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  name: string
-}>()
+  fullName: string;
+  code: string;
+}>();
 
-const emit = defineEmits(['confirm'])
+const emit = defineEmits<{
+  (e: "confirm", code: string): void;
+}>();
 
 function confirm() {
-  emit('confirm')
+  emit("confirm", props.code);
 }
 </script>

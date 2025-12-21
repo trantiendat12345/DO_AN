@@ -17,11 +17,19 @@
       :page="page"
       :size="10"
       @edit="onEditStudent"
+      @delete="openDeleteModal"
     />
 
     <EditStudentModal :student="editingStudent" @submit="onUpdateStudent" />
 
     <Pagination :page="page" :total-pages="totalPages" @change="goToPage" />
+
+    <ConfirmDeleteModal
+      v-if="selectedStudent"
+      :fullName="selectedStudent.fullName"
+      :code="selectedStudent.studentCode"
+      @confirm="onConfirmDelete"
+    />
   </div>
 
   <AddStudentModal :key="modalKey" @submit="onAddStudent" />
@@ -37,12 +45,23 @@ import { useStudents } from "../../composables/useStudent";
 import type { Student } from "../../types/Student";
 import { ref } from "vue";
 import EditStudentModal from "../../components/admin/EditStudentModal.vue";
+import ConfirmDeleteModal from "../../components/common/ConfirmDeleteModal.vue";
 
-const { students, page, totalPages, goToPage, createStudent, updateStudent } = useStudents();
+const {
+  students,
+  page,
+  totalPages,
+  goToPage,
+  createStudent,
+  updateStudent,
+  deleteStudent,
+} = useStudents();
 
 const modalKey = ref(0); // Để reset modal mỗi lần mở
 
 const editingStudent = ref<Student | null>(null);
+
+const selectedStudent = ref<Student | null>(null);
 
 async function onAddStudent(student: Partial<Student>) {
   try {
@@ -80,5 +99,27 @@ async function onUpdateStudent(student: Student) {
       modal?.hide();
     }
   } catch (error) {}
+}
+
+function openDeleteModal(student: Student) {
+  selectedStudent.value = student;
+
+  const modalEl = document.getElementById("confirmDeleteModal");
+  if (modalEl) {
+    new Modal(modalEl).show();
+  }
+}
+
+async function onConfirmDelete(studentCode: string) {
+  try {
+    await deleteStudent(studentCode);
+
+    const modalEl = document.getElementById("confirmDeleteModal");
+    if (modalEl) {
+      Modal.getInstance(modalEl)?.hide();
+    }
+  } catch {
+    // lỗi đã có toast → không đóng modal
+  }
 }
 </script>

@@ -14,3 +14,7 @@ export function createStudent(data: Partial<Student>) {
 export function updateStudent(code: string, data: Partial<Student>) {
   return api.put(`/admin/update-student/${code}`, data);
 }
+
+export function deleteStudent(code: string) {
+  return api.delete(`/admin/delete-student/${code}`);
+}

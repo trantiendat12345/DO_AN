@@ -63,6 +63,27 @@ export function useStudents() {
     }
   }
 
+  async function deleteStudent(studentCode: string) {
+    loading.value = true;
+    try {
+      await StudentService.deleteStudent(studentCode);
+
+      success(Message.STUDENT_DELETE_SUCCESS); // ✅ TOAST
+
+      // Nếu xoá ở trang cuối → lùi trang
+      if (students.value.length === 1 && page.value > 0) {
+        page.value--;
+      }
+
+      await fetchStudents(); // ✅ RELOAD DATA
+    } catch (e: any) {
+      error(e.response?.data?.message || Message.STUDENT_DELETE_ERROR);
+      throw e;
+    } finally {
+      loading.value = false;
+    }
+  }
+
   onMounted(fetchStudents);
 
   return {
@@ -72,5 +93,6 @@ export function useStudents() {
     goToPage,
     createStudent,
     updateStudent,
+    deleteStudent,
   };
 }
