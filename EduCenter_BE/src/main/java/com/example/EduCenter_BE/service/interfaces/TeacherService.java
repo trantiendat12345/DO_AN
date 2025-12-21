@@ -19,4 +19,6 @@ public interface TeacherService {
 
     String deleteTeacher(String teacherCode);
 
+    Long totalTeacherCount();
+
 }

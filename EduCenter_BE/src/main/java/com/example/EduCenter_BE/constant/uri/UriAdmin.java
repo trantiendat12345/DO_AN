@@ -22,6 +22,8 @@ public class UriAdmin {
 
     public final static String TOTAL_STUDENT = "/total-student";
 
+    public final static String TOTAL_TEACHER = "/total-teacher";
+
     // URI PARAM ADD
     public final static String ADD_STUDENT_TO_CLASSROOM = "/add-student-to-classroom";
 

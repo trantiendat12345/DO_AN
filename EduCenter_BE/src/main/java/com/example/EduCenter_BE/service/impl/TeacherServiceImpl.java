@@ -105,4 +105,9 @@ public class TeacherServiceImpl implements TeacherService {
 
         return Message.DELETED_SUCCESSFULLY;
     }
+
+    @Override
+    public Long totalTeacherCount() {
+        return teacherRepository.countAllTeachers();
+    }
 }

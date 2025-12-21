@@ -23,4 +23,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     @Query("SELECT t FROM Teacher AS t WHERE t.isDeleted = false")
     Page<Teacher> findAllTeachers(Pageable pageable);
 
+    @Query("SELECT COUNT(*) FROM Teacher AS t WHERE t.isDeleted = false")
+    Long countAllTeachers();
+
 }
