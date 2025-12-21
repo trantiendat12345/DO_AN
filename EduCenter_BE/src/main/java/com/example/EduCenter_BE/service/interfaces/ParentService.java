@@ -7,4 +7,6 @@ public interface ParentService {
 
     Parent createParent(CreateParentRequest request);
 
+    Long totalParentCount();
+
 }

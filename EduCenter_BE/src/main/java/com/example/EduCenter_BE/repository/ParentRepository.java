@@ -15,4 +15,7 @@ public interface ParentRepository extends JpaRepository<Parent, Long> {
     @Query("SELECT p FROM Parent AS p WHERE p.phone = :phone AND p.isDeleted = false")
     Parent findParentByPhone(@Param("phone") String phone);
 
+    @Query("SELECT COUNT(*) FROM Parent AS p WHERE p.isDeleted = false")
+    Long countAllParent();
+
 }

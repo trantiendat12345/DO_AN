@@ -20,12 +20,6 @@ public class UriAdmin {
 
     public final static String CREATE_CLASSROOM = "/create-classroom";
 
-    public final static String TOTAL_STUDENT = "/total-student";
-
-    public final static String TOTAL_TEACHER = "/total-teacher";
-
-    public final static String TOTAL_CLASSROOM = "/total-classroom";
-
     // URI PARAM ADD
     public final static String ADD_STUDENT_TO_CLASSROOM = "/add-student-to-classroom";
 
@@ -37,6 +31,15 @@ public class UriAdmin {
     public final static String GET_ALL_TEACHERS = "/get-all-teachers";
 
     public final static String GET_TEACHER_BY_CODE = "/get-teacher/{code}";
+
+    // TOTAL
+    public final static String TOTAL_STUDENT = "/total-student";
+
+    public final static String TOTAL_TEACHER = "/total-teacher";
+
+    public final static String TOTAL_CLASSROOM = "/total-classroom";
+
+    public final static String TOTAL_PARENT = "/total-parent";
 
     // URI PARAM UPDATE
     public final static String UPDATE_STUDENT = "/update-student/{code}";

@@ -67,6 +67,9 @@ public interface AdminApi {
     @RequestMapping(value = UriAdmin.TOTAL_CLASSROOM, method = RequestMethod.GET)
     ResponseEntity<Long> totalClass();
 
+    @RequestMapping(value = UriAdmin.TOTAL_PARENT, method = RequestMethod.GET)
+    ResponseEntity<Long> totalParent();
+
     // DELETE
     @RequestMapping(value = UriAdmin.DELETE_STUDENT, method = RequestMethod.DELETE)
     ResponseEntity<String> deleteStudent(@PathVariable("code") String studentCode);

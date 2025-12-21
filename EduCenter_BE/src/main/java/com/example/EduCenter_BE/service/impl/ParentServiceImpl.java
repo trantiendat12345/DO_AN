@@ -35,4 +35,9 @@ public class ParentServiceImpl implements ParentService {
         parent.setFullName(request.getFullName());
         return parentRepository.save(parent);
     }
+
+    @Override
+    public Long totalParentCount() {
+        return parentRepository.countAllParent();
+    }
 }
