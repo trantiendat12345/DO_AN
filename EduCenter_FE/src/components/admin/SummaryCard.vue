@@ -22,7 +22,7 @@
 <script setup lang="ts">
 defineProps<{
   title: string;
-  value: string;
+  value: number;
   note: string;
   danger?: boolean;
 }>();
