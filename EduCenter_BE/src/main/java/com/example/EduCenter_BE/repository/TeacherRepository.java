@@ -20,7 +20,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     @Query("SELECT t FROM Teacher AS t WHERE t.email = :email AND t.isDeleted = false")
     Teacher findTeacherByEmail(@Param("email") String email);
 
-    @Query("SELECT t FROM Teacher AS t WHERE t.isDeleted = false")
+    @Query("SELECT t FROM Teacher AS t WHERE t.isDeleted = false ORDER BY t.createdAt DESC")
     Page<Teacher> findAllTeachers(Pageable pageable);
 
     @Query("SELECT COUNT(*) FROM Teacher AS t WHERE t.isDeleted = false")
