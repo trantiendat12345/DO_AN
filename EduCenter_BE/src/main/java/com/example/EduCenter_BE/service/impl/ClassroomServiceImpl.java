@@ -46,4 +46,9 @@ public class ClassroomServiceImpl implements ClassroomService {
         classroom.setCourse(course);
         return classroomRepository.save(classroom);
     }
+
+    @Override
+    public Long totalClassroomCount() {
+        return classroomRepository.countAllClassroom();
+    }
 }

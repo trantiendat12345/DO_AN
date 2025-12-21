@@ -7,4 +7,6 @@ public interface ClassroomService {
 
     Classroom createClassroom(CreateClassroomRequest classroom);
 
+    Long totalClassroomCount();
+
 }

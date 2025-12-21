@@ -12,4 +12,7 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
     @Query("SELECT c FROM Classroom AS c WHERE c.name = :name AND c.isDeleted = false")
     Classroom findClassroomByName(@Param("name") String name);
 
+    @Query("SELECT COUNT(*) FROM Classroom AS c WHERE c.isDeleted = false")
+    Long countAllClassroom();
+
 }

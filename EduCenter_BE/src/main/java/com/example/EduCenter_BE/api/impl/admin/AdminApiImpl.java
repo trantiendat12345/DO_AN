@@ -133,6 +133,12 @@ public class AdminApiImpl implements AdminApi {
     }
 
     @Override
+    public ResponseEntity<Long> totalClass() {
+        Long response = classroomService.totalClassroomCount();
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
     public ResponseEntity<String> deleteStudent(String studentCode) {
         String response = studentService.deleteStudent(studentCode);
         return ResponseEntity.ok().body(response);
