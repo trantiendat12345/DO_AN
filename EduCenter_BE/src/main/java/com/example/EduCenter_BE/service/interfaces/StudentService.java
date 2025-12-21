@@ -19,4 +19,6 @@ public interface StudentService {
 
     String deleteStudent(String studentCode);
 
+    Long totalStudentCount();
+
 }

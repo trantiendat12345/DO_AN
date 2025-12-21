@@ -23,4 +23,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("SELECT s FROM Student AS s WHERE s.isDeleted = false ORDER BY s.createdAt DESC")
     Page<Student> findAllStudents(Pageable pageable);
 
+    @Query("SELECT COUNT(*) FROM Student AS s WHERE s.isDeleted = false")
+    Long countAllStudents();
+
 }

@@ -20,6 +20,8 @@ public class UriAdmin {
 
     public final static String CREATE_CLASSROOM = "/create-classroom";
 
+    public final static String TOTAL_STUDENT = "/total-student";
+
     // URI PARAM ADD
     public final static String ADD_STUDENT_TO_CLASSROOM = "/add-student-to-classroom";
 

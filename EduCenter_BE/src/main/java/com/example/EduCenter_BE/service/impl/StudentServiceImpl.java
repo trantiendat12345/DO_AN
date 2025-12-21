@@ -117,4 +117,9 @@ public class StudentServiceImpl implements StudentService {
         return Message.DELETED_SUCCESSFULLY;
     }
 
+    @Override
+    public Long totalStudentCount() {
+        return studentRepository.countAllStudents();
+    }
+
 }
