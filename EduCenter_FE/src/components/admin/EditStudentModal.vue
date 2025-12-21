@@ -74,7 +74,6 @@
               <select v-model="form.status" class="form-select">
                 <option value="ACTIVE">Đang học</option>
                 <option value="INACTIVE">Tạm nghỉ</option>
-                <option value="GRADUATED">Đã tốt nghiệp</option>
               </select>
             </div>
 

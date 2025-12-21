@@ -52,7 +52,7 @@ export function useStudents() {
     try {
       await StudentService.updateStudent(student.studentCode, student);
 
-      console.log("Student updated:", student);
+      success(Message.STUDENT_UPDATE_SUCCESS);
 
       await fetchStudents(); // ✅ RELOAD DATA
     } catch (e: any) {
