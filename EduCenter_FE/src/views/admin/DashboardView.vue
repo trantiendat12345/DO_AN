@@ -3,21 +3,24 @@
 
   <div class="row g-3 mb-3">
     <SummaryCard
-      title="Học sinh đang theo học"
-      value="320"
-      note="+15 trong 7 ngày"
+      title="Tổng số học sinh"
+      value=""
+      note=""
     />
     <SummaryCard
-      title="Lớp đang hoạt động"
-      value="24"
-      note="3 lớp mới trong tháng"
+      title="Tổng số lớp học"
+      value=""
+      note=""
     />
-    <SummaryCard title="Giáo viên" value="18" note="2 part-time" />
+    <SummaryCard 
+      title="Tổng số giáo viên" 
+      value="" 
+      note="" 
+    />
     <SummaryCard
-      title="Học phí quá hạn"
-      value="12"
-      note="Tổng nợ: 15,000,000đ"
-      danger
+      title="Tổng số phụ huynh"
+      value=""
+      note=""
     />
   </div>
 </template>

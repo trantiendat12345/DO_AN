@@ -1,6 +1,6 @@
 import { ref, onMounted } from "vue";
 import * as StudentService from "../services/student.service";
-import { useToast } from "./UseToast";
+import { useToast } from "./useToast";
 import type { Student } from "../types/Student";
 import { Message } from "../constant/Message";
 

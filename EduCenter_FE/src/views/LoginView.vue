@@ -42,7 +42,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useLogin } from '../composables/UseLogin'
+import { useLogin } from '../composables/UseLogin';
 
 const {
   username,
