@@ -7,31 +7,31 @@ const message = ref("");
 const type = ref<"success" | "error">("success");
 
 export function useToast() {
-  function success(msg: string) {
-    message.value = msg;
-    type.value = "success";
-    show.value = true;
-    autoHide();
-  }
+    function success(msg: string) {
+        message.value = msg;
+        type.value = "success";
+        show.value = true;
+        autoHide();
+    }
 
-  function error(msg: string) {
-    message.value = msg;
-    type.value = "error";
-    show.value = true;
-    autoHide();
-  }
+    function error(msg: string) {
+        message.value = msg;
+        type.value = "error";
+        show.value = true;
+        autoHide();
+    }
 
-  function autoHide() {
-    setTimeout(() => {
-      show.value = false;
-    }, 3000);
-  }
+    function autoHide() {
+        setTimeout(() => {
+            show.value = false;
+        }, 3000);
+    }
 
-  return {
-    show,
-    message,
-    type,
-    success,
-    error,
-  };
+    return {
+        show,
+        message,
+        type,
+        success,
+        error,
+    };
 }

@@ -1,38 +1,38 @@
 <template>
-  <AdminHeader
-    title="Quản lý học sinh"
-    subtitle="Danh sách học viên đang theo học tại trung tâm"
-  />
-
-  <button
-    class="btn btn-primary mb-3"
-    data-bs-toggle="modal"
-    data-bs-target="#addStudentModal"
-  >
-    + Thêm học sinh
-  </button>
-  <div class="table-wrapper">
-    <StudentTable
-      :students="students"
-      :page="page"
-      :size="10"
-      @edit="onEditStudent"
-      @delete="openDeleteModal"
+    <AdminHeader
+        title="Quản lý học sinh"
+        subtitle="Danh sách học viên đang theo học tại trung tâm"
     />
 
-    <EditStudentModal :student="editingStudent" @submit="onUpdateStudent" />
+    <button
+        class="btn btn-primary mb-3"
+        data-bs-toggle="modal"
+        data-bs-target="#addStudentModal"
+    >
+        + Thêm học sinh
+    </button>
+    <div class="table-wrapper">
+        <StudentTable
+            :students="students"
+            :page="page"
+            :size="10"
+            @edit="onEditStudent"
+            @delete="openDeleteModal"
+        />
 
-    <Pagination :page="page" :total-pages="totalPages" @change="goToPage" />
+        <EditStudentModal :student="editingStudent" @submit="onUpdateStudent" />
 
-    <ConfirmDeleteModal
-      v-if="selectedStudent"
-      :fullName="selectedStudent.fullName"
-      :code="selectedStudent.studentCode"
-      @confirm="onConfirmDelete"
-    />
-  </div>
+        <Pagination :page="page" :total-pages="totalPages" @change="goToPage" />
 
-  <AddStudentModal :key="modalKey" @submit="onAddStudent" />
+        <ConfirmDeleteModal
+            v-if="selectedStudent"
+            :fullName="selectedStudent.fullName"
+            :code="selectedStudent.studentCode"
+            @confirm="onConfirmDelete"
+        />
+    </div>
+
+    <AddStudentModal :key="modalKey" @submit="onAddStudent" />
 </template>
 
 <script setup lang="ts">
@@ -48,13 +48,13 @@ import EditStudentModal from "../../components/admin/EditStudentModal.vue";
 import ConfirmDeleteModal from "../../components/common/ConfirmDeleteModal.vue";
 
 const {
-  students,
-  page,
-  totalPages,
-  goToPage,
-  createStudent,
-  updateStudent,
-  deleteStudent,
+    students,
+    page,
+    totalPages,
+    goToPage,
+    createStudent,
+    updateStudent,
+    deleteStudent,
 } = useStudents();
 
 const modalKey = ref(0); // Để reset modal mỗi lần mở
@@ -64,62 +64,62 @@ const editingStudent = ref<Student | null>(null);
 const selectedStudent = ref<Student | null>(null);
 
 async function onAddStudent(student: Partial<Student>) {
-  try {
-    await createStudent(student);
+    try {
+        await createStudent(student);
 
-    // ✅ chỉ đóng modal khi thành công
-    const modalEl = document.getElementById("addStudentModal");
-    if (modalEl) {
-      const modal = Modal.getInstance(modalEl);
-      modal?.hide();
+        // ✅ chỉ đóng modal khi thành công
+        const modalEl = document.getElementById("addStudentModal");
+        if (modalEl) {
+            const modal = Modal.getInstance(modalEl);
+            modal?.hide();
+        }
+        modalKey.value += 1; // Reset modal
+    } catch {
+        // ❌ lỗi → KHÔNG đóng modal
     }
-    modalKey.value += 1; // Reset modal
-  } catch {
-    // ❌ lỗi → KHÔNG đóng modal
-  }
 }
 
 function onEditStudent(student: Student) {
-  editingStudent.value = student;
+    editingStudent.value = student;
 
-  const modalEl = document.getElementById("editStudentModal");
-  if (modalEl) {
-    const modal = new Modal(modalEl);
-    modal.show();
-  }
+    const modalEl = document.getElementById("editStudentModal");
+    if (modalEl) {
+        const modal = new Modal(modalEl);
+        modal.show();
+    }
 }
 
 async function onUpdateStudent(student: Student) {
-  try {
-    await updateStudent(student);
-    // ✅ Đóng modal
-    const modalEl = document.getElementById("editStudentModal");
-    if (modalEl) {
-      const modal = Modal.getInstance(modalEl);
-      modal?.hide();
-    }
-  } catch (error) {}
+    try {
+        await updateStudent(student);
+        // ✅ Đóng modal
+        const modalEl = document.getElementById("editStudentModal");
+        if (modalEl) {
+            const modal = Modal.getInstance(modalEl);
+            modal?.hide();
+        }
+    } catch (error) {}
 }
 
 function openDeleteModal(student: Student) {
-  selectedStudent.value = student;
-
-  const modalEl = document.getElementById("confirmDeleteModal");
-  if (modalEl) {
-    new Modal(modalEl).show();
-  }
-}
-
-async function onConfirmDelete(studentCode: string) {
-  try {
-    await deleteStudent(studentCode);
+    selectedStudent.value = student;
 
     const modalEl = document.getElementById("confirmDeleteModal");
     if (modalEl) {
-      Modal.getInstance(modalEl)?.hide();
+        new Modal(modalEl).show();
     }
-  } catch {
-    // lỗi đã có toast → không đóng modal
-  }
+}
+
+async function onConfirmDelete(studentCode: string) {
+    try {
+        await deleteStudent(studentCode);
+
+        const modalEl = document.getElementById("confirmDeleteModal");
+        if (modalEl) {
+            Modal.getInstance(modalEl)?.hide();
+        }
+    } catch {
+        // lỗi đã có toast → không đóng modal
+    }
 }
 </script>

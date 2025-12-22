@@ -1,0 +1,26 @@
+import api from "../api/axios";
+import type { Classroom } from "../types/Classroom";
+
+// GET PAGED
+export function getClassrooms(page = 0, size = 10) {
+    return api
+        .get("/admin/get-all-classrooms", {
+            params: { page, size },
+        })
+        .then((res) => res.data);
+}
+
+// CREATE
+export function createClassroom(data: Partial<Classroom>) {
+    return api.post("/admin/create-classroom", data);
+}
+
+// UPDATE
+export function updateClassroom(name: string, data: Partial<Classroom>) {
+    return api.put(`/admin/update-classroom/${name}`, data);
+}
+
+// DELETE
+export function deleteClassroom(name: string) {
+    return api.delete(`/admin/delete-classroom/${name}`);
+}

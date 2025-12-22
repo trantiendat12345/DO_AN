@@ -1,11 +1,15 @@
 <template>
-    <div class="modal fade" id="editTeacherModal" tabindex="-1">
+    <div class="modal fade" id="editClassroomModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <form class="modal-content" @submit.prevent="submit">
                 <!-- HEADER -->
                 <div class="modal-header">
-                    <h5 class="modal-title">Cập nhật giáo viên</h5>
-                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title">Cập nhật lớp học</h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                    ></button>
                 </div>
 
                 <!-- BODY -->
@@ -13,45 +17,52 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <input
+                                v-model="form.name"
+                                :disabled="true"
                                 class="form-control"
-                                :value="form.teacherCode"
-                                disabled
+                                placeholder="Tên lớp *"
                             />
                         </div>
+
                         <div class="col-md-6">
                             <input
-                                v-model="form.fullName"
+                                v-model="form.nameCourse"
                                 class="form-control"
-                                placeholder="Họ tên"
+                                placeholder="Khóa học *"
                                 required
                             />
                         </div>
 
                         <div class="col-md-6">
                             <input
-                                v-model="form.email"
-                                type="email"
+                                v-model.number="form.maxStudent"
+                                type="number"
                                 class="form-control"
-                                placeholder="Email"
+                                placeholder="Số học viên tối đa"
                             />
                         </div>
 
                         <div class="col-md-6">
                             <input
-                                v-model="form.phone"
+                                v-model="form.startDate"
+                                type="date"
                                 class="form-control"
-                                placeholder="Số điện thoại"
+                            />
+                        </div>
+
+                        <div class="col-md-6">
+                            <input
+                                v-model="form.endDate"
+                                type="date"
+                                class="form-control"
                             />
                         </div>
 
                         <div class="col-md-6">
                             <select v-model="form.status" class="form-select">
-                                <option value="ACTIVE">Đang dạy</option>
-                                <option value="INACTIVE">
-                                    Ngưng hoạt động
-                                </option>
-                                <option value="ON_LEAVE">Nghỉ phép</option>
-                                <option value="TERMINATED">Nghỉ hẳn</option>
+                                <option value="ACTIVE">Đang học</option>
+                                <option value="INACTIVE">Tạm dừng</option>
+                                <option value="FINISHED">Đã kết thúc</option>
                             </select>
                         </div>
                     </div>
@@ -66,7 +77,9 @@
                     >
                         Hủy
                     </button>
-                    <button class="btn btn-primary">Lưu thay đổi</button>
+                    <button type="submit" class="btn btn-primary">
+                        Lưu thay đổi
+                    </button>
                 </div>
             </form>
         </div>
@@ -75,24 +88,24 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import type { Teacher } from "../../types/Teacher";
+import type { Classroom } from "../../types/Classroom";
 
-/* ===== PROPS ===== */
+/* PROPS */
 const props = defineProps<{
-    teacher: Teacher | null;
+    classroom: Classroom | null;
 }>();
 
-/* ===== EMIT ===== */
+/* EMIT */
 const emit = defineEmits<{
-    (e: "submit", teacher: Teacher): void;
+    (e: "submit", data: Classroom): void;
 }>();
 
-/* ===== FORM ===== */
-const form = ref<Teacher | null>(null);
+/* FORM */
+const form = ref<Classroom | null>(null);
 
-/* Khi chọn giáo viên → clone sang form */
+/* Khi chọn lớp → clone vào form */
 watch(
-    () => props.teacher,
+    () => props.classroom,
     (val) => {
         if (val) {
             form.value = { ...val };
@@ -101,7 +114,6 @@ watch(
     { immediate: true }
 );
 
-/* SUBMIT */
 function submit() {
     if (!form.value) return;
     emit("submit", form.value);

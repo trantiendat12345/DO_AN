@@ -5,94 +5,97 @@ import type { Student } from "../types/Student";
 import { Message } from "../constant/Message";
 
 export function useStudents() {
-  const students = ref<Student[]>([]);
-  const page = ref(0);
-  const size = ref(10);
-  const totalPages = ref(0);
-  const loading = ref(false);
+    const students = ref<Student[]>([]);
+    const page = ref(0);
+    const size = ref(10);
+    const totalPages = ref(0);
+    const loading = ref(false);
 
-  const { success, error } = useToast();
+    const { success, error } = useToast();
 
-  async function fetchStudents() {
-    loading.value = true;
-    try {
-      const data = await StudentService.getAllStudents(page.value, size.value);
-      students.value = data.content;
-      totalPages.value = data.totalPages;
-    } catch {
-      error(Message.STUDENT_FETCH_ERROR);
-    } finally {
-      loading.value = false;
+    async function fetchStudents() {
+        loading.value = true;
+        try {
+            const data = await StudentService.getAllStudents(
+                page.value,
+                size.value
+            );
+            students.value = data.content;
+            totalPages.value = data.totalPages;
+        } catch {
+            error(Message.STUDENT_FETCH_ERROR);
+        } finally {
+            loading.value = false;
+        }
     }
-  }
 
-  function goToPage(p: number) {
-    if (p < 0 || p >= totalPages.value) return;
-    page.value = p;
-    fetchStudents();
-  }
-
-  async function createStudent(data: Partial<Student>) {
-    loading.value = true;
-    try {
-      await StudentService.createStudent(data);
-      success(Message.STUDENT_ADD_SUCCESS);
-      page.value = 0;
-      await fetchStudents();
-    } catch (err: any) {
-      error(err.response?.data?.message || Message.STUDENT_CREATE_ERROR);
-      throw err;
-    } finally {
-      loading.value = false;
+    function goToPage(p: number) {
+        if (p < 0 || p >= totalPages.value) return;
+        page.value = p;
+        fetchStudents();
     }
-  }
 
-  async function updateStudent(student: Student) {
-    loading.value = true;
-    try {
-      await StudentService.updateStudent(student.studentCode, student);
-
-      success(Message.STUDENT_UPDATE_SUCCESS);
-
-      await fetchStudents(); // ✅ RELOAD DATA
-    } catch (e: any) {
-      error(e.response?.data?.message || Message.STUDENT_UPDATE_ERROR);
-      throw e;
-    } finally {
-      loading.value = false;
+    async function createStudent(data: Partial<Student>) {
+        loading.value = true;
+        try {
+            await StudentService.createStudent(data);
+            success(Message.STUDENT_ADD_SUCCESS);
+            page.value = 0;
+            await fetchStudents();
+        } catch (err: any) {
+            error(err.response?.data?.message || Message.STUDENT_CREATE_ERROR);
+            throw err;
+        } finally {
+            loading.value = false;
+        }
     }
-  }
 
-  async function deleteStudent(studentCode: string) {
-    loading.value = true;
-    try {
-      await StudentService.deleteStudent(studentCode);
+    async function updateStudent(student: Student) {
+        loading.value = true;
+        try {
+            await StudentService.updateStudent(student.studentCode, student);
 
-      success(Message.STUDENT_DELETE_SUCCESS); // ✅ TOAST
+            success(Message.STUDENT_UPDATE_SUCCESS);
 
-      // Nếu xoá ở trang cuối → lùi trang
-      if (students.value.length === 1 && page.value > 0) {
-        page.value--;
-      }
-
-      await fetchStudents(); // ✅ RELOAD DATA
-    } catch (e: any) {
-      error(e.response?.data?.message || Message.STUDENT_DELETE_ERROR);
-      throw e;
-    } finally {
-      loading.value = false;
+            await fetchStudents(); // ✅ RELOAD DATA
+        } catch (e: any) {
+            error(e.response?.data?.message || Message.STUDENT_UPDATE_ERROR);
+            throw e;
+        } finally {
+            loading.value = false;
+        }
     }
-  }
 
-  onMounted(fetchStudents);
+    async function deleteStudent(studentCode: string) {
+        loading.value = true;
+        try {
+            await StudentService.deleteStudent(studentCode);
 
-  return {
-    students,
-    page,
-    totalPages,
-    goToPage,
-    createStudent,
-    updateStudent,
-    deleteStudent,
-  };
+            success(Message.STUDENT_DELETE_SUCCESS); // ✅ TOAST
+
+            // Nếu xoá ở trang cuối → lùi trang
+            if (students.value.length === 1 && page.value > 0) {
+                page.value--;
+            }
+
+            await fetchStudents(); // ✅ RELOAD DATA
+        } catch (e: any) {
+            error(e.response?.data?.message || Message.STUDENT_DELETE_ERROR);
+            throw e;
+        } finally {
+            loading.value = false;
+        }
+    }
+
+    onMounted(fetchStudents);
+
+    return {
+        students,
+        page,
+        totalPages,
+        goToPage,
+        createStudent,
+        updateStudent,
+        deleteStudent,
+    };
 }

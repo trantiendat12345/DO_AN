@@ -1,37 +1,40 @@
 <template>
-  <AdminHeader
-    title="Quản lý giáo viên"
-    subtitle="Danh sách giáo viên trong trung tâm"
-  />
-
-  <button
-    class="btn btn-primary mb-3"
-    data-bs-toggle="modal"
-    data-bs-target="#addTeacherModal"
-  >
-    + Thêm giáo viên
-  </button>
-  <div class="table-wrapper">
-    <TeacherTable
-      :teachers="teachers"
-      :page="page"
-      :size="10"
-      @edit="onEditTeacher"
-      @delete="openDeleteModal"
+    <AdminHeader
+        title="Quản lý giáo viên"
+        subtitle="Danh sách giáo viên trong trung tâm"
     />
 
-    <EditTeacherModal :teacher="selectedTeacher" @submit="onUpdateTeacher" />
+    <button
+        class="btn btn-primary mb-3"
+        data-bs-toggle="modal"
+        data-bs-target="#addTeacherModal"
+    >
+        + Thêm giáo viên
+    </button>
+    <div class="table-wrapper">
+        <TeacherTable
+            :teachers="teachers"
+            :page="page"
+            :size="10"
+            @edit="onEditTeacher"
+            @delete="openDeleteModal"
+        />
 
-    <Pagination :page="page" :total-pages="totalPages" @change="goToPage" />
-    <ConfirmDeleteModal
-      v-if="selectedTeacher"
-      :fullName="selectedTeacher.fullName"
-      :code="selectedTeacher.teacherCode"
-      @confirm="onConfirmDelete"
-    />
-  </div>
+        <EditTeacherModal
+            :teacher="selectedTeacher"
+            @submit="onUpdateTeacher"
+        />
 
-  <AddTeacherModal @submit="onAddTeacher" />
+        <Pagination :page="page" :total-pages="totalPages" @change="goToPage" />
+        <ConfirmDeleteModal
+            v-if="selectedTeacher"
+            :fullName="selectedTeacher.fullName"
+            :code="selectedTeacher.teacherCode"
+            @confirm="onConfirmDelete"
+        />
+    </div>
+
+    <AddTeacherModal @submit="onAddTeacher" />
 </template>
 
 <script setup lang="ts">
@@ -48,13 +51,13 @@ import { useTeacher } from "../../composables/useTeacher";
 import type { Teacher } from "../../types/Teacher";
 
 const {
-  teachers,
-  page,
-  totalPages,
-  goToPage,
-  createTeacher,
-  updateTeacher,
-  deleteTeacher,
+    teachers,
+    page,
+    totalPages,
+    goToPage,
+    createTeacher,
+    updateTeacher,
+    deleteTeacher,
 } = useTeacher();
 
 const modalKey = ref(0); // Để reset modal mỗi lần mở
@@ -62,57 +65,57 @@ const modalKey = ref(0); // Để reset modal mỗi lần mở
 const selectedTeacher = ref<Teacher | null>(null);
 
 async function onAddTeacher(data: Partial<Teacher>) {
-  try {
-    await createTeacher(data);
+    try {
+        await createTeacher(data);
 
-    const modalEl = document.getElementById("addTeacherModal");
-    if (modalEl) {
-      const modal = Modal.getInstance(modalEl);
-      modal?.hide();
-    }
-    modalKey.value += 1; // Reset modal
-  } catch (error) {}
+        const modalEl = document.getElementById("addTeacherModal");
+        if (modalEl) {
+            const modal = Modal.getInstance(modalEl);
+            modal?.hide();
+        }
+        modalKey.value += 1; // Reset modal
+    } catch (error) {}
 }
 
 function onEditTeacher(teacher: Teacher) {
-  selectedTeacher.value = teacher;
+    selectedTeacher.value = teacher;
 
-  const modalEl = document.getElementById("editTeacherModal");
-  if (modalEl) {
-    new Modal(modalEl).show();
-  }
+    const modalEl = document.getElementById("editTeacherModal");
+    if (modalEl) {
+        new Modal(modalEl).show();
+    }
 }
 
 async function onUpdateTeacher(teacher: Teacher) {
-  try {
-    await updateTeacher(teacher);
+    try {
+        await updateTeacher(teacher);
 
-    const modalEl = document.getElementById("editTeacherModal");
-    const modal = Modal.getInstance(modalEl!);
-    modal?.hide();
-  } catch {
-    // lỗi đã được toast trong composable
-  }
+        const modalEl = document.getElementById("editTeacherModal");
+        const modal = Modal.getInstance(modalEl!);
+        modal?.hide();
+    } catch {
+        // lỗi đã được toast trong composable
+    }
 }
 
 function openDeleteModal(teacher: Teacher) {
-  selectedTeacher.value = teacher;
+    selectedTeacher.value = teacher;
 
-  const modalEl = document.getElementById("confirmDeleteModal");
-  if (modalEl) {
-    const modal = new Modal(modalEl);
-    modal.show();
-  }
+    const modalEl = document.getElementById("confirmDeleteModal");
+    if (modalEl) {
+        const modal = new Modal(modalEl);
+        modal.show();
+    }
 }
 
 async function onConfirmDelete(teacherCode: string) {
-  try {
-    await deleteTeacher(teacherCode);
-    const modalEl = document.getElementById("confirmDeleteModal");
-    if (modalEl) {
-      const modal = Modal.getInstance(modalEl);
-      modal?.hide();
-    }
-  } catch {}
+    try {
+        await deleteTeacher(teacherCode);
+        const modalEl = document.getElementById("confirmDeleteModal");
+        if (modalEl) {
+            const modal = Modal.getInstance(modalEl);
+            modal?.hide();
+        }
+    } catch {}
 }
 </script>
