@@ -9,7 +9,6 @@ import java.time.LocalDate;
 public class CreateClassroomRequest {
 
     private LocalDate startDate;
-    private LocalDate endDate;
     private Integer maxStudent;
     private String name;
     private ClassroomStatus status;

@@ -6,14 +6,20 @@ import com.example.EduCenter_BE.entity.Course;
 import com.example.EduCenter_BE.repository.ClassroomRepository;
 import com.example.EduCenter_BE.repository.CourseRepository;
 import com.example.EduCenter_BE.request.CreateClassroomRequest;
+import com.example.EduCenter_BE.service.BaseService;
 import com.example.EduCenter_BE.service.interfaces.ClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
 
 @Service
-public class ClassroomServiceImpl implements ClassroomService {
+public class ClassroomServiceImpl extends BaseService implements ClassroomService {
 
     @Autowired
     private ClassroomRepository classroomRepository;
@@ -37,11 +43,17 @@ public class ClassroomServiceImpl implements ClassroomService {
             throw new RuntimeException(Message.COURSE_DOES_NOT_EXIST);
         }
 
+        String duration = course.getDuration();
+
+        Set<DayOfWeek> studyDays = Set.of(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY);
+
+        LocalDate endDate = BaseService.calculateEndDate(request.getStartDate(), Integer.parseInt(duration), studyDays);
+
         Classroom classroom = new Classroom();
         classroom.setName(request.getName());
         classroom.setStatus(request.getStatus());
         classroom.setStartDate(request.getStartDate());
-        classroom.setEndDate(request.getEndDate());
+        classroom.setEndDate(endDate);
         classroom.setMaxStudent(request.getMaxStudent());
         classroom.setCourse(course);
         return classroomRepository.save(classroom);
