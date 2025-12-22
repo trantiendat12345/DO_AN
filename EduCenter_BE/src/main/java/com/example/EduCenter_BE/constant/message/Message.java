@@ -28,6 +28,8 @@ public class Message {
 
     public final static String TEACHER_DOES_NOT_EXIST = "GIÁO VIÊN KHÔNG TỒN TẠI";
 
+    public final static String CLASSROOM_DOES_NOT_EXIST = "LỚP HỌC KHÔNG TỒN TẠI";
+
     // ALREADY
     public final static String STUDENT_WAS_ALREADY_PRESENT_IN_THE_CLASS = "HỌC VIÊN ĐÃ TỒN TẠI TRONG LỚP HỌC";
 

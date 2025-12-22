@@ -1,6 +1,8 @@
 package com.example.EduCenter_BE.repository;
 
 import com.example.EduCenter_BE.entity.Classroom;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,5 +16,8 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
 
     @Query("SELECT COUNT(*) FROM Classroom AS c WHERE c.isDeleted = false")
     Long countAllClassroom();
+
+    @Query("SELECT c FROM Classroom AS c WHERE c.isDeleted = false")
+    Page<Classroom> findAllClassroom(Pageable pageable);
 
 }

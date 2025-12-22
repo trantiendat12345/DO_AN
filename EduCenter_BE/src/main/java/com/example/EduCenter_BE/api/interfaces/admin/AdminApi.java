@@ -45,6 +45,9 @@ public interface AdminApi {
     @RequestMapping(value = UriAdmin.UPDATE_TEACHER, method = RequestMethod.PUT)
     ResponseEntity<TeacherResponse> updateTeacher(@RequestBody UpdateTeacherRequest request, @PathVariable("code") String teacherCode);
 
+    @RequestMapping(value = UriAdmin.UPDATE_CLASSROOM, method = RequestMethod.PUT)
+    ResponseEntity<ClassroomResponse> updateClassroom(@RequestBody UpdateClassroomRequest request, @PathVariable("name") String name);
+
     // GET
     @RequestMapping(value = UriAdmin.GET_ALL_STUDENTS, method = RequestMethod.GET)
     ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable);
@@ -70,11 +73,20 @@ public interface AdminApi {
     @RequestMapping(value = UriAdmin.TOTAL_PARENT, method = RequestMethod.GET)
     ResponseEntity<Long> totalParent();
 
+    @RequestMapping(value = UriAdmin.GET_ALL_CLASSROOMS, method = RequestMethod.GET)
+    ResponseEntity<Page<ClassroomResponse>> getAllClassrooms(Pageable pageable);
+
+    @RequestMapping(value = UriAdmin.GET_CLASSROOM_BY_NAME, method = RequestMethod.GET)
+    ResponseEntity<ClassroomResponse> getClassroom(@PathVariable("name") String name);
+
     // DELETE
     @RequestMapping(value = UriAdmin.DELETE_STUDENT, method = RequestMethod.DELETE)
     ResponseEntity<String> deleteStudent(@PathVariable("code") String studentCode);
 
     @RequestMapping(value = UriAdmin.DELETE_TEACHER, method = RequestMethod.DELETE)
     ResponseEntity<String> deleteTeacher(@PathVariable("code") String teacherCode);
+
+    @RequestMapping(value = UriAdmin.DELETE_CLASSROOM, method = RequestMethod.DELETE)
+    ResponseEntity<String> deleteClassroom(@PathVariable("name") String name);
 
 }

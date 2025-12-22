@@ -32,6 +32,10 @@ public class UriAdmin {
 
     public final static String GET_TEACHER_BY_CODE = "/get-teacher/{code}";
 
+    public final static String GET_ALL_CLASSROOMS = "/get-all-classrooms";
+
+    public final static String GET_CLASSROOM_BY_NAME = "/get-classroom/{name}";
+
     // TOTAL
     public final static String TOTAL_STUDENT = "/total-student";
 
@@ -46,9 +50,13 @@ public class UriAdmin {
 
     public final static String UPDATE_TEACHER = "/update-teacher/{code}";
 
+    public final static String UPDATE_CLASSROOM = "/update-classroom/{name}";
+
     // URI PARAM DELETE
     public final static String DELETE_STUDENT = "/delete-student/{code}";
 
     public final static String DELETE_TEACHER = "/delete-teacher/{code}";
+
+    public final static String DELETE_CLASSROOM = "/delete-classroom/{name}";
 
 }

@@ -97,6 +97,12 @@ public class AdminApiImpl implements AdminApi {
     }
 
     @Override
+    public ResponseEntity<ClassroomResponse> updateClassroom(UpdateClassroomRequest request, String name) {
+        ClassroomResponse response = classroomService.updateClassroom(request, name);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
     public ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable) {
         Page<StudentResponse> response = studentService.getAllStudents(pageable);
         return ResponseEntity.ok().body(response);
@@ -145,6 +151,18 @@ public class AdminApiImpl implements AdminApi {
     }
 
     @Override
+    public ResponseEntity<Page<ClassroomResponse>> getAllClassrooms(Pageable pageable) {
+        Page<ClassroomResponse> responses = classroomService.getAllClassrooms(pageable);
+        return ResponseEntity.ok().body(responses);
+    }
+
+    @Override
+    public ResponseEntity<ClassroomResponse> getClassroom(String name) {
+        ClassroomResponse response = classroomService.getClassroom(name);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
     public ResponseEntity<String> deleteStudent(String studentCode) {
         String response = studentService.deleteStudent(studentCode);
         return ResponseEntity.ok().body(response);
@@ -153,6 +171,12 @@ public class AdminApiImpl implements AdminApi {
     @Override
     public ResponseEntity<String> deleteTeacher(String teacherCode) {
         String response = teacherService.deleteTeacher(teacherCode);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteClassroom(String name) {
+        String response = classroomService.deleteClassroom(name);
         return ResponseEntity.ok().body(response);
     }
 
