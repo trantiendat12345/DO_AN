@@ -17,7 +17,7 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
     @Query("SELECT COUNT(*) FROM Classroom AS c WHERE c.isDeleted = false")
     Long countAllClassroom();
 
-    @Query("SELECT c FROM Classroom AS c WHERE c.isDeleted = false")
+    @Query("SELECT c FROM Classroom AS c WHERE c.isDeleted = false ORDER BY c.createdAt DESC")
     Page<Classroom> findAllClassroom(Pageable pageable);
 
 }
