@@ -52,9 +52,12 @@ export function useClassrooms() {
         try {
             await ClassroomService.updateClassroom(classroom.name, classroom);
             success(Message.CLASSROOM_UPDATE_SUCCESS);
-            fetchClassrooms();
-        } catch {
-            error(Message.CLASSROOM_UPDATE_FAILED);
+            await fetchClassrooms();
+        } catch (e: any) {
+            error(e.response?.data?.message || Message.CLASSROOM_UPDATE_FAILED);
+            throw e; // 🔥 RẤT QUAN TRỌNG
+        } finally {
+            loading.value = false;
         }
     }
 

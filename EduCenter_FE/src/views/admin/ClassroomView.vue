@@ -89,21 +89,24 @@ function onEditClassroom(classroom: Classroom) {
     }
 }
 
-async function onUpdateClassroom(classroom: any) {
+async function onUpdateClassroom(classroom: Classroom) {
     try {
-        await updateClassroom(classroom);
+        await updateClassroom(classroom); // nếu lỗi → nhảy catch
 
         const modalEl = document.getElementById("editClassroomModal");
         if (modalEl) {
             const modal = Modal.getInstance(modalEl);
             modal?.hide();
         }
-    } catch (error) {}
+    } catch {
+        // ❌ KHÔNG đóng modal
+        // Toast lỗi đã được xử lý trong composable
+    }
 }
 
 function onDeleteClassroom(classroom: Classroom) {
     selectedClassroom.value = classroom;
-    const modalEl = document.getElementById("deleteClassroomModal");
+    const modalEl = document.getElementById("confirmDeleteModal");
     if (modalEl) {
         const modal = new Modal(modalEl);
         modal.show();
@@ -115,7 +118,7 @@ async function onConfirmDelete(name: string) {
         if (selectedClassroom.value) {
             await deleteClassroom(selectedClassroom.value.name.toString());
 
-            const modalEl = document.getElementById("deleteClassroomModal");
+            const modalEl = document.getElementById("confirmDeleteModal");
             if (modalEl) {
                 const modal = Modal.getInstance(modalEl);
                 modal?.hide();
