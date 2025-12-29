@@ -36,6 +36,9 @@ public class AdminApiImpl implements AdminApi {
     @Autowired
     private StudentClassroomService studentClassroomService;
 
+    @Autowired
+    private AccountService accountService;
+
     @Override
     public ResponseEntity<StudentResponse> createStudent (CreateStudentRequest request) {
         Student student = studentService.createStudent(request);
@@ -76,6 +79,12 @@ public class AdminApiImpl implements AdminApi {
         Classroom classroom = classroomService.createClassroom(request);
         ClassroomResponse response = new ClassroomResponse(classroom);
         return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<AccountResponse> createAccount(CreateAccountRequest request) {
+        AccountResponse response = accountService.createAccount(request);
+        return  ResponseEntity.ok().body(response);
     }
 
     @Override
