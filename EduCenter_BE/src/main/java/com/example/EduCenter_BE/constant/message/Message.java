@@ -36,4 +36,11 @@ public class Message {
     // STATUS
     public final static String DELETED_SUCCESSFULLY = "XOÁ THÀNH CÔNG";
 
+    //LOGIN
+    public final static String USERNAME_OR_PASSWORD_INCORRECT = "SAI TÀI KHOẢN HOẶC MẬT KHẨU";
+
+    public final static String ACCOUNT_DISABLE = "TÀI KHOẢN BỊ VÔ HIỆU HOÁ";
+
+    public final static String ACCOUNT_LOCKED = "TÀI KHOẢN BỊ KHOÁ";
+
 }

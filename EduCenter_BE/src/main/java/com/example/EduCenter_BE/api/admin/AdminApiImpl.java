@@ -1,6 +1,5 @@
-package com.example.EduCenter_BE.api.impl.admin;
+package com.example.EduCenter_BE.api.admin;
 
-import com.example.EduCenter_BE.api.interfaces.admin.AdminApi;
 import com.example.EduCenter_BE.entity.*;
 import com.example.EduCenter_BE.request.*;
 import com.example.EduCenter_BE.request.AddStudentToClassRequest;

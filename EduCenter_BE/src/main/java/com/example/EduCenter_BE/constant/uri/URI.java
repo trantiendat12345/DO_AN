@@ -1,9 +1,14 @@
 package com.example.EduCenter_BE.constant.uri;
 
-public class UriAdmin {
+public class URI {
 
     // URI
+    public final static String AUTH = "/api/auth";
+
     public final static String ADMIN = "/admin";
+
+    //LOGIN
+    public final static String LOGIN = "/login";
 
     //URI PARAM CREATE
     public final static String CREATE_STUDENT = "/create-student";
