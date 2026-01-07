@@ -13,6 +13,5 @@ public class CreateAccountRequest {
     private String roleName;
     private UserType userType;
     private String userCode;
-    private AccountStatus accountStatus;
 
 }

@@ -19,6 +19,8 @@ public class Message {
 
     public final static String PHONE_EXISTED = "SỐ ĐIỆN THOẠI ĐÃ TỒN TẠI";
 
+    public final static String ACCOUNT_EXISTED = "TÀI KHOẢN ĐÃ TỒN TẠI";
+
     // DOES NOT EXIST
     public final static String COURSE_DOES_NOT_EXIST = "KHOÁ HỌC KHÔNG TỒN TẠI";
 
@@ -29,6 +31,10 @@ public class Message {
     public final static String TEACHER_DOES_NOT_EXIST = "GIÁO VIÊN KHÔNG TỒN TẠI";
 
     public final static String CLASSROOM_DOES_NOT_EXIST = "LỚP HỌC KHÔNG TỒN TẠI";
+
+    public final static String ROLE_DOES_NOT_EXIST = "VAI TRÒ KHÔNG TỒN TẠI";
+
+    public final static String ACCOUNT_DOES_NOT_EXIST = "TÀI KHOẢN KHÔNG TỒN TẠI";
 
     // ALREADY
     public final static String STUDENT_WAS_ALREADY_PRESENT_IN_THE_CLASS = "HỌC VIÊN ĐÃ TỒN TẠI TRONG LỚP HỌC";

@@ -1,9 +1,13 @@
 package com.example.EduCenter_BE.service.impl;
 
+import com.example.EduCenter_BE.constant.enums.AccountStatus;
 import com.example.EduCenter_BE.constant.enums.UserType;
+import com.example.EduCenter_BE.constant.message.Message;
 import com.example.EduCenter_BE.entity.Account;
 import com.example.EduCenter_BE.entity.Role;
 import com.example.EduCenter_BE.entity.Student;
+import com.example.EduCenter_BE.entity.Teacher;
+import com.example.EduCenter_BE.exception.BadRequestException;
 import com.example.EduCenter_BE.repository.AccountRepository;
 import com.example.EduCenter_BE.repository.RoleRepository;
 import com.example.EduCenter_BE.repository.StudentRepository;
@@ -12,7 +16,10 @@ import com.example.EduCenter_BE.request.CreateAccountRequest;
 import com.example.EduCenter_BE.response.AccountResponse;
 import com.example.EduCenter_BE.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -29,18 +36,75 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private TeacherRepository teacherRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public AccountResponse createAccount(CreateAccountRequest request) {
-//        String roleName = request.getRoleName();
-//        String username = request.getUsername();
-//        UserType userType = request.getUserType();
-//        String userCode = request.getUserCode();
-//
-//        Role checkRole = roleRepository.findRoleByName(roleName);
-//        Account checkAccount = accountRepository.findAccountByUsername(username);
+        String roleName = request.getRoleName();
+        String username = request.getUsername();
+        UserType userType = request.getUserType();
+        String userCode = request.getUserCode();
+        String password = request.getPassword();
 
+        Role checkRole = roleRepository.findRoleByName(roleName);
+        Account checkAccount = accountRepository.findAccountByUsername(username);
 
-        return null;
+        if (Objects.isNull(checkRole)){
+            throw new RuntimeException(Message.ROLE_DOES_NOT_EXIST);
+        }
+
+        if (!Objects.isNull(checkAccount)){
+            throw new RuntimeException(Message.ACCOUNT_EXISTED);
+        }
+
+        Long userId = resolveUserIdByCode(userType, userCode);
+
+        Account account = new Account();
+        account.setUsername(request.getUsername());
+        account.setPassword(passwordEncoder.encode(password));
+        account.setRole(checkRole);
+        account.setType(request.getUserType());
+        account.setUserId(userId);
+        account.setStatus(AccountStatus.ACTIVE);
+
+        return new AccountResponse(accountRepository.save(account));
     }
+
+    private Long resolveUserIdByCode(UserType type, String userCode) {
+
+        // 1️⃣ ADMIN
+        if (type == UserType.ADMIN) {
+            if (userCode != null && !userCode.isBlank()) {
+                throw new BadRequestException("ADMIN không có userCode");
+            }
+            return 0L;
+        }
+
+        // 2️⃣ Các user khác bắt buộc có code
+        if (userCode == null || userCode.isBlank()) {
+            throw new BadRequestException("userCode không được để trống");
+        }
+
+        // 3️⃣ Resolve theo type
+        if (type == UserType.STUDENT) {
+            Student student = studentRepository.findStudentByCode(userCode);
+            if (student == null) {
+                throw new BadRequestException("Student không tồn tại");
+            }
+            return student.getId();
+        }
+
+        if (type == UserType.TEACHER) {
+            Teacher teacher = teacherRepository.findTeacherByCode(userCode);
+            if (teacher == null) {
+                throw new BadRequestException("Teacher không tồn tại");
+            }
+            return teacher.getId();
+        }
+
+        throw new BadRequestException("UserType không hợp lệ");
+    }
+
 
 }
