@@ -12,4 +12,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @Query("SELECT a FROM Account AS a WHERE a.username = :username AND a.isDeleted = false")
     Account findAccountByUsername(@Param("username") String username);
 
+    @Query("SELECT COUNT(*) FROM Account AS a")
+    long count();
+
 }
