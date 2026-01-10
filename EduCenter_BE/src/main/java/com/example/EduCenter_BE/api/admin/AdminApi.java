@@ -7,11 +7,13 @@ import com.example.EduCenter_BE.response.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = URI.ADMIN)
+@PreAuthorize("hasRole('ADMIN')")
 public interface AdminApi {
 
     // CREATE
