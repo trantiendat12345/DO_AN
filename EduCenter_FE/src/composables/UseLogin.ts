@@ -69,6 +69,8 @@ export function useLogin() {
                     router.push("/admin/dashboard");
                 } else if (role === "ROLE_TEACHER") {
                     router.push("/teacher/dashboard");
+                } else if (role === "ROLE_STUDENT") {
+                    router.push("/student/dashboard");
                 } else {
                     router.push("/");
                 }
