@@ -54,6 +54,19 @@
         </RouterLink>
       </li> -->
 
+            <!-- QUẢN LÝ HỆ THỐNG -->
+            <li class="nav-item mt-3">
+                <span class="text-uppercase fw-bold">Quản lý hệ thống</span>
+            </li>
+            <li class="nav-item">
+                <RouterLink
+                    to="/admin/accounts"
+                    class="nav-link"
+                    active-class="active"
+                >
+                    👥 Tài khoản
+                </RouterLink>
+            </li>
             <!-- ĐÀO TẠO -->
             <li class="nav-item mt-3">
                 <span class="text-uppercase fw-bold">Đào tạo</span>
@@ -65,6 +78,15 @@
                     active-class="active"
                 >
                     🏫 Lớp học
+                </RouterLink>
+            </li>
+            <li class="nav-item">
+                <RouterLink
+                    to="/admin/courses"
+                    class="nav-link"
+                    active-class="active"
+                >
+                    📚 Khóa học
                 </RouterLink>
             </li>
             <li class="nav-item">
@@ -121,7 +143,7 @@
             </li>
 
             <!-- BÁO CÁO -->
-            <li class="nav-item mt-3">
+            <!-- <li class="nav-item mt-3">
                 <span class="text-uppercase fw-bold"
                     >Báo cáo &amp; Thông báo</span
                 >
@@ -143,7 +165,7 @@
                 >
                     🔔 Quản lý thông báo
                 </RouterLink>
-            </li>
+            </li> -->
         </ul>
     </nav>
 </template>
