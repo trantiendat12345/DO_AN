@@ -75,7 +75,28 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Page<AccountResponse> getAllAccounts(Pageable pageable) {
-        return accountRepository.findAll(pageable).map(AccountResponse::new);
+        return accountRepository.findAll(pageable)
+                .map(account -> {
+
+                    AccountResponse response = new AccountResponse(account);
+
+                    String userCode = null;
+
+                    switch (account.getType()) {
+                        case STUDENT -> userCode = studentRepository
+                                .findById(account.getUserId())
+                                .map(Student::getStudentCode)
+                                .orElse(null);
+
+                        case TEACHER -> userCode = teacherRepository
+                                .findById(account.getUserId())
+                                .map(Teacher::getTeacherCode)
+                                .orElse(null);
+                    }
+
+                    response.setUserCode(userCode);
+                    return response;
+                });
     }
 
     @Override
