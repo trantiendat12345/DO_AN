@@ -16,6 +16,8 @@ import com.example.EduCenter_BE.request.CreateAccountRequest;
 import com.example.EduCenter_BE.response.AccountResponse;
 import com.example.EduCenter_BE.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -69,6 +71,52 @@ public class AccountServiceImpl implements AccountService {
         account.setStatus(AccountStatus.ACTIVE);
 
         return new AccountResponse(accountRepository.save(account));
+    }
+
+    @Override
+    public Page<AccountResponse> getAllAccounts(Pageable pageable) {
+        return accountRepository.findAll(pageable).map(AccountResponse::new);
+    }
+
+    @Override
+    public AccountResponse getAccountByUsername(String username) {
+        Account account = accountRepository.findAccountByUsername(username);
+
+        if (Objects.isNull(account)){
+            throw new RuntimeException(Message.ACCOUNT_DOES_NOT_EXIST);
+        }
+
+        return new AccountResponse(account);
+    }
+
+    @Override
+    public AccountResponse getAccountByUserCode(UserType type, String code) {
+        Long userId = 0L;
+
+        switch (type) {
+            case STUDENT: Student student = studentRepository.findStudentByCode(code);
+            if (Objects.isNull(student)){
+                throw new RuntimeException(Message.STUDENT_DOES_NOT_EXIST);
+            }
+            userId = student.getId();
+            break;
+            case TEACHER: Teacher teacher = teacherRepository.findTeacherByCode(code);
+            if (Objects.isNull(teacher)){
+                throw new RuntimeException(Message.TEACHER_DOES_NOT_EXIST);
+            }
+            userId = teacher.getId();
+            break;
+            default:
+                throw new RuntimeException(Message.INVALID_USER_TYPE);
+        }
+
+        Account account = accountRepository.findAccountByUserIdAndType(userId, type);
+
+        if (Objects.isNull(account)){
+            throw new RuntimeException(Message.ACCOUNT_DOES_NOT_EXIST);
+        }
+
+        return new AccountResponse(account);
     }
 
     private Long resolveUserIdByCode(UserType type, String userCode) {

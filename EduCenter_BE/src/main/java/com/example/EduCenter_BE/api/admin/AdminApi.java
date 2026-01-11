@@ -1,5 +1,6 @@
 package com.example.EduCenter_BE.api.admin;
 
+import com.example.EduCenter_BE.constant.enums.UserType;
 import com.example.EduCenter_BE.constant.uri.URI;
 import com.example.EduCenter_BE.request.*;
 import com.example.EduCenter_BE.request.AddStudentToClassRequest;
@@ -82,6 +83,15 @@ public interface AdminApi {
 
     @RequestMapping(value = URI.GET_CLASSROOM_BY_NAME, method = RequestMethod.GET)
     ResponseEntity<ClassroomResponse> getClassroom(@PathVariable("name") String name);
+
+    @RequestMapping(value = URI.GET_ALL_ACCOUNTS, method = RequestMethod.GET)
+    ResponseEntity<Page<AccountResponse>> getAllAccounts(Pageable pageable);
+
+    @RequestMapping(value = URI.GET_ACCOUNT_BY_CODE, method = RequestMethod.GET)
+    ResponseEntity<AccountResponse> getAccountByCode(@RequestParam UserType type, @RequestParam String userCode);
+
+    @RequestMapping(value = URI.GET_ACCOUNT_BY_USERNAME, method = RequestMethod.GET)
+    ResponseEntity<AccountResponse> getAccountByUsername(@PathVariable("username") String username);
 
     // DELETE
     @RequestMapping(value = URI.DELETE_STUDENT, method = RequestMethod.DELETE)

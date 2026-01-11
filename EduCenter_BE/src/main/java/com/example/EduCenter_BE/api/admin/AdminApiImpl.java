@@ -1,5 +1,6 @@
 package com.example.EduCenter_BE.api.admin;
 
+import com.example.EduCenter_BE.constant.enums.UserType;
 import com.example.EduCenter_BE.entity.*;
 import com.example.EduCenter_BE.request.*;
 import com.example.EduCenter_BE.request.AddStudentToClassRequest;
@@ -167,6 +168,24 @@ public class AdminApiImpl implements AdminApi {
     @Override
     public ResponseEntity<ClassroomResponse> getClassroom(String name) {
         ClassroomResponse response = classroomService.getClassroom(name);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<Page<AccountResponse>> getAllAccounts(Pageable pageable) {
+        Page<AccountResponse> responses = accountService.getAllAccounts(pageable);
+        return ResponseEntity.ok().body(responses);
+    }
+
+    @Override
+    public ResponseEntity<AccountResponse> getAccountByCode(UserType type, String userCode) {
+        AccountResponse response = accountService.getAccountByUserCode(type, userCode);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<AccountResponse> getAccountByUsername(String username) {
+        AccountResponse response = accountService.getAccountByUsername(username);
         return ResponseEntity.ok().body(response);
     }
 

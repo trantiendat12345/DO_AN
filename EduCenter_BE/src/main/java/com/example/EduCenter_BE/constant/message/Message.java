@@ -49,4 +49,7 @@ public class Message {
 
     public final static String ACCOUNT_LOCKED = "TÀI KHOẢN BỊ KHOÁ";
 
+    // INVALID
+    public final static String INVALID_USER_TYPE = "KIỂU NGƯỜI DÙNG KHÔNG HỢP LỆ";
+
 }
