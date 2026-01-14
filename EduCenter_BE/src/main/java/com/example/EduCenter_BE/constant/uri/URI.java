@@ -47,6 +47,10 @@ public class URI {
 
     public final static String GET_ACCOUNT_BY_USERNAME = "/get-account/{username}";
 
+    public final static String GET_ALL_COURSES = "/get-all-courses";
+
+    public final static String GET_COURSE_BY_NAME = "/get-course/{name}";
+
     // TOTAL
     public final static String TOTAL_STUDENT = "/total-student";
 

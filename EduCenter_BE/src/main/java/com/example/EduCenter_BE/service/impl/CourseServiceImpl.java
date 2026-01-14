@@ -4,8 +4,11 @@ import com.example.EduCenter_BE.constant.message.Message;
 import com.example.EduCenter_BE.entity.Course;
 import com.example.EduCenter_BE.repository.CourseRepository;
 import com.example.EduCenter_BE.request.course.CreateCourseRequest;
+import com.example.EduCenter_BE.response.CourseResponse;
 import com.example.EduCenter_BE.service.interfaces.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -33,5 +36,15 @@ public class CourseServiceImpl implements CourseService {
         course.setDuration(request.getDuration());
         course.setPrice(request.getPrice());
         return courseRepository.save(course);
+    }
+
+    @Override
+    public Page<CourseResponse> getAllCourses(Pageable pageable) {
+        return courseRepository.findAllCourses(pageable).map(CourseResponse::new);
+    }
+
+    @Override
+    public CourseResponse getCourseByCourseName(String courseName) {
+        return null;
     }
 }

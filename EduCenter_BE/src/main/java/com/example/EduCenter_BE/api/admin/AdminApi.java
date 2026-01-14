@@ -106,6 +106,12 @@ public interface AdminApi {
     @RequestMapping(value = URI.GET_ACCOUNT_BY_USERNAME, method = RequestMethod.GET)
     ResponseEntity<AccountResponse> getAccountByUsername(@PathVariable("username") String username);
 
+    @RequestMapping(value = URI.GET_ALL_COURSES, method = RequestMethod.GET)
+    ResponseEntity<Page<CourseResponse>> getAllCourses(Pageable pageable);
+
+    @RequestMapping(value = URI.GET_COURSE_BY_NAME, method = RequestMethod.GET)
+    ResponseEntity<CourseResponse> getCourseByName(String courseName);
+
     // DELETE
     @RequestMapping(value = URI.DELETE_STUDENT, method = RequestMethod.DELETE)
     ResponseEntity<String> deleteStudent(@PathVariable("code") String studentCode);
