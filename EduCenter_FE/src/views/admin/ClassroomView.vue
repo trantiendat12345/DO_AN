@@ -40,15 +40,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import AdminHeader from "../../components/admin/AdminHeader.vue";
-import ClassroomTable from "../../components/admin/ClassroomTable.vue";
+import ClassroomTable from "../../components/admin/classroom/ClassroomTable.vue";
 import Pagination from "../../components/common/Pagination.vue";
 
 import { useClassrooms } from "../../composables/useClassroom";
 import { Modal } from "bootstrap";
 import type { Classroom } from "../../types/Classroom";
-import AddClassroomModal from "../../components/admin/AddClassroomModal.vue";
+import AddClassroomModal from "../../components/admin/classroom/AddClassroomModal.vue";
 import ConfirmDeleteModal from "../../components/common/ConfirmDeleteModal.vue";
-import EditClassroomModal from "../../components/admin/EditClassroomModal.vue";
+import EditClassroomModal from "../../components/admin/classroom/EditClassroomModal.vue";
 
 const {
     classrooms,

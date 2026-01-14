@@ -38,13 +38,13 @@
 <script setup lang="ts">
 import { Modal } from "bootstrap";
 import AdminHeader from "../../components/admin/AdminHeader.vue";
-import StudentTable from "../../components/admin/StudentTable.vue";
-import AddStudentModal from "../../components/admin/AddStudentModal.vue";
+import StudentTable from "../../components/admin/student/StudentTable.vue";
+import AddStudentModal from "../../components/admin/student/AddStudentModal.vue";
 import Pagination from "../../components/common/Pagination.vue";
 import { useStudents } from "../../composables/useStudent";
 import type { Student } from "../../types/Student";
 import { ref } from "vue";
-import EditStudentModal from "../../components/admin/EditStudentModal.vue";
+import EditStudentModal from "../../components/admin/student/EditStudentModal.vue";
 import ConfirmDeleteModal from "../../components/common/ConfirmDeleteModal.vue";
 
 const {

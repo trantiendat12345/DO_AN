@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import AccountTable from "../../components/admin/AccountTable.vue";
+import AccountTable from "../../components/admin/account/AccountTable.vue";
 import AdminHeader from "../../components/admin/AdminHeader.vue";
 import { useAccounts } from "../../composables/useAccount";
 

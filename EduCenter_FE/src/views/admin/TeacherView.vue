@@ -41,11 +41,11 @@
 import { ref } from "vue";
 import { Modal } from "bootstrap";
 import AdminHeader from "../../components/admin/AdminHeader.vue";
-import TeacherTable from "../../components/admin/TeacherTable.vue";
-import AddTeacherModal from "../../components/admin/AddTeacherModal.vue";
+import TeacherTable from "../../components/admin/teacher/TeacherTable.vue";
+import AddTeacherModal from "../../components/admin/teacher/AddTeacherModal.vue";
 import Pagination from "../../components/common/Pagination.vue";
 import ConfirmDeleteModal from "../../components/common/ConfirmDeleteModal.vue";
-import EditTeacherModal from "../../components/admin/EditTeacherModal.vue";
+import EditTeacherModal from "../../components/admin/teacher/EditTeacherModal.vue";
 
 import { useTeacher } from "../../composables/useTeacher";
 import type { Teacher } from "../../types/Teacher";

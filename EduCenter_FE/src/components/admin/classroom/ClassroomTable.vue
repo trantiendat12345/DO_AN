@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Classroom } from "../../types/Classroom";
+import type { Classroom } from "../../../types/Classroom";
 
 defineProps<{
     classrooms: Classroom[];

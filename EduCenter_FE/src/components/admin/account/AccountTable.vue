@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Account } from "../../types/Account";
+import type { Account } from "../../../types/Account";
 
 defineProps<{
     account: Account[];
