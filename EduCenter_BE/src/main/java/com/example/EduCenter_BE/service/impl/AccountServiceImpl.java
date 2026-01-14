@@ -60,6 +60,15 @@ public class AccountServiceImpl implements AccountService {
             throw new RuntimeException(Message.ACCOUNT_EXISTED);
         }
 
+        if (userCode.isEmpty() && userType.equals(UserType.ADMIN)){
+            Account account = new Account();
+            account.setUsername(username);
+            account.setPassword(passwordEncoder.encode(password));
+            account.setRole(checkRole);
+            account.setType(userType);
+            account.setStatus(AccountStatus.ACTIVE);
+        }
+
         Long userId = resolveUserIdByCode(userType, userCode);
 
         Account account = new Account();
