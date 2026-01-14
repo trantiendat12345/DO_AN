@@ -21,6 +21,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @Query("SELECT a FROM Account AS a WHERE a.userId = :userId AND a.type = :type")
     Account findAccountByUserIdAndType(@Param("userId") Long userId, @Param("type") UserType type);
 
-    Page<Account> findByIsDeletedFalse(Pageable pageable);
+    @Query("SELECT a FROM Account AS a WHERE a.isDeleted = false ORDER BY a.createdAt DESC")
+    Page<Account> finAllAccount(Pageable pageable);
 
 }

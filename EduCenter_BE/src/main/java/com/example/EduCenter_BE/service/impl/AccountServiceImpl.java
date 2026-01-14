@@ -86,7 +86,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Page<AccountResponse> getAllAccounts(Pageable pageable) {
-        return accountRepository.findByIsDeletedFalse(pageable)
+        return accountRepository.finAllAccount(pageable)
                 .map(account -> {
 
                     AccountResponse response = new AccountResponse(account);
