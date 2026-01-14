@@ -13,6 +13,7 @@ import com.example.EduCenter_BE.repository.RoleRepository;
 import com.example.EduCenter_BE.repository.StudentRepository;
 import com.example.EduCenter_BE.repository.TeacherRepository;
 import com.example.EduCenter_BE.request.account.CreateAccountRequest;
+import com.example.EduCenter_BE.request.account.UpdateAccountRequest;
 import com.example.EduCenter_BE.response.AccountResponse;
 import com.example.EduCenter_BE.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Service
@@ -84,7 +86,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Page<AccountResponse> getAllAccounts(Pageable pageable) {
-        return accountRepository.findAll(pageable)
+        return accountRepository.findByIsDeletedFalse(pageable)
                 .map(account -> {
 
                     AccountResponse response = new AccountResponse(account);
@@ -147,6 +149,48 @@ public class AccountServiceImpl implements AccountService {
         }
 
         return new AccountResponse(account);
+    }
+
+    @Override
+    public AccountResponse updateAccountByUsername(String username, UpdateAccountRequest request) {
+        Account account = accountRepository.findAccountByUsername(username);
+
+        if (Objects.isNull(account)){
+            throw new RuntimeException(Message.ACCOUNT_DOES_NOT_EXIST);
+        }
+
+        String password = request.getPassword();
+        String roleName = request.getRoleName();
+        UserType userType = request.getUserType();
+
+        Role checkRole = roleRepository.findRoleByName(roleName);
+
+        if (Objects.isNull(checkRole)){
+            throw new RuntimeException(Message.ROLE_DOES_NOT_EXIST);
+        }
+
+        account.setPassword(passwordEncoder.encode(password));
+        account.setRole(checkRole);
+        account.setType(userType);
+        accountRepository.save(account);
+
+        return new AccountResponse(account);
+    }
+
+    @Override
+    public String deleteAccountByUsername(String username) {
+        Account account = accountRepository.findAccountByUsername(username);
+
+        if (Objects.isNull(account)){
+            throw new RuntimeException(Message.ACCOUNT_DOES_NOT_EXIST);
+        }
+
+        account.setIsDeleted(true);
+        account.setDeletedAt(LocalDateTime.now());
+        account.setDeletedBy(1L);
+        accountRepository.save(account);
+
+        return Message.DELETED_SUCCESSFULLY;
     }
 
     private Long resolveUserIdByCode(UserType type, String userCode) {

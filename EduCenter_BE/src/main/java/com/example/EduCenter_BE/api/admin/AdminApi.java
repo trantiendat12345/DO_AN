@@ -116,4 +116,7 @@ public interface AdminApi {
     @RequestMapping(value = URI.DELETE_CLASSROOM, method = RequestMethod.DELETE)
     ResponseEntity<String> deleteClassroom(@PathVariable("name") String name);
 
+    @RequestMapping(value = URI.DELETE_ACCOUNT, method = RequestMethod.DELETE)
+    ResponseEntity<String> deleteAccount(@PathVariable("username") String username);
+
 }

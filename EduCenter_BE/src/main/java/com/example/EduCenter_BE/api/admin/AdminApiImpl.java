@@ -2,6 +2,7 @@ package com.example.EduCenter_BE.api.admin;
 
 import com.example.EduCenter_BE.constant.enums.UserType;
 import com.example.EduCenter_BE.entity.*;
+import com.example.EduCenter_BE.request.account.UpdateAccountRequest;
 import com.example.EduCenter_BE.request.classroom.CreateClassroomRequest;
 import com.example.EduCenter_BE.request.classroom.UpdateClassroomRequest;
 import com.example.EduCenter_BE.request.course.CreateCourseRequest;
@@ -121,6 +122,12 @@ public class AdminApiImpl implements AdminApi {
     }
 
     @Override
+    public ResponseEntity<AccountResponse> updateAccount(String username, UpdateAccountRequest request) {
+        AccountResponse response = accountService.updateAccountByUsername(username, request);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
     public ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable) {
         Page<StudentResponse> response = studentService.getAllStudents(pageable);
         return ResponseEntity.ok().body(response);
@@ -213,6 +220,12 @@ public class AdminApiImpl implements AdminApi {
     @Override
     public ResponseEntity<String> deleteClassroom(String name) {
         String response = classroomService.deleteClassroom(name);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteAccount(String username) {
+        String response = accountService.deleteAccountByUsername(username);
         return ResponseEntity.ok().body(response);
     }
 

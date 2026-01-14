@@ -72,4 +72,6 @@ public class URI {
 
     public final static String DELETE_CLASSROOM = "/delete-classroom/{name}";
 
+    public final static String DELETE_ACCOUNT = "/delete-account/{username}";
+
 }

@@ -2,6 +2,8 @@ package com.example.EduCenter_BE.repository;
 
 import com.example.EduCenter_BE.constant.enums.UserType;
 import com.example.EduCenter_BE.entity.Account;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,5 +20,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     @Query("SELECT a FROM Account AS a WHERE a.userId = :userId AND a.type = :type")
     Account findAccountByUserIdAndType(@Param("userId") Long userId, @Param("type") UserType type);
+
+    Page<Account> findByIsDeletedFalse(Pageable pageable);
 
 }
