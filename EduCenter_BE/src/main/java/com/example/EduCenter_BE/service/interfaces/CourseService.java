@@ -1,7 +1,7 @@
 package com.example.EduCenter_BE.service.interfaces;
 
 import com.example.EduCenter_BE.entity.Course;
-import com.example.EduCenter_BE.request.CreateCourseRequest;
+import com.example.EduCenter_BE.request.course.CreateCourseRequest;
 
 public interface CourseService {
 

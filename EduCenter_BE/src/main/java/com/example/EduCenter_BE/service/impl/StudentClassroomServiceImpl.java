@@ -7,7 +7,7 @@ import com.example.EduCenter_BE.entity.StudentClassroom;
 import com.example.EduCenter_BE.repository.ClassroomRepository;
 import com.example.EduCenter_BE.repository.StudentClassroomRepository;
 import com.example.EduCenter_BE.repository.StudentRepository;
-import com.example.EduCenter_BE.request.AddStudentToClassRequest;
+import com.example.EduCenter_BE.request.student.AddStudentToClassRequest;
 import com.example.EduCenter_BE.response.StudentResponse;
 import com.example.EduCenter_BE.service.interfaces.StudentClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;

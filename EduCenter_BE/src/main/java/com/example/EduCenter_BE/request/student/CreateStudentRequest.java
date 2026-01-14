@@ -1,4 +1,4 @@
-package com.example.EduCenter_BE.request;
+package com.example.EduCenter_BE.request.student;
 
 import com.example.EduCenter_BE.constant.enums.Gender;
 import com.example.EduCenter_BE.constant.enums.StudentStatus;

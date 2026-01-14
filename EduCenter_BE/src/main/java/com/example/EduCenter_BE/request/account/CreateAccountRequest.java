@@ -1,9 +1,7 @@
-package com.example.EduCenter_BE.request;
+package com.example.EduCenter_BE.request.account;
 
-import com.example.EduCenter_BE.constant.enums.AccountStatus;
 import com.example.EduCenter_BE.constant.enums.UserType;
 import lombok.Data;
-import org.apache.catalina.User;
 
 @Data
 public class CreateAccountRequest {

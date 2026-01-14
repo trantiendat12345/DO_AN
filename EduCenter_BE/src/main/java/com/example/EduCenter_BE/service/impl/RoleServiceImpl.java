@@ -3,7 +3,7 @@ package com.example.EduCenter_BE.service.impl;
 import com.example.EduCenter_BE.constant.message.Message;
 import com.example.EduCenter_BE.entity.Role;
 import com.example.EduCenter_BE.repository.RoleRepository;
-import com.example.EduCenter_BE.request.CreateRoleRequest;
+import com.example.EduCenter_BE.request.role.CreateRoleRequest;
 import com.example.EduCenter_BE.service.interfaces.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

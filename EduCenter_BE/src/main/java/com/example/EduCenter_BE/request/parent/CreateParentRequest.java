@@ -1,4 +1,4 @@
-package com.example.EduCenter_BE.request;
+package com.example.EduCenter_BE.request.parent;
 
 import lombok.Getter;
 import lombok.Setter;

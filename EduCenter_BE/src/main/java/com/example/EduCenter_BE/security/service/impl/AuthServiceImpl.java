@@ -2,7 +2,7 @@ package com.example.EduCenter_BE.security.service.impl;
 
 import com.example.EduCenter_BE.constant.message.Message;
 import com.example.EduCenter_BE.exception.LoginException;
-import com.example.EduCenter_BE.request.LoginRequest;
+import com.example.EduCenter_BE.request.auth.LoginRequest;
 import com.example.EduCenter_BE.response.LoginResponse;
 import com.example.EduCenter_BE.security.service.interfaces.AuthService;
 import com.example.EduCenter_BE.security.service.interfaces.JWTService;

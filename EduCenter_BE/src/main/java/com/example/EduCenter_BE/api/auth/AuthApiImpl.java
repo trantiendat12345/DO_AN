@@ -1,6 +1,6 @@
 package com.example.EduCenter_BE.api.auth;
 
-import com.example.EduCenter_BE.request.LoginRequest;
+import com.example.EduCenter_BE.request.auth.LoginRequest;
 import com.example.EduCenter_BE.response.LoginResponse;
 import com.example.EduCenter_BE.security.service.interfaces.AuthService;
 import org.springframework.http.ResponseEntity;

@@ -12,7 +12,7 @@ import com.example.EduCenter_BE.repository.AccountRepository;
 import com.example.EduCenter_BE.repository.RoleRepository;
 import com.example.EduCenter_BE.repository.StudentRepository;
 import com.example.EduCenter_BE.repository.TeacherRepository;
-import com.example.EduCenter_BE.request.CreateAccountRequest;
+import com.example.EduCenter_BE.request.account.CreateAccountRequest;
 import com.example.EduCenter_BE.response.AccountResponse;
 import com.example.EduCenter_BE.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;

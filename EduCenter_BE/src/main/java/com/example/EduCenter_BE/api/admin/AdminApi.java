@@ -2,8 +2,18 @@ package com.example.EduCenter_BE.api.admin;
 
 import com.example.EduCenter_BE.constant.enums.UserType;
 import com.example.EduCenter_BE.constant.uri.URI;
-import com.example.EduCenter_BE.request.*;
-import com.example.EduCenter_BE.request.AddStudentToClassRequest;
+import com.example.EduCenter_BE.request.classroom.CreateClassroomRequest;
+import com.example.EduCenter_BE.request.classroom.UpdateClassroomRequest;
+import com.example.EduCenter_BE.request.course.CreateCourseRequest;
+import com.example.EduCenter_BE.request.parent.CreateParentRequest;
+import com.example.EduCenter_BE.request.role.CreateRoleRequest;
+import com.example.EduCenter_BE.request.student.AddStudentToClassRequest;
+import com.example.EduCenter_BE.request.account.CreateAccountRequest;
+import com.example.EduCenter_BE.request.account.UpdateAccountRequest;
+import com.example.EduCenter_BE.request.student.CreateStudentRequest;
+import com.example.EduCenter_BE.request.student.UpdateStudentRequest;
+import com.example.EduCenter_BE.request.teacher.CreateTeacherRequest;
+import com.example.EduCenter_BE.request.teacher.UpdateTeacherRequest;
 import com.example.EduCenter_BE.response.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,6 +62,9 @@ public interface AdminApi {
 
     @RequestMapping(value = URI.UPDATE_CLASSROOM, method = RequestMethod.PUT)
     ResponseEntity<ClassroomResponse> updateClassroom(@RequestBody UpdateClassroomRequest request, @PathVariable("name") String name);
+
+    @RequestMapping(value = URI.UPDATE_ACCOUNT, method = RequestMethod.PUT)
+    ResponseEntity<AccountResponse> updateAccount(@PathVariable("username") String username, @RequestBody UpdateAccountRequest request);
 
     // GET
     @RequestMapping(value = URI.GET_ALL_STUDENTS, method = RequestMethod.GET)

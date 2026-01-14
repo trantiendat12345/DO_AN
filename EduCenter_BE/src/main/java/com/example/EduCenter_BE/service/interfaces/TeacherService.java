@@ -1,8 +1,8 @@
 package com.example.EduCenter_BE.service.interfaces;
 
 import com.example.EduCenter_BE.entity.Teacher;
-import com.example.EduCenter_BE.request.CreateTeacherRequest;
-import com.example.EduCenter_BE.request.UpdateTeacherRequest;
+import com.example.EduCenter_BE.request.teacher.CreateTeacherRequest;
+import com.example.EduCenter_BE.request.teacher.UpdateTeacherRequest;
 import com.example.EduCenter_BE.response.TeacherResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

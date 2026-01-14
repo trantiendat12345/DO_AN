@@ -3,7 +3,7 @@ package com.example.EduCenter_BE.service.impl;
 import com.example.EduCenter_BE.constant.message.Message;
 import com.example.EduCenter_BE.entity.Parent;
 import com.example.EduCenter_BE.repository.ParentRepository;
-import com.example.EduCenter_BE.request.CreateParentRequest;
+import com.example.EduCenter_BE.request.parent.CreateParentRequest;
 import com.example.EduCenter_BE.service.interfaces.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
