@@ -125,7 +125,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import type { Student } from "../../types/Student";
+import type { Student } from "../../../types/Student";
 
 /* ===== PROPS ===== */
 const props = defineProps<{

@@ -75,7 +75,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import type { Teacher } from "../../types/Teacher";
+import type { Teacher } from "../../../types/Teacher";
 
 /* ===== PROPS ===== */
 const props = defineProps<{

@@ -57,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Student } from "../../types/Student";
+import type { Student } from "../../../types/Student";
 
 defineProps<{
     students: Student[];

@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Teacher } from "../../types/Teacher";
+import type { Teacher } from "../../../types/Teacher";
 
 defineProps<{
     teachers: Teacher[];
