@@ -47,29 +47,29 @@ export function useAccounts() {
         }
     }
 
-    // async function updateClassroom(classroom: Classroom) {
-    //     loading.value = true;
-    //     try {
-    //         await ClassroomService.updateClassroom(classroom.name, classroom);
-    //         success(Message.CLASSROOM_UPDATE_SUCCESS);
-    //         await fetchAccount();
-    //     } catch (e: any) {
-    //         error(e.response?.data?.message || Message.CLASSROOM_UPDATE_FAILED);
-    //         throw e; // 🔥 RẤT QUAN TRỌNG
-    //     } finally {
-    //         loading.value = false;
-    //     }
-    // }
+    async function updateAccount(account: Account) {
+        loading.value = true;
+        try {
+            await AccountService.updateAccount(account.username, account);
+            success(Message.ACCOUNT_UPDATE_SUCCESS);
+            await fetchAccount();
+        } catch (e: any) {
+            error(e.response?.data?.message || Message.ACCOUNT_UPDATE_FAILED);
+            throw e; // 🔥 RẤT QUAN TRỌNG
+        } finally {
+            loading.value = false;
+        }
+    }
 
-    // async function deleteClassroom(name: string) {
-    //     try {
-    //         await ClassroomService.deleteClassroom(name);
-    //         success(Message.CLASSROOM_DELETE_SUCCESS);
-    //         fetchAccount();
-    //     } catch {
-    //         error(Message.CLASSROOM_DELETE_FAILED);
-    //     }
-    // }
+    async function deleteAccount(account: Account) {
+        try {
+            await AccountService.deleteAccount(account.username);
+            success(Message.ACCOUNT_DELETE_SUCCESS);
+            fetchAccount();
+        } catch {
+            error(Message.ACCOUNT_DELETE_FAILED);
+        }
+    }
 
     onMounted(fetchAccount);
 
@@ -81,7 +81,7 @@ export function useAccounts() {
         loading,
         goToPage,
         createAccount,
-        // updateClassroom,
-        // deleteClassroom,
+        updateAccount,
+        deleteAccount,
     };
 }

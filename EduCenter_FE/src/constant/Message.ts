@@ -28,4 +28,8 @@ export class Message {
     static readonly ACCOUNT_FETCH_FAILED = "Không tải được danh sách tài khoản";
     static readonly ACCOUNT_ADD_SUCCESS = "Thêm tài khoản thành công 🎉";
     static readonly ACCOUNT_CREATE_FAILED = "Thêm tài khoản thất bại";
+    static readonly ACCOUNT_UPDATE_SUCCESS = "Cập nhật tài khoản thành công 🎉";
+    static readonly ACCOUNT_UPDATE_FAILED = "Cập nhật tài khoản thất bại";
+    static readonly ACCOUNT_DELETE_SUCCESS = "Xóa tài khoản thành công 🎉";
+    static readonly ACCOUNT_DELETE_FAILED = "Xóa tài khoản thất bại";
 }
