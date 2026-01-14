@@ -8,3 +8,7 @@ export function getAllAccounts(page = 0, size = 10) {
         })
         .then((res) => res.data);
 }
+
+export function createAccount(data: Partial<Account>) {
+    return api.post("/admin/create-account", data).then((res) => res.data);
+}

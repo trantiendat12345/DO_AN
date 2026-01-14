@@ -13,7 +13,7 @@ export function useAccounts() {
 
     const { success, error } = useToast();
 
-    async function fetchClassrooms() {
+    async function fetchAccount() {
         loading.value = true;
         try {
             const data = await AccountService.getAllAccounts(
@@ -32,27 +32,27 @@ export function useAccounts() {
     function goToPage(p: number) {
         if (p < 0 || p >= totalPages.value) return;
         page.value = p;
-        fetchClassrooms();
+        fetchAccount();
     }
 
-    // async function createClassroom(data: Partial<Classroom>) {
-    //     try {
-    //         await ClassroomService.createClassroom(data);
-    //         success(Message.CLASSROOM_ADD_SUCCESS);
-    //         page.value = 0;
-    //         fetchClassrooms();
-    //     } catch (e: any) {
-    //         error(e.response?.data?.message || Message.CLASSROOM_CREATE_FAILED);
-    //         throw e;
-    //     }
-    // }
+    async function createAccount(data: Partial<Account>) {
+        try {
+            await AccountService.createAccount(data);
+            success(Message.ACCOUNT_ADD_SUCCESS);
+            page.value = 0;
+            fetchAccount();
+        } catch (e: any) {
+            error(e.response?.data?.message || Message.ACCOUNT_CREATE_FAILED);
+            throw e;
+        }
+    }
 
     // async function updateClassroom(classroom: Classroom) {
     //     loading.value = true;
     //     try {
     //         await ClassroomService.updateClassroom(classroom.name, classroom);
     //         success(Message.CLASSROOM_UPDATE_SUCCESS);
-    //         await fetchClassrooms();
+    //         await fetchAccount();
     //     } catch (e: any) {
     //         error(e.response?.data?.message || Message.CLASSROOM_UPDATE_FAILED);
     //         throw e; // 🔥 RẤT QUAN TRỌNG
@@ -65,13 +65,13 @@ export function useAccounts() {
     //     try {
     //         await ClassroomService.deleteClassroom(name);
     //         success(Message.CLASSROOM_DELETE_SUCCESS);
-    //         fetchClassrooms();
+    //         fetchAccount();
     //     } catch {
     //         error(Message.CLASSROOM_DELETE_FAILED);
     //     }
     // }
 
-    onMounted(fetchClassrooms);
+    onMounted(fetchAccount);
 
     return {
         accounts,
@@ -80,7 +80,7 @@ export function useAccounts() {
         totalPages,
         loading,
         goToPage,
-        // createClassroom,
+        createAccount,
         // updateClassroom,
         // deleteClassroom,
     };

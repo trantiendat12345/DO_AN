@@ -88,7 +88,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import type { Classroom } from "../../types/Classroom";
+import type { Classroom } from "../../../types/Classroom";
 
 /* PROPS */
 const props = defineProps<{

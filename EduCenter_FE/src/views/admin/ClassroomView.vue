@@ -113,7 +113,7 @@ function onDeleteClassroom(classroom: Classroom) {
     }
 }
 
-async function onConfirmDelete(name: string) {
+async function onConfirmDelete() {
     try {
         if (selectedClassroom.value) {
             await deleteClassroom(selectedClassroom.value.name.toString());
