@@ -10,13 +10,13 @@ public class CourseResponse {
 
     private String description;
     private String duration;
-    private String name;
+    private String nameCourse;
     private Float price;
 
     public CourseResponse(Course course) {
         this.description = course.getDescription();
         this.duration = course.getDuration();
-        this.name = course.getName();
+        this.nameCourse = course.getName();
         this.price = course.getPrice();
     }
 }

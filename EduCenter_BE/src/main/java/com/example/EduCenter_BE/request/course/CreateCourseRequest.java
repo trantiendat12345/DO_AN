@@ -9,7 +9,7 @@ public class CreateCourseRequest {
 
     private String description;
     private String duration;
-    private String name;
+    private String nameCourse;
     private Float price;
 
 }

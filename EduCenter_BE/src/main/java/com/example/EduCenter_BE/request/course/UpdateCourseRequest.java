@@ -7,7 +7,7 @@ public class UpdateCourseRequest {
 
     private String description;
     private String duration;
-    private String name;
+    private String nameCourse;
     private Float price;
 
 }

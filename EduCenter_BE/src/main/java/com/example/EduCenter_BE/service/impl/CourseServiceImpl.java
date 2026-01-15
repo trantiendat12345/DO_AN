@@ -24,7 +24,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course createCourse(CreateCourseRequest request) {
-        String name = request.getName();
+        String name = request.getNameCourse();
 
         Course checkCourse = courseRepository.findCourseByName(name);
 
@@ -33,7 +33,7 @@ public class CourseServiceImpl implements CourseService {
         }
 
         Course course = new Course();
-        course.setName(request.getName());
+        course.setName(request.getNameCourse());
         course.setDescription(request.getDescription());
         course.setDuration(request.getDuration());
         course.setPrice(request.getPrice());
@@ -57,27 +57,49 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseResponse updateCourseByNameCourse(String nameCourse, UpdateCourseRequest request) {
+    public CourseResponse updateCourseByNameCourse(
+            String nameCourse,
+            UpdateCourseRequest request
+    ) {
         Course course = courseRepository.findCourseByName(nameCourse);
 
-        String name = request.getName();
-
-        if (Objects.isNull(course)) {
+        if (course == null) {
             throw new RuntimeException(Message.COURSE_DOES_NOT_EXIST);
         }
 
-        if (!Objects.isNull(name)) {
-            throw new RuntimeException(Message.COURSE_EXISTED);
+        // UPDATE NAME COURSE (CHỈ KHI CÓ THAY ĐỔI)
+        String newName = request.getNameCourse();
+
+        if (newName != null
+                && !newName.isBlank()
+                && !newName.equals(course.getName())) {
+
+            Course existed = courseRepository.findCourseByName(newName);
+            if (existed != null) {
+                throw new RuntimeException(Message.COURSE_EXISTED);
+            }
+
+            course.setName(newName);
         }
 
-        course.setName(name);
-        course.setDescription(request.getDescription());
-        course.setDuration(request.getDuration());
-        course.setPrice(request.getPrice());
+        // UPDATE CÁC FIELD KHÁC (NẾU CÓ)
+        if (request.getDescription() != null) {
+            course.setDescription(request.getDescription());
+        }
+
+        if (request.getDuration() != null) {
+            course.setDuration(request.getDuration());
+        }
+
+        if (request.getPrice() != null) {
+            course.setPrice(request.getPrice());
+        }
+
         Course savedCourse = courseRepository.save(course);
 
         return new CourseResponse(savedCourse);
     }
+
 
     @Override
     public String deleteCourse(String courseName) {
