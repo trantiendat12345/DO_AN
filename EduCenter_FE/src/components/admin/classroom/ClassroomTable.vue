@@ -9,7 +9,7 @@
                     <th>Ngày bắt đầu</th>
                     <th>Ngày kết thúc</th>
                     <th>Trạng thái</th>
-                    <th>Số học viên tối đa</th>
+                    <th>Số học viên</th>
                     <th width="150">Hành động</th>
                 </tr>
             </thead>
@@ -24,7 +24,7 @@
                     <td>
                         <span class="badge bg-success">{{ c.status }}</span>
                     </td>
-                    <td>{{ c.maxStudent }}</td>
+                    <td>{{ `${c.currentStudent} / ${c.maxStudent}` }}</td>
                     <td>
                         <button
                             class="btn btn-sm btn-warning me-1"
