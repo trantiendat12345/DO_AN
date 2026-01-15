@@ -30,7 +30,6 @@
                                 class="form-control"
                                 placeholder="Mật khẩu *"
                                 type="password"
-                                required
                             />
                         </div>
 
