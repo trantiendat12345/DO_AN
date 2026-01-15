@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -102,7 +104,10 @@ public class ClassroomServiceImpl extends BaseService implements ClassroomServic
 
     @Override
     public Page<ClassroomResponse> getAllClassrooms(Pageable pageable) {
-        return classroomRepository.findAllClassroom(pageable).map(ClassroomResponse::new);
+        return classroomRepository.findAllClassroom(pageable).map((c) -> {
+            Integer currentStudentCount = classroomRepository.countStudentClassroom(c.getId());
+            return new ClassroomResponse(c,  currentStudentCount);
+        });
     }
 
     @Override

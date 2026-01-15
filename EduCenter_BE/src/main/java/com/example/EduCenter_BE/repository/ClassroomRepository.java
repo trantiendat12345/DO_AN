@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
 
@@ -19,5 +21,14 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
 
     @Query("SELECT c FROM Classroom AS c WHERE c.isDeleted = false ORDER BY c.createdAt DESC")
     Page<Classroom> findAllClassroom(Pageable pageable);
+
+    @Query(value = "SELECT \n" +
+            "    COUNT(sc.student_id) AS current_student\n" +
+            "FROM edu_center.classroom c\n" +
+            "LEFT JOIN edu_center.student_classroom sc \n" +
+            "       ON c.id = sc.classroom_id\n" +
+            "      AND sc.is_deleted = false\n" +
+            "      WHERE c.id = :id;", nativeQuery = true)
+    Integer countStudentClassroom(@Param("id")  Long id);
 
 }

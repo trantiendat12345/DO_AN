@@ -11,6 +11,7 @@ public class ClassroomResponse {
 
     private LocalDate startDate;
     private LocalDate endDate;
+    private Integer currentStudent;
     private Integer maxStudent;
     private String name;
     private ClassroomStatus status;
@@ -21,6 +22,16 @@ public class ClassroomResponse {
         this.endDate = classroom.getEndDate();
         this.maxStudent = classroom.getMaxStudent();
         this.name = classroom.getName();
+        this.status = classroom.getStatus();
+        this.nameCourse = classroom.getCourse().getName();
+    }
+
+    public ClassroomResponse(Classroom classroom, Integer currentStudent) {
+        this.startDate = classroom.getStartDate();
+        this.endDate = classroom.getEndDate();
+        this.maxStudent = classroom.getMaxStudent();
+        this.name = classroom.getName();
+        this.currentStudent = currentStudent;
         this.status = classroom.getStatus();
         this.nameCourse = classroom.getCourse().getName();
     }
