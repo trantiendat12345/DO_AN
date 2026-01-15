@@ -1,5 +1,5 @@
 export interface Course {
-    name: string;
+    nameCourse: string;
     description: string;
     duration: number;
     price: number;

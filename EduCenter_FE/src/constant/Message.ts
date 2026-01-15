@@ -32,4 +32,12 @@ export class Message {
     static readonly ACCOUNT_UPDATE_FAILED = "Cập nhật tài khoản thất bại";
     static readonly ACCOUNT_DELETE_SUCCESS = "Xóa tài khoản thành công 🎉";
     static readonly ACCOUNT_DELETE_FAILED = "Xóa tài khoản thất bại";
+
+    static readonly COURSE_FETCH_FAILED = "Không tải được danh sách khóa học";
+    static readonly COURSE_ADD_SUCCESS = "Thêm khóa học thành công 🎉";
+    static readonly COURSE_CREATE_FAILED = "Thêm khóa học thất bại";
+    static readonly COURSE_UPDATE_SUCCESS = "Cập nhật khóa học thành công 🎉";
+    static readonly COURSE_UPDATE_FAILED = "Cập nhật khóa học thất bại";
+    static readonly COURSE_DELETE_SUCCESS = "Xóa khóa học thành công 🎉";
+    static readonly COURSE_DELETE_FAILED = "Xóa khóa học thất bại";
 }
