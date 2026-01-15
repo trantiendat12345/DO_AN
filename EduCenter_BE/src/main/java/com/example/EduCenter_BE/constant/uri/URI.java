@@ -69,6 +69,8 @@ public class URI {
 
     public final static String UPDATE_ACCOUNT = "/update-account/{username}";
 
+    public final static String UPDATE_COURSE = "/update-course/{courseName}";
+
     // URI PARAM DELETE
     public final static String DELETE_STUDENT = "/delete-student/{code}";
 
@@ -77,5 +79,7 @@ public class URI {
     public final static String DELETE_CLASSROOM = "/delete-classroom/{name}";
 
     public final static String DELETE_ACCOUNT = "/delete-account/{username}";
+
+    public final static String DELETE_COURSE = "/delete-course/{courseName}";
 
 }

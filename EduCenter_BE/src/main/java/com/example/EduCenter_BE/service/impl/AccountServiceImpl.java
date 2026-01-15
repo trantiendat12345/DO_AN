@@ -152,30 +152,42 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountResponse updateAccountByUsername(String username, UpdateAccountRequest request) {
+    public AccountResponse updateAccountByUsername(
+            String username,
+            UpdateAccountRequest request
+    ) {
         Account account = accountRepository.findAccountByUsername(username);
 
-        if (Objects.isNull(account)){
+        if (account == null) {
             throw new RuntimeException(Message.ACCOUNT_DOES_NOT_EXIST);
         }
 
-        String password = request.getPassword();
-        String roleName = request.getRoleName();
-        UserType userType = request.getUserType();
-
-        Role checkRole = roleRepository.findRoleByName(roleName);
-
-        if (Objects.isNull(checkRole)){
-            throw new RuntimeException(Message.ROLE_DOES_NOT_EXIST);
+        // UPDATE PASSWORD (chỉ khi có nhập)
+        if (request.getPassword() != null && !request.getPassword().isBlank()) {
+            account.setPassword(
+                    passwordEncoder.encode(request.getPassword())
+            );
         }
 
-        account.setPassword(passwordEncoder.encode(password));
-        account.setRole(checkRole);
-        account.setType(userType);
-        accountRepository.save(account);
+        // UPDATE ROLE
+        if (request.getRoleName() != null && !request.getRoleName().isBlank()) {
+            Role role = roleRepository.findRoleByName(request.getRoleName());
+            if (role == null) {
+                throw new RuntimeException(Message.ROLE_DOES_NOT_EXIST);
+            }
+            account.setRole(role);
+        }
 
-        return new AccountResponse(account);
+        // UPDATE USER TYPE
+        if (request.getUserType() != null) {
+            account.setType(request.getUserType());
+        }
+
+        Account savedAccount = accountRepository.save(account);
+
+        return new  AccountResponse(savedAccount);
     }
+
 
     @Override
     public String deleteAccountByUsername(String username) {

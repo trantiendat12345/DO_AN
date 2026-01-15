@@ -6,6 +6,7 @@ import com.example.EduCenter_BE.request.account.UpdateAccountRequest;
 import com.example.EduCenter_BE.request.classroom.CreateClassroomRequest;
 import com.example.EduCenter_BE.request.classroom.UpdateClassroomRequest;
 import com.example.EduCenter_BE.request.course.CreateCourseRequest;
+import com.example.EduCenter_BE.request.course.UpdateCourseRequest;
 import com.example.EduCenter_BE.request.parent.CreateParentRequest;
 import com.example.EduCenter_BE.request.role.CreateRoleRequest;
 import com.example.EduCenter_BE.request.student.AddStudentToClassRequest;
@@ -128,6 +129,12 @@ public class AdminApiImpl implements AdminApi {
     }
 
     @Override
+    public ResponseEntity<CourseResponse> updateCourse(String nameCourse, UpdateCourseRequest request) {
+        CourseResponse response = courseService.updateCourseByNameCourse(nameCourse, request);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
     public ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable) {
         Page<StudentResponse> response = studentService.getAllStudents(pageable);
         return ResponseEntity.ok().body(response);
@@ -238,6 +245,12 @@ public class AdminApiImpl implements AdminApi {
     @Override
     public ResponseEntity<String> deleteAccount(String username) {
         String response = accountService.deleteAccountByUsername(username);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteCourse(String nameCourse) {
+        String response = courseService.deleteCourse(nameCourse);
         return ResponseEntity.ok().body(response);
     }
 

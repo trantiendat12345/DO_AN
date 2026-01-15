@@ -5,6 +5,7 @@ import com.example.EduCenter_BE.constant.uri.URI;
 import com.example.EduCenter_BE.request.classroom.CreateClassroomRequest;
 import com.example.EduCenter_BE.request.classroom.UpdateClassroomRequest;
 import com.example.EduCenter_BE.request.course.CreateCourseRequest;
+import com.example.EduCenter_BE.request.course.UpdateCourseRequest;
 import com.example.EduCenter_BE.request.parent.CreateParentRequest;
 import com.example.EduCenter_BE.request.role.CreateRoleRequest;
 import com.example.EduCenter_BE.request.student.AddStudentToClassRequest;
@@ -66,6 +67,9 @@ public interface AdminApi {
     @RequestMapping(value = URI.UPDATE_ACCOUNT, method = RequestMethod.PUT)
     ResponseEntity<AccountResponse> updateAccount(@PathVariable("username") String username, @RequestBody UpdateAccountRequest request);
 
+    @RequestMapping(value = URI.UPDATE_COURSE, method = RequestMethod.PUT)
+    ResponseEntity<CourseResponse> updateCourse(@PathVariable("nameCourse") String nameCourse, @RequestBody UpdateCourseRequest request);
+
     // GET
     @RequestMapping(value = URI.GET_ALL_STUDENTS, method = RequestMethod.GET)
     ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable);
@@ -124,5 +128,8 @@ public interface AdminApi {
 
     @RequestMapping(value = URI.DELETE_ACCOUNT, method = RequestMethod.DELETE)
     ResponseEntity<String> deleteAccount(@PathVariable("username") String username);
+
+    @RequestMapping(value = URI.DELETE_COURSE, method = RequestMethod.DELETE)
+    ResponseEntity<String> deleteCourse(@PathVariable("nameCourse") String nameCourse);
 
 }
