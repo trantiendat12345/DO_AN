@@ -80,4 +80,12 @@ const form = ref({ ...emptyForm });
 function submit() {
     emit("submit", { ...form.value });
 }
+
+function resetForm() {
+    form.value = { ...emptyForm };
+}
+
+defineExpose({
+    resetForm,
+});
 </script>

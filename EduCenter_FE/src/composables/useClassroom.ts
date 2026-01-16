@@ -23,7 +23,7 @@ export function useClassrooms() {
             classrooms.value = data.content;
             totalPages.value = data.totalPages;
         } catch {
-            error(Message.CLASSROOM_FETCH_FAILED);
+            error(e.response?.data || Message.CLASSROOM_FETCH_FAILED);
         } finally {
             loading.value = false;
         }
@@ -42,7 +42,7 @@ export function useClassrooms() {
             page.value = 0;
             fetchClassrooms();
         } catch (e: any) {
-            error(e.response?.data?.message || Message.CLASSROOM_CREATE_FAILED);
+            error(e.response?.data || Message.CLASSROOM_CREATE_FAILED);
             throw e;
         }
     }
@@ -54,8 +54,8 @@ export function useClassrooms() {
             success(Message.CLASSROOM_UPDATE_SUCCESS);
             await fetchClassrooms();
         } catch (e: any) {
-            error(e.response?.data?.message || Message.CLASSROOM_UPDATE_FAILED);
-            throw e; // 🔥 RẤT QUAN TRỌNG
+            error(e.response?.data || Message.CLASSROOM_UPDATE_FAILED);
+            throw e;
         } finally {
             loading.value = false;
         }
@@ -66,8 +66,8 @@ export function useClassrooms() {
             await ClassroomService.deleteClassroom(name);
             success(Message.CLASSROOM_DELETE_SUCCESS);
             fetchClassrooms();
-        } catch {
-            error(Message.CLASSROOM_DELETE_FAILED);
+        } catch (e: any) {
+            error(e.response?.data || Message.CLASSROOM_DELETE_FAILED);
         }
     }
 
@@ -82,10 +82,8 @@ export function useClassrooms() {
             );
             success(Message.STUDENT_ADD_TO_CLASSROOM_SUCCESS);
         } catch (e: any) {
-            error(
-                e.response?.data?.message ||
-                    Message.STUDENT_ADD_TO_CLASSROOM_FAILED
-            );
+            error(e.response?.data || Message.STUDENT_ADD_TO_CLASSROOM_FAILED);
+            throw e;
         }
     }
 

@@ -14,8 +14,14 @@ export function useToast() {
         autoHide();
     }
 
-    function error(msg: string) {
-        message.value = msg;
+    function error(msgOrError: string | any) {
+        // Nếu là string, sử dụng trực tiếp
+        if (typeof msgOrError === "string") {
+            message.value = msgOrError;
+        } else {
+            // Nếu là object từ response.data, lấy message property
+            message.value = msgOrError?.message || "";
+        }
         type.value = "error";
         show.value = true;
         autoHide();

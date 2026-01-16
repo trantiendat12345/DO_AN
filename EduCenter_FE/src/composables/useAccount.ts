@@ -22,8 +22,8 @@ export function useAccounts() {
             );
             accounts.value = data.content;
             totalPages.value = data.totalPages;
-        } catch {
-            error(Message.ACCOUNT_FETCH_FAILED);
+        } catch (e: any) {
+            error(e.response?.data || Message.ACCOUNT_FETCH_FAILED);
         } finally {
             loading.value = false;
         }
@@ -42,7 +42,7 @@ export function useAccounts() {
             page.value = 0;
             fetchAccount();
         } catch (e: any) {
-            error(e.response?.data?.message || Message.ACCOUNT_CREATE_FAILED);
+            error(e.response?.data || Message.ACCOUNT_CREATE_FAILED);
             throw e;
         }
     }
@@ -54,8 +54,8 @@ export function useAccounts() {
             success(Message.ACCOUNT_UPDATE_SUCCESS);
             await fetchAccount();
         } catch (e: any) {
-            error(e.response?.data?.message || Message.ACCOUNT_UPDATE_FAILED);
-            throw e; // 🔥 RẤT QUAN TRỌNG
+            error(e.response?.data || Message.ACCOUNT_UPDATE_FAILED);
+            throw e;
         } finally {
             loading.value = false;
         }
@@ -66,8 +66,8 @@ export function useAccounts() {
             await AccountService.deleteAccount(account.username);
             success(Message.ACCOUNT_DELETE_SUCCESS);
             fetchAccount();
-        } catch {
-            error(Message.ACCOUNT_DELETE_FAILED);
+        } catch (e: any) {
+            error(e.response?.data || Message.ACCOUNT_DELETE_FAILED);
         }
     }
 

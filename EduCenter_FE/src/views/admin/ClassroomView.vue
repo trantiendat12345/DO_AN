@@ -45,6 +45,7 @@
     </div>
     <AddClassroomModal :key="modalKey" @submit="onAddClassroom" />
     <AddStudentToClassroom
+        ref="addStudentModal"
         :key="modalKey"
         @submit="onStudentAddedToClassroom"
     />
@@ -81,6 +82,10 @@ const modalKey = ref(0); // Để reset modal mỗi lần mở
 const editingClassroom = ref<Classroom | null>(null);
 
 const selectedClassroom = ref<Classroom | null>(null);
+
+const addStudentModal = ref<InstanceType<typeof AddStudentToClassroom> | null>(
+    null
+);
 
 async function onAddClassroom(classroom: Partial<Classroom>) {
     try {
@@ -150,15 +155,17 @@ async function onStudentAddedToClassroom(payload: {
         // Gọi composable để thêm học viên vào lớp học
         await addStudentToClassroom(payload.name, payload.studentCode);
 
+        // Reset form khi thành công
+        addStudentModal.value?.resetForm();
+
         // Đóng modal khi thành công
         const modalEl = document.getElementById("addStudentToClassroomModal");
         if (modalEl) {
             const modal = Modal.getInstance(modalEl);
             modal?.hide();
         }
-        modalKey.value += 1; // reset modal
     } catch (error) {
-        // ❌ Lỗi → KHÔNG đóng modal
+        // ❌ Lỗi → KHÔNG đóng modal, KHÔNG reset form
     }
 }
 </script>

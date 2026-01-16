@@ -39,7 +39,7 @@ export function useCourses() {
             page.value = 0;
             fetchCourses();
         } catch (e: any) {
-            error(e.response?.data?.message || Message.COURSE_CREATE_FAILED);
+            error(e.response?.data || Message.COURSE_CREATE_FAILED);
             throw e;
         }
     }
@@ -51,8 +51,8 @@ export function useCourses() {
             success(Message.COURSE_UPDATE_SUCCESS);
             await fetchCourses();
         } catch (e: any) {
-            error(e.response?.data?.message || Message.CLASSROOM_UPDATE_FAILED);
-            throw e; // 🔥 RẤT QUAN TRỌNG
+            error(e.response?.data || Message.CLASSROOM_UPDATE_FAILED);
+            throw e;
         } finally {
             loading.value = false;
         }
@@ -63,8 +63,8 @@ export function useCourses() {
             await CourseService.deleteCourse(nameCourse);
             success(Message.COURSE_DELETE_SUCCESS);
             fetchCourses();
-        } catch {
-            error(Message.COURSE_DELETE_FAILED);
+        } catch (e: any) {
+            error(e.response?.data || Message.COURSE_DELETE_FAILED);
         }
     }
 

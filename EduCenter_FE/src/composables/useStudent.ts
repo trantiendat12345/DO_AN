@@ -22,8 +22,8 @@ export function useStudents() {
             );
             students.value = data.content;
             totalPages.value = data.totalPages;
-        } catch {
-            error(Message.STUDENT_FETCH_ERROR);
+        } catch (e: any) {
+            error(e.response?.data || Message.STUDENT_FETCH_ERROR);
         } finally {
             loading.value = false;
         }
@@ -43,7 +43,7 @@ export function useStudents() {
             page.value = 0;
             await fetchStudents();
         } catch (err: any) {
-            error(err.response?.data?.message || Message.STUDENT_CREATE_ERROR);
+            error(err.response?.data || Message.STUDENT_CREATE_ERROR);
             throw err;
         } finally {
             loading.value = false;
@@ -59,7 +59,7 @@ export function useStudents() {
 
             await fetchStudents(); // ✅ RELOAD DATA
         } catch (e: any) {
-            error(e.response?.data?.message || Message.STUDENT_UPDATE_ERROR);
+            error(e.response?.data || Message.STUDENT_UPDATE_ERROR);
             throw e;
         } finally {
             loading.value = false;
@@ -80,7 +80,7 @@ export function useStudents() {
 
             await fetchStudents(); // ✅ RELOAD DATA
         } catch (e: any) {
-            error(e.response?.data?.message || Message.STUDENT_DELETE_ERROR);
+            error(e.response?.data || Message.STUDENT_DELETE_ERROR);
             throw e;
         } finally {
             loading.value = false;

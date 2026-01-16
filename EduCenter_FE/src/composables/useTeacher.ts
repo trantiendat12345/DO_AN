@@ -23,7 +23,7 @@ export function useTeacher() {
             teachers.value = data.content;
             totalPages.value = data.totalPages;
         } catch {
-            error(Message.TEACHER_FETCH_ERROR);
+            error(e.response?.data || Message.TEACHER_FETCH_ERROR);
         } finally {
             loading.value = false;
         }
@@ -43,7 +43,7 @@ export function useTeacher() {
             page.value = 0;
             await fetchTeachers();
         } catch (e: any) {
-            error(e.response?.data?.message || Message.TEACHER_ADD_ERROR);
+            error(e.response?.data || Message.TEACHER_ADD_ERROR);
             throw e;
         } finally {
             loading.value = false;
@@ -59,7 +59,7 @@ export function useTeacher() {
 
             await fetchTeachers();
         } catch (e: any) {
-            error(e.response?.data?.message || Message.TEACHER_UPDATE_ERROR);
+            error(e.response?.data || Message.TEACHER_UPDATE_ERROR);
             throw e;
         } finally {
             loading.value = false;
@@ -76,8 +76,8 @@ export function useTeacher() {
                 page.value--;
             }
             await fetchTeachers();
-        } catch {
-            error(Message.TEACHER_DELETE_ERROR);
+        } catch (e: any) {
+            error(e.response?.data || Message.TEACHER_DELETE_ERROR);
         }
     }
 

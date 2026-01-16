@@ -38,8 +38,8 @@ export function useDashboard() {
                 totalClassrooms: classrooms,
                 totalParents: parents,
             };
-        } catch (e) {
-            error(Message.DASHBOARD_FETCH_ERROR);
+        } catch (e: any) {
+            error(e.response?.data || Message.DASHBOARD_FETCH_ERROR);
         } finally {
             loading.value = false;
         }
