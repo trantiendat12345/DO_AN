@@ -4,6 +4,7 @@ import com.example.EduCenter_BE.constant.message.Message;
 import com.example.EduCenter_BE.entity.Classroom;
 import com.example.EduCenter_BE.entity.Student;
 import com.example.EduCenter_BE.entity.StudentClassroom;
+import com.example.EduCenter_BE.exception.BusinessException;
 import com.example.EduCenter_BE.repository.ClassroomRepository;
 import com.example.EduCenter_BE.repository.StudentClassroomRepository;
 import com.example.EduCenter_BE.repository.StudentRepository;
@@ -33,13 +34,13 @@ public class StudentClassroomServiceImpl implements StudentClassroomService {
         Classroom classroom = classroomRepository.findClassroomByName(request.getName());
 
         if (Objects.isNull(classroom) ||  Objects.isNull(student)) {
-            throw new RuntimeException(Message.STUDENT_OR_CLASSROOM_DOES_NOT_EXIST);
+            throw new BusinessException(Message.STUDENT_OR_CLASSROOM_DOES_NOT_EXIST);
         }
 
         StudentClassroom isAssigned = studentClassroomRepository.existedByStudentCodeAndClassroomName(student.getStudentCode(), classroom.getName());
 
         if (isAssigned != null) {
-            throw new RuntimeException(Message.STUDENT_WAS_ALREADY_PRESENT_IN_THE_CLASS);
+            throw new BusinessException(Message.STUDENT_WAS_ALREADY_PRESENT_IN_THE_CLASS);
         }
 
         StudentClassroom studentClassroom = new StudentClassroom();

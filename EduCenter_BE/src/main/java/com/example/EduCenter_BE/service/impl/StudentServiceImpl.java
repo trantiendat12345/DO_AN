@@ -2,6 +2,7 @@ package com.example.EduCenter_BE.service.impl;
 
 import com.example.EduCenter_BE.constant.message.Message;
 import com.example.EduCenter_BE.entity.Student;
+import com.example.EduCenter_BE.exception.BusinessException;
 import com.example.EduCenter_BE.repository.StudentRepository;
 import com.example.EduCenter_BE.request.student.CreateStudentRequest;
 import com.example.EduCenter_BE.request.student.UpdateStudentRequest;
@@ -32,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
         Student checkStudentByPhone = studentRepository.findStudentByPhone(phoneStudent);
 
         if (!Objects.isNull(checkStudentByCode) || !Objects.isNull(checkStudentByEmail) || !Objects.isNull(checkStudentByPhone)) {
-            throw new RuntimeException(Message.STUDENT_EXISTED);
+            throw new BusinessException(Message.STUDENT_EXISTED);
         }
 
         Student student = new Student();
@@ -60,7 +61,7 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentRepository.findStudentByCode(studentCode);
 
         if (Objects.isNull(student)) {
-            throw new RuntimeException(Message.STUDENT_DOES_NOT_EXIST);
+            throw new BusinessException(Message.STUDENT_DOES_NOT_EXIST);
         }
 
         return new StudentResponse(student);
@@ -73,15 +74,15 @@ public class StudentServiceImpl implements StudentService {
         Student phone = studentRepository.findStudentByPhone(request.getPhone());
 
         if (Objects.isNull(student)) {
-            throw new RuntimeException(Message.STUDENT_DOES_NOT_EXIST);
+            throw new BusinessException(Message.STUDENT_DOES_NOT_EXIST);
         }
 
         if (email != null && !email.getId().equals(student.getId())) {
-            throw new RuntimeException(Message.EMAIL_EXISTED);
+            throw new BusinessException(Message.EMAIL_EXISTED);
         }
 
         if (phone != null && !phone.getId().equals(student.getId())) {
-            throw new RuntimeException(Message.PHONE_EXISTED);
+            throw new BusinessException(Message.PHONE_EXISTED);
         }
 
         student.setFullName(request.getFullName());
@@ -106,7 +107,7 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentRepository.findStudentByCode(studentCode);
 
         if (Objects.isNull(student)) {
-            throw new RuntimeException(Message.STUDENT_DOES_NOT_EXIST);
+            throw new BusinessException(Message.STUDENT_DOES_NOT_EXIST);
         }
 
         student.setIsDeleted(true);

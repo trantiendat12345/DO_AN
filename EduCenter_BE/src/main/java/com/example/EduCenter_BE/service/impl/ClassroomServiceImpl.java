@@ -3,6 +3,7 @@ package com.example.EduCenter_BE.service.impl;
 import com.example.EduCenter_BE.constant.message.Message;
 import com.example.EduCenter_BE.entity.Classroom;
 import com.example.EduCenter_BE.entity.Course;
+import com.example.EduCenter_BE.exception.BusinessException;
 import com.example.EduCenter_BE.repository.ClassroomRepository;
 import com.example.EduCenter_BE.repository.CourseRepository;
 import com.example.EduCenter_BE.request.classroom.CreateClassroomRequest;
@@ -39,13 +40,13 @@ public class ClassroomServiceImpl extends BaseService implements ClassroomServic
         Classroom checkClassroom = classroomRepository.findClassroomByName(name);
 
         if (!Objects.isNull(checkClassroom)) {
-            throw new RuntimeException(Message.CLASSROOM_EXISTED);
+            throw new BusinessException(Message.CLASSROOM_EXISTED);
         }
 
         Course course = courseRepository.findCourseByName(request.getNameCourse());
 
         if (Objects.isNull(course)) {
-            throw new RuntimeException(Message.COURSE_DOES_NOT_EXIST);
+            throw new BusinessException(Message.COURSE_DOES_NOT_EXIST);
         }
 
         String duration = course.getDuration();
@@ -74,13 +75,13 @@ public class ClassroomServiceImpl extends BaseService implements ClassroomServic
         Classroom classroom = classroomRepository.findClassroomByName(name);
 
         if (Objects.isNull(classroom)) {
-            throw new RuntimeException(Message.CLASSROOM_DOES_NOT_EXIST);
+            throw new BusinessException(Message.CLASSROOM_DOES_NOT_EXIST);
         }
 
         Course course = courseRepository.findCourseByName(request.getNameCourse());
 
         if (Objects.isNull(course)) {
-            throw new RuntimeException(Message.COURSE_DOES_NOT_EXIST);
+            throw new BusinessException(Message.COURSE_DOES_NOT_EXIST);
         }
 
         String duration = course.getDuration();
@@ -115,7 +116,7 @@ public class ClassroomServiceImpl extends BaseService implements ClassroomServic
         Classroom classroom = classroomRepository.findClassroomByName(name);
 
         if (Objects.isNull(classroom)) {
-            throw new RuntimeException(Message.CLASSROOM_DOES_NOT_EXIST);
+            throw new BusinessException(Message.CLASSROOM_DOES_NOT_EXIST);
         }
 
         return new ClassroomResponse(classroom);
@@ -126,7 +127,7 @@ public class ClassroomServiceImpl extends BaseService implements ClassroomServic
         Classroom classroom = classroomRepository.findClassroomByName(name);
 
         if (Objects.isNull(classroom)) {
-            throw new RuntimeException(Message.CLASSROOM_DOES_NOT_EXIST);
+            throw new BusinessException(Message.CLASSROOM_DOES_NOT_EXIST);
         }
 
         classroom.setIsDeleted(true);

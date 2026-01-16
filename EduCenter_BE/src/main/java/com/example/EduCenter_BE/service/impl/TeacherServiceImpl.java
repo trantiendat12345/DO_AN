@@ -2,6 +2,7 @@ package com.example.EduCenter_BE.service.impl;
 
 import com.example.EduCenter_BE.constant.message.Message;
 import com.example.EduCenter_BE.entity.Teacher;
+import com.example.EduCenter_BE.exception.BusinessException;
 import com.example.EduCenter_BE.repository.TeacherRepository;
 import com.example.EduCenter_BE.request.teacher.CreateTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.UpdateTeacherRequest;
@@ -32,7 +33,7 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher checkTeacherByPhone = teacherRepository.findTeacherByPhone(teacherPhone);
 
         if (!Objects.isNull(checkTeacherByCode) || !Objects.isNull(checkTeacherByEmail) || !Objects.isNull(checkTeacherByPhone)) {
-            throw new RuntimeException(Message.TEACHER_EXISTED);
+            throw new BusinessException(Message.TEACHER_EXISTED);
         }
 
         Teacher teacher = new Teacher();
@@ -54,7 +55,7 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacher = teacherRepository.findTeacherByCode(code);
 
         if (Objects.isNull(teacher)) {
-            throw new RuntimeException(Message.TEACHER_DOES_NOT_EXIST);
+            throw new BusinessException(Message.TEACHER_DOES_NOT_EXIST);
         }
 
         return new TeacherResponse(teacher);
@@ -67,15 +68,15 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher phone = teacherRepository.findTeacherByPhone(request.getPhone());
 
         if (Objects.isNull(teacher)) {
-            throw new RuntimeException(Message.TEACHER_DOES_NOT_EXIST);
+            throw new BusinessException(Message.TEACHER_DOES_NOT_EXIST);
         }
 
         if (email != null && !email.getId().equals(teacher.getId())) {
-            throw new RuntimeException(Message.EMAIL_EXISTED);
+            throw new BusinessException(Message.EMAIL_EXISTED);
         }
 
         if (phone != null && !phone.getId().equals(teacher.getId())) {
-            throw new RuntimeException(Message.PHONE_EXISTED);
+            throw new BusinessException(Message.PHONE_EXISTED);
         }
 
         teacher.setFullName(request.getFullName());
@@ -95,7 +96,7 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacher = teacherRepository.findTeacherByCode(teacherCode);
 
         if (Objects.isNull(teacher)) {
-            throw new RuntimeException(Message.TEACHER_DOES_NOT_EXIST);
+            throw new BusinessException(Message.TEACHER_DOES_NOT_EXIST);
         }
 
         teacher.setIsDeleted(true);

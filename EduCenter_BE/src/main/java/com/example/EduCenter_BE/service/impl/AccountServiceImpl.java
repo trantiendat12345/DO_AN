@@ -8,6 +8,7 @@ import com.example.EduCenter_BE.entity.Role;
 import com.example.EduCenter_BE.entity.Student;
 import com.example.EduCenter_BE.entity.Teacher;
 import com.example.EduCenter_BE.exception.BadRequestException;
+import com.example.EduCenter_BE.exception.BusinessException;
 import com.example.EduCenter_BE.repository.AccountRepository;
 import com.example.EduCenter_BE.repository.RoleRepository;
 import com.example.EduCenter_BE.repository.StudentRepository;
@@ -55,11 +56,11 @@ public class AccountServiceImpl implements AccountService {
         Account checkAccount = accountRepository.findAccountByUsername(username);
 
         if (Objects.isNull(checkRole)){
-            throw new RuntimeException(Message.ROLE_DOES_NOT_EXIST);
+            throw new BusinessException(Message.ROLE_DOES_NOT_EXIST);
         }
 
         if (!Objects.isNull(checkAccount)){
-            throw new RuntimeException(Message.ACCOUNT_EXISTED);
+            throw new BusinessException(Message.ACCOUNT_EXISTED);
         }
 
         if (userCode.isEmpty() && userType.equals(UserType.ADMIN)){
@@ -115,7 +116,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository.findAccountByUsername(username);
 
         if (Objects.isNull(account)){
-            throw new RuntimeException(Message.ACCOUNT_DOES_NOT_EXIST);
+            throw new BusinessException(Message.ACCOUNT_DOES_NOT_EXIST);
         }
 
         return new AccountResponse(account);
@@ -128,24 +129,24 @@ public class AccountServiceImpl implements AccountService {
         switch (type) {
             case STUDENT: Student student = studentRepository.findStudentByCode(code);
             if (Objects.isNull(student)){
-                throw new RuntimeException(Message.STUDENT_DOES_NOT_EXIST);
+                throw new BusinessException(Message.STUDENT_DOES_NOT_EXIST);
             }
             userId = student.getId();
             break;
             case TEACHER: Teacher teacher = teacherRepository.findTeacherByCode(code);
             if (Objects.isNull(teacher)){
-                throw new RuntimeException(Message.TEACHER_DOES_NOT_EXIST);
+                throw new BusinessException(Message.TEACHER_DOES_NOT_EXIST);
             }
             userId = teacher.getId();
             break;
             default:
-                throw new RuntimeException(Message.INVALID_USER_TYPE);
+                throw new BusinessException(Message.INVALID_USER_TYPE);
         }
 
         Account account = accountRepository.findAccountByUserIdAndType(userId, type);
 
         if (Objects.isNull(account)){
-            throw new RuntimeException(Message.ACCOUNT_DOES_NOT_EXIST);
+            throw new BusinessException(Message.ACCOUNT_DOES_NOT_EXIST);
         }
 
         return new AccountResponse(account);
@@ -159,7 +160,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository.findAccountByUsername(username);
 
         if (account == null) {
-            throw new RuntimeException(Message.ACCOUNT_DOES_NOT_EXIST);
+            throw new BusinessException(Message.ACCOUNT_DOES_NOT_EXIST);
         }
 
         // UPDATE PASSWORD (chỉ khi có nhập)
@@ -173,7 +174,7 @@ public class AccountServiceImpl implements AccountService {
         if (request.getRoleName() != null && !request.getRoleName().isBlank()) {
             Role role = roleRepository.findRoleByName(request.getRoleName());
             if (role == null) {
-                throw new RuntimeException(Message.ROLE_DOES_NOT_EXIST);
+                throw new BusinessException(Message.ROLE_DOES_NOT_EXIST);
             }
             account.setRole(role);
         }
@@ -194,7 +195,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository.findAccountByUsername(username);
 
         if (Objects.isNull(account)){
-            throw new RuntimeException(Message.ACCOUNT_DOES_NOT_EXIST);
+            throw new BusinessException(Message.ACCOUNT_DOES_NOT_EXIST);
         }
 
         account.setIsDeleted(true);

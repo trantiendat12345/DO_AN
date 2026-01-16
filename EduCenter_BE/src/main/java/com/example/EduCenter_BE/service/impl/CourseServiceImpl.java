@@ -2,6 +2,7 @@ package com.example.EduCenter_BE.service.impl;
 
 import com.example.EduCenter_BE.constant.message.Message;
 import com.example.EduCenter_BE.entity.Course;
+import com.example.EduCenter_BE.exception.BusinessException;
 import com.example.EduCenter_BE.repository.CourseRepository;
 import com.example.EduCenter_BE.request.course.CreateCourseRequest;
 import com.example.EduCenter_BE.request.course.UpdateCourseRequest;
@@ -29,7 +30,7 @@ public class CourseServiceImpl implements CourseService {
         Course checkCourse = courseRepository.findCourseByName(name);
 
         if (!Objects.isNull(checkCourse)) {
-            throw new RuntimeException(Message.COURSE_EXISTED);
+            throw new BusinessException(Message.COURSE_EXISTED);
         }
 
         Course course = new Course();
@@ -50,7 +51,7 @@ public class CourseServiceImpl implements CourseService {
         Course course = courseRepository.findCourseByName(courseName);
 
         if (Objects.isNull(course)) {
-            throw new RuntimeException(Message.COURSE_DOES_NOT_EXIST);
+            throw new BusinessException(Message.COURSE_DOES_NOT_EXIST);
         }
 
         return new CourseResponse(course);
@@ -64,7 +65,7 @@ public class CourseServiceImpl implements CourseService {
         Course course = courseRepository.findCourseByName(nameCourse);
 
         if (course == null) {
-            throw new RuntimeException(Message.COURSE_DOES_NOT_EXIST);
+            throw new BusinessException(Message.COURSE_DOES_NOT_EXIST);
         }
 
         // UPDATE NAME COURSE (CHỈ KHI CÓ THAY ĐỔI)
@@ -76,7 +77,7 @@ public class CourseServiceImpl implements CourseService {
 
             Course existed = courseRepository.findCourseByName(newName);
             if (existed != null) {
-                throw new RuntimeException(Message.COURSE_EXISTED);
+                throw new BusinessException(Message.COURSE_EXISTED);
             }
 
             course.setName(newName);
@@ -106,7 +107,7 @@ public class CourseServiceImpl implements CourseService {
         Course course = courseRepository.findCourseByName(courseName);
 
         if (Objects.isNull(course)) {
-            throw new RuntimeException(Message.COURSE_DOES_NOT_EXIST);
+            throw new BusinessException(Message.COURSE_DOES_NOT_EXIST);
         }
 
         course.setIsDeleted(true);

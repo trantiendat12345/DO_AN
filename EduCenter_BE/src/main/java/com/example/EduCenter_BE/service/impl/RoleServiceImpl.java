@@ -2,6 +2,7 @@ package com.example.EduCenter_BE.service.impl;
 
 import com.example.EduCenter_BE.constant.message.Message;
 import com.example.EduCenter_BE.entity.Role;
+import com.example.EduCenter_BE.exception.BusinessException;
 import com.example.EduCenter_BE.repository.RoleRepository;
 import com.example.EduCenter_BE.request.role.CreateRoleRequest;
 import com.example.EduCenter_BE.service.interfaces.RoleService;
@@ -25,7 +26,7 @@ public class RoleServiceImpl implements RoleService {
         Role checkRoleByName = roleRepository.findRoleByName(name);
 
         if (!Objects.isNull(checkRoleById) || !Objects.isNull(checkRoleByName)) {
-            throw new RuntimeException(Message.ROLE_EXISTED);
+            throw new BusinessException(Message.ROLE_EXISTED);
         }
 
         Role role = new Role();

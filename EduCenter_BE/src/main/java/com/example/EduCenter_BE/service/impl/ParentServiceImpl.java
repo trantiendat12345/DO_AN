@@ -2,6 +2,7 @@ package com.example.EduCenter_BE.service.impl;
 
 import com.example.EduCenter_BE.constant.message.Message;
 import com.example.EduCenter_BE.entity.Parent;
+import com.example.EduCenter_BE.exception.BusinessException;
 import com.example.EduCenter_BE.repository.ParentRepository;
 import com.example.EduCenter_BE.request.parent.CreateParentRequest;
 import com.example.EduCenter_BE.service.interfaces.ParentService;
@@ -25,7 +26,7 @@ public class ParentServiceImpl implements ParentService {
         Parent checkParentByPhone = parentRepository.findParentByPhone(phone);
 
         if (!Objects.isNull(checkParentByEmail) || !Objects.isNull(checkParentByPhone)) {
-            throw new RuntimeException(Message.PARENT_EXISTED);
+            throw new BusinessException(Message.PARENT_EXISTED);
         }
 
         Parent parent = new Parent();

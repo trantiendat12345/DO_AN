@@ -25,4 +25,10 @@ public class GlobalExceptionHandler {
                 .body(body);
     }
 
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<?> handleBusiness(BusinessException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+
 }
