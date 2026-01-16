@@ -22,7 +22,7 @@ export function useClassrooms() {
             );
             classrooms.value = data.content;
             totalPages.value = data.totalPages;
-        } catch {
+        } catch (e: any) {
             error(e.response?.data || Message.CLASSROOM_FETCH_FAILED);
         } finally {
             loading.value = false;
@@ -81,6 +81,7 @@ export function useClassrooms() {
                 studentCode
             );
             success(Message.STUDENT_ADD_TO_CLASSROOM_SUCCESS);
+            fetchClassrooms();
         } catch (e: any) {
             error(e.response?.data || Message.STUDENT_ADD_TO_CLASSROOM_FAILED);
             throw e;
