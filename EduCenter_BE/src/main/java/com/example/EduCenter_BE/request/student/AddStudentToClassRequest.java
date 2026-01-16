@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AddStudentToClassRequest {
 
-    private String className;
+    private String name;
     private String studentCode;
 
 }

@@ -30,7 +30,7 @@ public class StudentClassroomServiceImpl implements StudentClassroomService {
     @Override
     public StudentResponse addStudentToClassroom(AddStudentToClassRequest request) {
         Student student = studentRepository.findStudentByCode(request.getStudentCode());
-        Classroom classroom = classroomRepository.findClassroomByName(request.getClassName());
+        Classroom classroom = classroomRepository.findClassroomByName(request.getName());
 
         if (Objects.isNull(classroom) ||  Objects.isNull(student)) {
             throw new RuntimeException(Message.STUDENT_OR_CLASSROOM_DOES_NOT_EXIST);
