@@ -24,6 +24,10 @@ export class Message {
     static readonly CLASSROOM_CREATE_FAILED = "Thêm lớp học thất bại";
     static readonly CLASSROOM_UPDATE_FAILED = "Cập nhật lớp học thất bại";
     static readonly CLASSROOM_DELETE_FAILED = "Xóa lớp học thất bại";
+    static readonly STUDENT_ADD_TO_CLASSROOM_SUCCESS =
+        "Thêm học sinh vào lớp học thành công 🎉";
+    static readonly STUDENT_ADD_TO_CLASSROOM_FAILED =
+        "Thêm học sinh vào lớp học thất bại";
 
     static readonly ACCOUNT_FETCH_FAILED = "Không tải được danh sách tài khoản";
     static readonly ACCOUNT_ADD_SUCCESS = "Thêm tài khoản thành công 🎉";

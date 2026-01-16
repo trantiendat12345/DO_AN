@@ -71,6 +71,24 @@ export function useClassrooms() {
         }
     }
 
+    async function addStudentToClassroom(
+        classroomName: string,
+        studentCode: string
+    ) {
+        try {
+            await ClassroomService.addStudentToClassroom(
+                classroomName,
+                studentCode
+            );
+            success(Message.STUDENT_ADD_TO_CLASSROOM_SUCCESS);
+        } catch (e: any) {
+            error(
+                e.response?.data?.message ||
+                    Message.STUDENT_ADD_TO_CLASSROOM_FAILED
+            );
+        }
+    }
+
     onMounted(fetchClassrooms);
 
     return {
@@ -83,5 +101,6 @@ export function useClassrooms() {
         createClassroom,
         updateClassroom,
         deleteClassroom,
+        addStudentToClassroom,
     };
 }

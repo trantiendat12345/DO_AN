@@ -24,3 +24,11 @@ export function updateClassroom(name: string, data: Partial<Classroom>) {
 export function deleteClassroom(name: string) {
     return api.delete(`/admin/delete-classroom/${name}`);
 }
+
+// ADD STUDENT TO CLASSROOM
+export function addStudentToClassroom(name: string, studentCode: string) {
+    return api.post(`/admin/add-student-to-classroom`, {
+        name,
+        studentCode,
+    });
+}

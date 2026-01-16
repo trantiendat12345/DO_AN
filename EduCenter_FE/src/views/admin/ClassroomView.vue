@@ -4,13 +4,22 @@
         subtitle="Danh sách các lớp đang hoạt động"
     />
 
-    <button
-        class="btn btn-primary mb-3"
-        data-bs-toggle="modal"
-        data-bs-target="#addClassroomModal"
-    >
-        + Thêm lớp học
-    </button>
+    <div class="d-flex justify-content-between mb-3">
+        <button
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#addClassroomModal"
+        >
+            + Thêm lớp học
+        </button>
+        <button
+            class="btn btn-success"
+            data-bs-toggle="modal"
+            data-bs-target="#addStudentToClassroomModal"
+        >
+            + Thêm học viên vào lớp
+        </button>
+    </div>
     <div class="table-wrapper">
         <ClassroomTable
             :classrooms="classrooms"
@@ -35,6 +44,10 @@
         />
     </div>
     <AddClassroomModal :key="modalKey" @submit="onAddClassroom" />
+    <AddStudentToClassroom
+        :key="modalKey"
+        @submit="onStudentAddedToClassroom"
+    />
 </template>
 
 <script setup lang="ts">
@@ -49,6 +62,7 @@ import type { Classroom } from "../../types/Classroom";
 import AddClassroomModal from "../../components/admin/classroom/AddClassroomModal.vue";
 import ConfirmDeleteModal from "../../components/common/ConfirmDeleteModal.vue";
 import EditClassroomModal from "../../components/admin/classroom/EditClassroomModal.vue";
+import AddStudentToClassroom from "../../components/admin/classroom/AddStudentToClassroom.vue";
 
 const {
     classrooms,
@@ -59,6 +73,7 @@ const {
     createClassroom,
     updateClassroom,
     deleteClassroom,
+    addStudentToClassroom,
 } = useClassrooms();
 
 const modalKey = ref(0); // Để reset modal mỗi lần mở
@@ -125,5 +140,25 @@ async function onConfirmDelete() {
             }
         }
     } catch (error) {}
+}
+
+async function onStudentAddedToClassroom(payload: {
+    name: string;
+    studentCode: string;
+}) {
+    try {
+        // Gọi composable để thêm học viên vào lớp học
+        await addStudentToClassroom(payload.name, payload.studentCode);
+
+        // Đóng modal khi thành công
+        const modalEl = document.getElementById("addStudentToClassroomModal");
+        if (modalEl) {
+            const modal = Modal.getInstance(modalEl);
+            modal?.hide();
+        }
+        modalKey.value += 1; // reset modal
+    } catch (error) {
+        // ❌ Lỗi → KHÔNG đóng modal
+    }
 }
 </script>
