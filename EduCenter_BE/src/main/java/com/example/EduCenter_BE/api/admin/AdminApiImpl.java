@@ -225,6 +225,12 @@ public class AdminApiImpl implements AdminApi {
     }
 
     @Override
+    public ResponseEntity<Page<StudentResponse>> getAllStudentInClassroom(String name, Pageable pageable) {
+        Page<StudentResponse> responses = classroomService.getAllStudentInClassroom(name, pageable);
+        return ResponseEntity.ok().body(responses);
+    }
+
+    @Override
     public ResponseEntity<String> deleteStudent(String studentCode) {
         String response = studentService.deleteStudent(studentCode);
         return ResponseEntity.ok().body(response);

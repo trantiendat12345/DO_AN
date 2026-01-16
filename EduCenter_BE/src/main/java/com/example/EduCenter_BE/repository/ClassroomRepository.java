@@ -1,6 +1,7 @@
 package com.example.EduCenter_BE.repository;
 
 import com.example.EduCenter_BE.entity.Classroom;
+import com.example.EduCenter_BE.entity.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,5 +31,14 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
             "      AND sc.is_deleted = false\n" +
             "      WHERE c.id = :id;", nativeQuery = true)
     Integer countStudentClassroom(@Param("id")  Long id);
+
+    @Query(value = "SELECT s.*\n" +
+            "FROM edu_center.classroom c\n" +
+            "JOIN edu_center.student_classroom sc \n" +
+            "    ON c.id = sc.classroom_id\n" +
+            "JOIN edu_center.student s \n" +
+            "    ON sc.student_id = s.id\n" +
+            "WHERE c.id = :id", nativeQuery = true)
+    Page<Student> getAllStudentInClassroom(@Param("id") Long id, Pageable pageable);
 
 }

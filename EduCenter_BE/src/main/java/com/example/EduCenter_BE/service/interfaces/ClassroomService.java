@@ -4,6 +4,7 @@ import com.example.EduCenter_BE.entity.Classroom;
 import com.example.EduCenter_BE.request.classroom.CreateClassroomRequest;
 import com.example.EduCenter_BE.request.classroom.UpdateClassroomRequest;
 import com.example.EduCenter_BE.response.ClassroomResponse;
+import com.example.EduCenter_BE.response.StudentResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,5 +21,7 @@ public interface ClassroomService {
     ClassroomResponse getClassroom(String name);
 
     String deleteClassroom(String name);
+
+    Page<StudentResponse> getAllStudentInClassroom(String name, Pageable pageable);
 
 }

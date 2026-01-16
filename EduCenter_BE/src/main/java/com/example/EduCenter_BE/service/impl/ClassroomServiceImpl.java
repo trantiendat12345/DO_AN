@@ -3,12 +3,14 @@ package com.example.EduCenter_BE.service.impl;
 import com.example.EduCenter_BE.constant.message.Message;
 import com.example.EduCenter_BE.entity.Classroom;
 import com.example.EduCenter_BE.entity.Course;
+import com.example.EduCenter_BE.entity.Student;
 import com.example.EduCenter_BE.exception.BusinessException;
 import com.example.EduCenter_BE.repository.ClassroomRepository;
 import com.example.EduCenter_BE.repository.CourseRepository;
 import com.example.EduCenter_BE.request.classroom.CreateClassroomRequest;
 import com.example.EduCenter_BE.request.classroom.UpdateClassroomRequest;
 import com.example.EduCenter_BE.response.ClassroomResponse;
+import com.example.EduCenter_BE.response.StudentResponse;
 import com.example.EduCenter_BE.service.BaseService;
 import com.example.EduCenter_BE.service.interfaces.ClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,5 +138,17 @@ public class ClassroomServiceImpl extends BaseService implements ClassroomServic
         classroomRepository.save(classroom);
 
         return Message.DELETED_SUCCESSFULLY;
+    }
+
+    @Override
+    public Page<StudentResponse> getAllStudentInClassroom(String name, Pageable pageable) {
+        Classroom classroom = classroomRepository.findClassroomByName(name);
+
+        if (Objects.isNull(classroom)) {
+            throw new BusinessException(Message.CLASSROOM_DOES_NOT_EXIST);
+        }
+
+        Page<Student> response = classroomRepository.getAllStudentInClassroom(classroom.getId(), pageable);
+        return response.map(StudentResponse::new);
     }
 }
