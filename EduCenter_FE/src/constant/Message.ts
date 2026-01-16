@@ -28,6 +28,8 @@ export class Message {
         "Thêm học sinh vào lớp học thành công 🎉";
     static readonly STUDENT_ADD_TO_CLASSROOM_FAILED =
         "Thêm học sinh vào lớp học thất bại";
+    static readonly FETCH_STUDENTS_IN_CLASSROOM_FAILED =
+        "Không tải được danh sách học sinh trong lớp học";
 
     static readonly ACCOUNT_FETCH_FAILED = "Không tải được danh sách tài khoản";
     static readonly ACCOUNT_ADD_SUCCESS = "Thêm tài khoản thành công 🎉";

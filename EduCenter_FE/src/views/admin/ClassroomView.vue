@@ -27,6 +27,16 @@
             :size="size"
             @edit="onEditClassroom"
             @delete="onDeleteClassroom"
+            @detail="openStudentList"
+        />
+
+        <StudentInClasroomTable
+            v-if="showStudentModal"
+            :students="students"
+            :page="page"
+            :size="size"
+            :name="selectedClassroomName"
+            @close="showStudentModal = false"
         />
 
         <EditClassroomModal
@@ -65,6 +75,8 @@ import ConfirmDeleteModal from "../../components/common/ConfirmDeleteModal.vue";
 import EditClassroomModal from "../../components/admin/classroom/EditClassroomModal.vue";
 import AddStudentToClassroom from "../../components/admin/classroom/AddStudentToClassroom.vue";
 
+import StudentInClasroomTable from "../../components/admin/classroom/StudentInClasroomTable.vue";
+
 const {
     classrooms,
     page,
@@ -75,6 +87,7 @@ const {
     updateClassroom,
     deleteClassroom,
     addStudentToClassroom,
+    getAllStudentInClassroom,
 } = useClassrooms();
 
 const modalKey = ref(0); // Để reset modal mỗi lần mở
@@ -82,6 +95,12 @@ const modalKey = ref(0); // Để reset modal mỗi lần mở
 const editingClassroom = ref<Classroom | null>(null);
 
 const selectedClassroom = ref<Classroom | null>(null);
+
+const showStudentModal = ref(false);
+
+const students = ref<any[]>([]);
+
+const selectedClassroomName = ref("");
 
 const addStudentModal = ref<InstanceType<typeof AddStudentToClassroom> | null>(
     null
@@ -167,5 +186,16 @@ async function onStudentAddedToClassroom(payload: {
     } catch (error) {
         // ❌ Lỗi → KHÔNG đóng modal, KHÔNG reset form
     }
+}
+
+async function openStudentList(classroom: Classroom) {
+    console.log("CLICK DETAIL", classroom);
+    try {
+        selectedClassroomName.value = classroom.name.toString();
+
+        const res = await getAllStudentInClassroom(classroom.name.toString());
+        students.value = res.content;
+        showStudentModal.value = true;
+    } catch {}
 }
 </script>

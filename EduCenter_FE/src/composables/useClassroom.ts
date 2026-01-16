@@ -88,6 +88,22 @@ export function useClassrooms() {
         }
     }
 
+    async function getAllStudentInClassroom(name: string) {
+        console.log("CALL API WITH:", name);
+        try {
+            return await ClassroomService.getAllStudentInClassroom(
+                name,
+                page.value,
+                size.value
+            );
+        } catch (e: any) {
+            error(
+                e.response?.data || Message.FETCH_STUDENTS_IN_CLASSROOM_FAILED
+            );
+            throw e;
+        }
+    }
+
     onMounted(fetchClassrooms);
 
     return {
@@ -101,5 +117,6 @@ export function useClassrooms() {
         updateClassroom,
         deleteClassroom,
         addStudentToClassroom,
+        getAllStudentInClassroom,
     };
 }

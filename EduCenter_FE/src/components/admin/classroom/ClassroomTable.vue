@@ -11,6 +11,7 @@
                     <th>Trạng thái</th>
                     <th>Số học viên</th>
                     <th width="150">Hành động</th>
+                    <th width="120"></th>
                 </tr>
             </thead>
 
@@ -39,6 +40,14 @@
                             Xóa
                         </button>
                     </td>
+                    <td>
+                        <button
+                            class="btn btn-sm btn-info"
+                            @click="$emit('detail', c)"
+                        >
+                            Chi tiết
+                        </button>
+                    </td>
                 </tr>
 
                 <tr v-if="!classrooms.length">
@@ -60,5 +69,5 @@ defineProps<{
     size: number;
 }>();
 
-defineEmits(["edit", "delete"]);
+defineEmits(["edit", "delete", "detail"]);
 </script>
