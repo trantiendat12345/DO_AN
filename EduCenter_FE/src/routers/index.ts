@@ -12,6 +12,7 @@ const router = createRouter({
         },
         {
             path: "/login",
+            name: "login",
             component: LoginView,
         },
 
@@ -19,6 +20,7 @@ const router = createRouter({
         {
             path: "/admin",
             component: AdminLayout,
+            meta: { requiresAuth: true },
             redirect: "/admin/dashboard",
             children: [
                 {
@@ -48,6 +50,16 @@ const router = createRouter({
             ],
         },
     ],
+});
+
+router.beforeEach((to, from, next) => {
+    const token = localStorage.getItem("access_token");
+
+    if (to.meta.requiresAuth && !token) {
+        next({ name: "login" });
+    } else {
+        next();
+    }
 });
 
 export default router;

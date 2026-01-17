@@ -1,6 +1,7 @@
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import api from "../api/axios";
+import { useToast } from "./useToast";
 
 interface LoginResponse {
     token: string;
@@ -10,6 +11,9 @@ interface LoginResponse {
 
 export function useLogin() {
     const router = useRouter();
+
+    const route = useRoute();
+    const toast = useToast();
 
     // Form data
     const username = ref<string>("");
@@ -25,6 +29,10 @@ export function useLogin() {
     const togglePassword = () => {
         showPassword.value = !showPassword.value;
     };
+
+    if (route.query.expired) {
+        toast.error("Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại");
+    }
 
     const handleLogin = async () => {
         message.value = "";
@@ -54,7 +62,7 @@ export function useLogin() {
             if (rememberMe.value) {
                 localStorage.setItem(
                     "student_mgmt_user",
-                    JSON.stringify({ username: user })
+                    JSON.stringify({ username: user }),
                 );
             } else {
                 localStorage.removeItem("student_mgmt_user");
