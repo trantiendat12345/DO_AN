@@ -36,9 +36,22 @@
                     <li>
                         <a class="dropdown-item" href="#">Thông tin cá nhân</a>
                     </li>
-                    <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                    <li>
+                        <a class="dropdown-item" @click="logout">Đăng xuất</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import { logout } from "../../composables/useLogout";
+
+export default {
+    name: "AdminHeader",
+    methods: {
+        logout,
+    },
+};
+</script>
