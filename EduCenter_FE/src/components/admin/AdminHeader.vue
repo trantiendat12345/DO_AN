@@ -45,13 +45,6 @@
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { logout } from "../../composables/useLogout";
-
-export default {
-    name: "AdminHeader",
-    methods: {
-        logout,
-    },
-};
 </script>

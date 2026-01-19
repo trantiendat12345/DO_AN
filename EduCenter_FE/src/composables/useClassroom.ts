@@ -18,7 +18,7 @@ export function useClassrooms() {
         try {
             const data = await ClassroomService.getClassrooms(
                 page.value,
-                size.value
+                size.value,
             );
             classrooms.value = data.content;
             totalPages.value = data.totalPages;
@@ -73,12 +73,12 @@ export function useClassrooms() {
 
     async function addStudentToClassroom(
         classroomName: string,
-        studentCode: string
+        studentCode: string,
     ) {
         try {
             await ClassroomService.addStudentToClassroom(
                 classroomName,
-                studentCode
+                studentCode,
             );
             success(Message.STUDENT_ADD_TO_CLASSROOM_SUCCESS);
             fetchClassrooms();
@@ -89,16 +89,11 @@ export function useClassrooms() {
     }
 
     async function getAllStudentInClassroom(name: string) {
-        console.log("CALL API WITH:", name);
         try {
-            return await ClassroomService.getAllStudentInClassroom(
-                name,
-                page.value,
-                size.value
-            );
+            return await ClassroomService.getAllStudentInClassroom(name);
         } catch (e: any) {
             error(
-                e.response?.data || Message.FETCH_STUDENTS_IN_CLASSROOM_FAILED
+                e.response?.data || Message.FETCH_STUDENTS_IN_CLASSROOM_FAILED,
             );
             throw e;
         }

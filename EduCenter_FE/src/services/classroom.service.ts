@@ -33,11 +33,8 @@ export function addStudentToClassroom(name: string, studentCode: string) {
     });
 }
 
-export function getAllStudentInClassroom(name: string, page = 0, size = 10) {
-    console.log("CALL API WITH:", name);
+export function getAllStudentInClassroom(name: string) {
     return api
-        .get("/admin/get-all-students-in-classroom", {
-            params: { name, page, size },
-        })
+        .get(`/admin/get-all-students-in-classroom/${name}`)
         .then((res) => res.data);
 }

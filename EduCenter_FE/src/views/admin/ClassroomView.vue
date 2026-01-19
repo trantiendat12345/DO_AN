@@ -103,7 +103,7 @@ const students = ref<any[]>([]);
 const selectedClassroomName = ref("");
 
 const addStudentModal = ref<InstanceType<typeof AddStudentToClassroom> | null>(
-    null
+    null,
 );
 
 async function onAddClassroom(classroom: Partial<Classroom>) {
@@ -189,7 +189,6 @@ async function onStudentAddedToClassroom(payload: {
 }
 
 async function openStudentList(classroom: Classroom) {
-    console.log("CLICK DETAIL", classroom);
     try {
         selectedClassroomName.value = classroom.name.toString();
 
