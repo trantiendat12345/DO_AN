@@ -22,6 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = URI.ADMIN)
@@ -117,7 +119,7 @@ public interface AdminApi {
     ResponseEntity<CourseResponse> getCourseByName(String courseName);
 
     @RequestMapping(value = URI.GET_ALL_STUDENTS_IN_CLASSROOM, method = RequestMethod.GET)
-    ResponseEntity<Page<StudentResponse>> getAllStudentInClassroom(@PathVariable("name") String name, Pageable pageable);
+    ResponseEntity<List<StudentResponse>> getAllStudentInClassroom(@PathVariable("name") String name);
 
     // DELETE
     @RequestMapping(value = URI.DELETE_STUDENT, method = RequestMethod.DELETE)

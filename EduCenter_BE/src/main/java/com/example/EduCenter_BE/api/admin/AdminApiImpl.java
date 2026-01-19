@@ -23,6 +23,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class AdminApiImpl implements AdminApi {
 
@@ -225,8 +227,8 @@ public class AdminApiImpl implements AdminApi {
     }
 
     @Override
-    public ResponseEntity<Page<StudentResponse>> getAllStudentInClassroom(String name, Pageable pageable) {
-        Page<StudentResponse> responses = classroomService.getAllStudentInClassroom(name, pageable);
+    public ResponseEntity<List<StudentResponse>> getAllStudentInClassroom(String name) {
+        List<StudentResponse> responses = classroomService.getAllStudentInClassroom(name);
         return ResponseEntity.ok().body(responses);
     }
 

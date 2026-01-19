@@ -141,14 +141,14 @@ public class ClassroomServiceImpl extends BaseService implements ClassroomServic
     }
 
     @Override
-    public Page<StudentResponse> getAllStudentInClassroom(String name, Pageable pageable) {
+    public List<StudentResponse> getAllStudentInClassroom(String name) {
         Classroom classroom = classroomRepository.findClassroomByName(name);
 
         if (Objects.isNull(classroom)) {
             throw new BusinessException(Message.CLASSROOM_DOES_NOT_EXIST);
         }
 
-        Page<Student> response = classroomRepository.getAllStudentInClassroom(classroom.getId(), pageable);
-        return response.map(StudentResponse::new);
+        List<Student> response = classroomRepository.getAllStudentInClassroom(classroom.getId());
+        return response.stream().map(StudentResponse::new).toList();
     }
 }

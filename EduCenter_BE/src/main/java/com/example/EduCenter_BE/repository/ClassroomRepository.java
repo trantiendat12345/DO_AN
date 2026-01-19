@@ -39,6 +39,6 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
             "JOIN edu_center.student s \n" +
             "    ON sc.student_id = s.id\n" +
             "WHERE c.id = :id", nativeQuery = true)
-    Page<Student> getAllStudentInClassroom(@Param("id") Long id, Pageable pageable);
+    List<Student> getAllStudentInClassroom(@Param("id") Long id);
 
 }
