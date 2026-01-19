@@ -193,7 +193,7 @@ async function openStudentList(classroom: Classroom) {
         selectedClassroomName.value = classroom.name.toString();
 
         const res = await getAllStudentInClassroom(classroom.name.toString());
-        students.value = res.content;
+        students.value = res;
         showStudentModal.value = true;
     } catch {}
 }
