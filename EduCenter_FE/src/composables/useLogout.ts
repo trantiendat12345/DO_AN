@@ -6,6 +6,5 @@ export function logout() {
     localStorage.removeItem("user");
 
     // 2. Chuyển về trang login
-    // router.replace({ name: "login" });
-    window.location.href = "/login";
+    router.replace({ name: "login" });
 }

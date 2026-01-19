@@ -1,8 +1,8 @@
 <template>
     <div class="d-flex flex-wrap mb-4 align-items-center">
         <div class="me-4">
-            <h1 class="h4 mb-1 fw-bold">{{ pageTitle }}</h1>
-            <p class="mb-0 text-secondary">{{ pageSubtitle }}</p>
+            <h1 class="h4 mb-1 fw-bold">Dashboard Admin</h1>
+            <p class="mb-0 text-secondary">Tổng quan hoạt động trung tâm</p>
         </div>
 
         <div class="flex-grow-1 me-4">
@@ -23,16 +23,14 @@
 
             <div class="dropdown">
                 <button class="btn p-0" data-bs-toggle="dropdown">
-                    <div class="admin-avatar">{{ userInitial }}</div>
+                    <div class="admin-avatar">A</div>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
+                    <li><h6 class="dropdown-header">Nguyễn Admin</h6></li>
                     <li>
-                        <h6 class="dropdown-header">{{ currentUsername }}</h6>
-                    </li>
-                    <li>
-                        <span class="dropdown-item-text small">{{
-                            currentRole
-                        }}</span>
+                        <span class="dropdown-item-text small"
+                            >Administrator</span
+                        >
                     </li>
                     <li><hr class="dropdown-divider" /></li>
                     <li>
@@ -48,56 +46,5 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
-import { useRoute } from "vue-router";
 import { logout } from "../../composables/useLogout";
-
-const route = useRoute();
-const currentUsername = ref<string>("");
-const currentRole = ref<string>("");
-
-const userInitial = computed(() => {
-    return currentUsername.value?.charAt(0).toUpperCase() || "A";
-});
-
-const pageTitle = computed(() => {
-    const routeName = route.path.split("/").pop();
-
-    const titles: { [key: string]: string } = {
-        dashboard: "Dashboard Admin",
-        students: "Student Admin",
-        teachers: "Teacher Admin",
-        classrooms: "Classroom Admin",
-        accounts: "Account Admin",
-        courses: "Course Admin",
-    };
-
-    return titles[routeName || "dashboard"] || "Dashboard Admin";
-});
-
-const pageSubtitle = computed(() => {
-    const routeName = route.path.split("/").pop();
-
-    const subtitles: { [key: string]: string } = {
-        dashboard: "Tổng quan hoạt động trung tâm",
-        students: "Quản lý thông tin học sinh",
-        teachers: "Quản lý thông tin giáo viên",
-        classrooms: "Quản lý lớp học",
-        accounts: "Quản lý tài khoản",
-        courses: "Quản lý khóa học",
-    };
-
-    return (
-        subtitles[routeName || "dashboard"] || "Tổng quan hoạt động trung tâm"
-    );
-});
-
-onMounted(() => {
-    // Lấy thông tin người dùng từ localStorage
-    const username = localStorage.getItem("username") || "";
-    const role = localStorage.getItem("role") || "";
-
-    currentUsername.value = username;
-    currentRole.value = role === "ROLE_ADMIN" ? "Quản trị viên" : role;
-});
 </script>
