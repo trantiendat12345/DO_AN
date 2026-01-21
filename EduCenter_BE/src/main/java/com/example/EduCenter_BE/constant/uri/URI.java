@@ -28,6 +28,8 @@ public class URI {
     // URI PARAM ADD
     public final static String ADD_STUDENT_TO_CLASSROOM = "/add-student-to-classroom";
 
+    public final static String ASSIGN_TEACHER = "/assign-teacher";
+
     // URI PARAM GET
     public final static String GET_ALL_STUDENTS = "/get-all-students";
 

@@ -52,4 +52,8 @@ public class Message {
     // INVALID
     public final static String INVALID_USER_TYPE = "KIỂU NGƯỜI DÙNG KHÔNG HỢP LỆ";
 
+    public final static String TEACHER_WHO_TAUGHT_THIS_CLASS = "GIÁO VIÊN ĐÃ DẠY LỚP NÀY";
+
+    public final static String THE_CLASS_ALREADY_HAS_A_MAIN_TEACHER ="LỚP ĐÃ CÓ GIÁO VIÊN CHÍNH";
+
 }

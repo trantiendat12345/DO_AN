@@ -13,6 +13,7 @@ import com.example.EduCenter_BE.request.account.CreateAccountRequest;
 import com.example.EduCenter_BE.request.account.UpdateAccountRequest;
 import com.example.EduCenter_BE.request.student.CreateStudentRequest;
 import com.example.EduCenter_BE.request.student.UpdateStudentRequest;
+import com.example.EduCenter_BE.request.teacher.AssignTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.CreateTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.UpdateTeacherRequest;
 import com.example.EduCenter_BE.response.*;
@@ -55,6 +56,9 @@ public interface AdminApi {
     // ADD
     @RequestMapping(value = URI.ADD_STUDENT_TO_CLASSROOM, method = RequestMethod.POST)
     ResponseEntity<StudentResponse> addStudentToClass(@RequestBody AddStudentToClassRequest request);
+
+    @RequestMapping(value = URI.ASSIGN_TEACHER, method = RequestMethod.POST)
+    ResponseEntity<AssignTeacherResponse> assignTeacher(@RequestBody AssignTeacherRequest request);
 
     // UPDATE
     @RequestMapping(value = URI.UPDATE_STUDENT, method = RequestMethod.PUT)

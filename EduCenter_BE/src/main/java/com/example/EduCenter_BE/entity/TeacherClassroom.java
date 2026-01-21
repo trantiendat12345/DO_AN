@@ -1,5 +1,6 @@
 package com.example.EduCenter_BE.entity;
 
+import com.example.EduCenter_BE.constant.enums.TeacherRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +24,8 @@ public class TeacherClassroom extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "classroom_id", nullable = false)
     private Classroom classroom;
+
+    @Column(name = "teacher_role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TeacherRole teacherRole;
 }

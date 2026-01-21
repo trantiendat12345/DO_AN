@@ -13,6 +13,7 @@ import com.example.EduCenter_BE.request.student.AddStudentToClassRequest;
 import com.example.EduCenter_BE.request.account.CreateAccountRequest;
 import com.example.EduCenter_BE.request.student.CreateStudentRequest;
 import com.example.EduCenter_BE.request.student.UpdateStudentRequest;
+import com.example.EduCenter_BE.request.teacher.AssignTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.CreateTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.UpdateTeacherRequest;
 import com.example.EduCenter_BE.response.*;
@@ -51,6 +52,9 @@ public class AdminApiImpl implements AdminApi {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private TeacherClassroomService teacherClassroomService;
 
     @Override
     public ResponseEntity<StudentResponse> createStudent (CreateStudentRequest request) {
@@ -103,6 +107,12 @@ public class AdminApiImpl implements AdminApi {
     @Override
     public ResponseEntity<StudentResponse> addStudentToClass(AddStudentToClassRequest request) {
         StudentResponse response = studentClassroomService.addStudentToClassroom(request);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<AssignTeacherResponse> assignTeacher(AssignTeacherRequest request) {
+        AssignTeacherResponse response = teacherClassroomService.assignTeacher(request);
         return ResponseEntity.ok().body(response);
     }
 
