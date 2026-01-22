@@ -8,7 +8,7 @@
         <button
             class="btn btn-primary"
             data-bs-toggle="modal"
-            data-bs-target="#addClassroomModal"
+            data-bs-target="#assignTeacherModal"
         >
             + Phân công giáo viên
         </button>
@@ -22,15 +22,6 @@
             @delete=""
         />
 
-        <StudentInClasroomTable
-            v-if="showStudentModal"
-            :students="students"
-            :page="page"
-            :size="size"
-            :name="selectedClassroomName"
-            @close="showStudentModal = false"
-        />
-
         <!-- <EditClassroomModal :classroom="editingClassroom" @submit="" /> -->
 
         <Pagination :page="page" :total-pages="totalPages" @change="goToPage" />
@@ -42,8 +33,7 @@
             @confirm=""
         /> -->
     </div>
-    <AddClassroomModal :key="modalKey" @submit="" />
-    <AddStudentToClassroom ref="addStudentModal" :key="modalKey" @submit="" />
+    <AssignTeacherModal :key="modalKey" @submit="onAssignTeacher" />
 </template>
 
 <script setup lang="ts">
@@ -51,15 +41,11 @@ import { ref } from "vue";
 import AdminHeader from "../../components/admin/AdminHeader.vue";
 import AssignTeacherTable from "../../components/admin/assign-teacher/AssignTeacherTable.vue";
 import Pagination from "../../components/common/Pagination.vue";
-
 import type { AssignTeacher } from "../../types/AssignTeacher";
-import AddClassroomModal from "../../components/admin/classroom/AddClassroomModal.vue";
-import ConfirmDeleteModal from "../../components/common/ConfirmDeleteModal.vue";
-import EditClassroomModal from "../../components/admin/classroom/EditClassroomModal.vue";
 import AddStudentToClassroom from "../../components/admin/classroom/AddStudentToClassroom.vue";
-
-import StudentInClasroomTable from "../../components/admin/classroom/StudentInClasroomTable.vue";
+import { Modal } from "bootstrap";
 import { useAssignTeachers } from "../../composables/useAssignTeacher";
+import AssignTeacherModal from "../../components/admin/assign-teacher/AssignTeacherModal.vue";
 
 const {
     assignTeachers,
@@ -67,7 +53,7 @@ const {
     size,
     totalPages,
     goToPage,
-    // createClassroom,
+    assignTeacherToClassroom,
     // updateClassroom,
     // deleteClassroom,
     // addStudentToClassroom,
@@ -90,18 +76,30 @@ const addStudentModal = ref<InstanceType<typeof AddStudentToClassroom> | null>(
     null,
 );
 
-// async function onAddClassroom(classroom: Partial<Classroom>) {
-//     try {
-//         await createClassroom(classroom);
+async function onAssignTeacher(assignTeacher: {
+    name: string;
+    teacherCode: string;
+    teacherRole: string;
+}) {
+    try {
+        console.log("Assigning teacher:", assignTeacher);
+        await assignTeacherToClassroom(
+            assignTeacher.name,
+            assignTeacher.teacherCode,
+            assignTeacher.teacherRole,
+        ); // nếu lỗi → nhảy catch
 
-//         const modalEl = document.getElementById("addClassroomModal");
-//         if (modalEl) {
-//             const modal = Modal.getInstance(modalEl);
-//             modal?.hide();
-//         }
-//         modalKey.value += 1; // reset modal
-//     } catch {}
-// }
+        const modalEl = document.getElementById("assignTeacherModal");
+        if (modalEl) {
+            const modal = Modal.getInstance(modalEl);
+            modal?.hide();
+        }
+        modalKey.value += 1; // reset modal
+    } catch (e) {
+        console.log(e);
+        console.log("Failed to assign teacher");
+    }
+}
 
 // function onEditClassroom(classroom: Classroom) {
 //     editingClassroom.value = classroom;

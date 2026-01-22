@@ -46,4 +46,8 @@ export class Message {
     static readonly COURSE_UPDATE_FAILED = "Cập nhật khóa học thất bại";
     static readonly COURSE_DELETE_SUCCESS = "Xóa khóa học thành công 🎉";
     static readonly COURSE_DELETE_FAILED = "Xóa khóa học thất bại";
+
+    static readonly ASSIGN_TEACHER_SUCCESS =
+        "Phân công giáo viên thành công 🎉";
+    static readonly ASSIGN_TEACHER_FAILED = "Phân công giáo viên thất bại";
 }

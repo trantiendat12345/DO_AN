@@ -9,10 +9,18 @@ export function getAllAssignTeachers(page = 0, size = 10) {
         .then((res) => res.data);
 }
 
-// CREATE
-// export function createClassroom(data: Partial<Classroom>) {
-//     return api.post("/admin/create-classroom", data);
-// }
+// ASSIGN TEACHER TO CLASSROOM
+export function assignTeacherToClassroom(
+    name: string,
+    teacherCode: string,
+    teacherRole: string,
+) {
+    return api.post("/admin/assign-teacher", {
+        name,
+        teacherCode,
+        teacherRole,
+    });
+}
 
 // // UPDATE
 // export function updateClassroom(name: string, data: Partial<Classroom>) {

@@ -35,17 +35,25 @@ export function useAssignTeachers() {
         fetchAssignTeachers();
     }
 
-    // async function createAssignTeacher(data: Partial<AssignTeacher>) {
-    //     try {
-    //         await AssignTeacherService.createAssignTeacher(data);
-    //         success(Message.CLASSROOM_ADD_SUCCESS);
-    //         page.value = 0;
-    //         fetchAssignTeachers();
-    //     } catch (e: any) {
-    //         error(e.response?.data || Message.CLASSROOM_CREATE_FAILED);
-    //         throw e;
-    //     }
-    // }
+    async function assignTeacherToClassroom(
+        name: string,
+        teacherCode: string,
+        teacherRole: string,
+    ) {
+        try {
+            await AssignTeacherService.assignTeacherToClassroom(
+                name,
+                teacherCode,
+                teacherRole,
+            );
+            success(Message.ASSIGN_TEACHER_SUCCESS);
+            page.value = 0;
+            fetchAssignTeachers();
+        } catch (e: any) {
+            error(e.response?.data || Message.ASSIGN_TEACHER_FAILED);
+            throw e;
+        }
+    }
 
     // async function updateClassroom(classroom: Classroom) {
     //     loading.value = true;
@@ -108,7 +116,7 @@ export function useAssignTeachers() {
         totalPages,
         loading,
         goToPage,
-        // createClassroom,
+        assignTeacherToClassroom,
         // updateClassroom,
         // deleteClassroom,
         // addStudentToClassroom,

@@ -4,4 +4,5 @@ export interface AssignTeacher {
     name: string;
     mainTeacher: Teacher;
     assistantTeacher: Array<Teacher>;
+    teacherRole: string;
 }
