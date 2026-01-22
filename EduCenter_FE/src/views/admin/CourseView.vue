@@ -1,7 +1,7 @@
 <template>
     <AdminHeader
-        title="Quản lý lớp học"
-        subtitle="Danh sách các lớp đang hoạt động"
+        title="Quản lý khoá học"
+        subtitle="Danh sách các khoá học hiện có"
     />
 
     <button

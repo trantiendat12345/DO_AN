@@ -1,8 +1,8 @@
 <template>
     <div class="d-flex flex-wrap mb-4 align-items-center">
         <div class="me-4">
-            <h1 class="h4 mb-1 fw-bold">{{ pageTitle }}</h1>
-            <p class="mb-0 text-secondary">{{ pageSubtitle }}</p>
+            <h1 class="h4 mb-1 fw-bold">{{ title }}</h1>
+            <p class="mb-0 text-secondary">{{ subtitle }}</p>
         </div>
 
         <div class="flex-grow-1 me-4">
@@ -60,37 +60,42 @@ const userInitial = computed(() => {
     return currentUsername.value?.charAt(0).toUpperCase() || "A";
 });
 
-const pageTitle = computed(() => {
-    const routeName = route.path.split("/").pop();
+defineProps<{
+    title?: string;
+    subtitle?: string;
+}>();
 
-    const titles: { [key: string]: string } = {
-        dashboard: "Dashboard Admin",
-        students: "Student Admin",
-        teachers: "Teacher Admin",
-        classrooms: "Classroom Admin",
-        accounts: "Account Admin",
-        courses: "Course Admin",
-    };
+// const pageTitle = computed(() => {
+//     const routeName = route.path.split("/").pop();
 
-    return titles[routeName || "dashboard"] || "Dashboard Admin";
-});
+//     const titles: { [key: string]: string } = {
+//         dashboard: "Dashboard Admin",
+//         students: "Student Admin",
+//         teachers: "Teacher Admin",
+//         classrooms: "Classroom Admin",
+//         accounts: "Account Admin",
+//         courses: "Course Admin",
+//     };
 
-const pageSubtitle = computed(() => {
-    const routeName = route.path.split("/").pop();
+//     return titles[routeName || "dashboard"] || "Dashboard Admin";
+// });
 
-    const subtitles: { [key: string]: string } = {
-        dashboard: "Tổng quan hoạt động trung tâm",
-        students: "Quản lý thông tin học sinh",
-        teachers: "Quản lý thông tin giáo viên",
-        classrooms: "Quản lý lớp học",
-        accounts: "Quản lý tài khoản",
-        courses: "Quản lý khóa học",
-    };
+// const pageSubtitle = computed(() => {
+//     const routeName = route.path.split("/").pop();
 
-    return (
-        subtitles[routeName || "dashboard"] || "Tổng quan hoạt động trung tâm"
-    );
-});
+//     const subtitles: { [key: string]: string } = {
+//         dashboard: "Tổng quan hoạt động trung tâm",
+//         students: "Quản lý thông tin học sinh",
+//         teachers: "Quản lý thông tin giáo viên",
+//         classrooms: "Quản lý lớp học",
+//         accounts: "Quản lý tài khoản",
+//         courses: "Quản lý khóa học",
+//     };
+
+//     return (
+//         subtitles[routeName || "dashboard"] || "Tổng quan hoạt động trung tâm"
+//     );
+// });
 
 onMounted(() => {
     // Lấy thông tin người dùng từ localStorage
