@@ -49,10 +49,10 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
-import { useRoute } from "vue-router";
+// import { useRoute } from "vue-router";
 import { logout } from "../../composables/useLogout";
 
-const route = useRoute();
+// const route = useRoute();
 const currentUsername = ref<string>("");
 const currentRole = ref<string>("");
 
