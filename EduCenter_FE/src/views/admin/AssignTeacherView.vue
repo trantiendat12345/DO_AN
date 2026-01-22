@@ -20,6 +20,15 @@
             :size="size"
             @edit=""
             @delete=""
+            @view-main-teacher="openMainTeacher"
+            @view-assistant-teachers="openAssistantTeachers"
+        />
+
+        <DetailTeacherModal
+            v-if="showTeacherModal"
+            :title="modalTitle"
+            :teachers="selectedTeachers"
+            @close="showTeacherModal = false"
         />
 
         <!-- <EditClassroomModal :classroom="editingClassroom" @submit="" /> -->
@@ -46,6 +55,8 @@ import AddStudentToClassroom from "../../components/admin/classroom/AddStudentTo
 import { Modal } from "bootstrap";
 import { useAssignTeachers } from "../../composables/useAssignTeacher";
 import AssignTeacherModal from "../../components/admin/assign-teacher/AssignTeacherModal.vue";
+import DetailTeacherModal from "../../components/admin/assign-teacher/DetailTeacherModal.vue";
+import type { Teacher } from "../../types/Teacher";
 
 const {
     assignTeachers,
@@ -72,9 +83,15 @@ const students = ref<any[]>([]);
 
 const selectedClassroomName = ref("");
 
+const selectedAssignTeacher = ref<AssignTeacher | null>(null);
+
 const addStudentModal = ref<InstanceType<typeof AddStudentToClassroom> | null>(
     null,
 );
+
+const showTeacherModal = ref(false);
+const modalTitle = ref("");
+const selectedTeachers = ref<Teacher[]>([]);
 
 async function onAssignTeacher(assignTeacher: {
     name: string;
@@ -99,6 +116,18 @@ async function onAssignTeacher(assignTeacher: {
         console.log(e);
         console.log("Failed to assign teacher");
     }
+}
+
+function openMainTeacher(teacher: Teacher) {
+    modalTitle.value = "Thông tin giáo viên chính";
+    selectedTeachers.value = [teacher]; // 👈 1 giáo viên
+    showTeacherModal.value = true;
+}
+
+function openAssistantTeachers(teachers: Teacher[]) {
+    modalTitle.value = "Danh sách giáo viên phụ";
+    selectedTeachers.value = teachers; // 👈 nhiều giáo viên
+    showTeacherModal.value = true;
 }
 
 // function onEditClassroom(classroom: Classroom) {

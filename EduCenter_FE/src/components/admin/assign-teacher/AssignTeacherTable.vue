@@ -15,11 +15,28 @@
                 <tr v-for="(at, i) in assignTeacher" :key="at.name">
                     <td>{{ page * size + i + 1 }}</td>
                     <td>{{ at.name }}</td>
-                    <td>{{ at.mainTeacher?.fullName }}</td>
+                    <td>
+                        <a
+                            v-if="at.mainTeacher"
+                            href="#"
+                            class="text-black text-decoration-none"
+                            @click.prevent="
+                                $emit('view-main-teacher', at.mainTeacher)
+                            "
+                        >
+                            {{ at.mainTeacher.fullName }}
+                        </a>
+                        <span v-else class="text-black">Chưa phân công</span>
+                    </td>
                     <td>
                         <button
                             class="btn btn-sm btn-info"
-                            @click="$emit('detail', at)"
+                            @click="
+                                $emit(
+                                    'view-assistant-teachers',
+                                    at.assistantTeacher || [],
+                                )
+                            "
                         >
                             Chi tiết
                         </button>
@@ -59,5 +76,5 @@ defineProps<{
     size: number;
 }>();
 
-defineEmits(["edit", "delete", "detail"]);
+defineEmits(["edit", "delete", "view-main-teacher", "view-assistant-teachers"]);
 </script>
