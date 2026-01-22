@@ -41,4 +41,6 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
             "WHERE c.id = :id", nativeQuery = true)
     List<Student> getAllStudentInClassroom(@Param("id") Long id);
 
+    Page<Classroom> findByIsDeletedFalse(Pageable pageable);
+
 }

@@ -125,6 +125,9 @@ public interface AdminApi {
     @RequestMapping(value = URI.GET_ALL_STUDENTS_IN_CLASSROOM, method = RequestMethod.GET)
     ResponseEntity<List<StudentResponse>> getAllStudentInClassroom(@PathVariable("name") String name);
 
+    @RequestMapping(value = URI.GET_ALL_ASSIGNED_TEACHER, method = RequestMethod.GET)
+    ResponseEntity<Page<AssignTeacherResponse>> getAllAssignedTeacher(Pageable pageable);
+
     // DELETE
     @RequestMapping(value = URI.DELETE_STUDENT, method = RequestMethod.DELETE)
     ResponseEntity<String> deleteStudent(@PathVariable("code") String studentCode);

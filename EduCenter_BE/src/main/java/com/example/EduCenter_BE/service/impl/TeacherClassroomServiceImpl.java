@@ -14,9 +14,12 @@ import com.example.EduCenter_BE.response.AssignTeacherResponse;
 import com.example.EduCenter_BE.response.TeacherResponse;
 import com.example.EduCenter_BE.service.interfaces.TeacherClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class TeacherClassroomServiceImpl implements TeacherClassroomService {
@@ -60,6 +63,57 @@ public class TeacherClassroomServiceImpl implements TeacherClassroomService {
         return buildAssignTeacherResponse(checkClassroomByName);
     }
 
+    @Override
+    public Page<AssignTeacherResponse> getAllAssignedTeacher(Pageable pageable) {
+
+        // 1️⃣ Phân trang theo CLASSROOM
+        Page<Classroom> classroomPage = classroomRepository.findByIsDeletedFalse(pageable);
+        List<Classroom> classrooms = classroomPage.getContent();
+
+        if (classrooms.isEmpty()) {
+            return Page.empty(pageable);
+        }
+
+        // 2️⃣ Lấy toàn bộ teacher_classroom của các lớp trong page
+        List<TeacherClassroom> teacherClassrooms =
+                teacherClassroomRepository.findByClassroomInAndIsDeletedFalse(classrooms);
+
+        // 3️⃣ Map classroomId -> AssignTeacherResponse
+        Map<Long, AssignTeacherResponse> map = new LinkedHashMap<>();
+
+        // Khởi tạo trước response cho từng lớp
+        for (Classroom classroom : classrooms) {
+            map.put(
+                    classroom.getId(),
+                    new AssignTeacherResponse(classroom)
+            );
+        }
+
+        // 4️⃣ Gán giáo viên vào từng lớp
+        for (TeacherClassroom tc : teacherClassrooms) {
+
+            AssignTeacherResponse response =
+                    map.get(tc.getClassroom().getId());
+
+            TeacherResponse teacherResponse =
+                    new TeacherResponse(tc.getTeacher());
+
+            if (tc.getTeacherRole() == TeacherRole.MAIN) {
+                response.setMainTeacher(teacherResponse);
+            } else {
+                response.getAssistantTeacher().add(teacherResponse);
+            }
+        }
+
+        // 5️⃣ Convert sang Page<AssignTeacherResponse>
+        return new PageImpl<>(
+                new ArrayList<>(map.values()),
+                pageable,
+                classroomPage.getTotalElements()
+        );
+    }
+
+
     private AssignTeacherResponse buildAssignTeacherResponse(Classroom classroom) {
 
         var list = teacherClassroomRepository.findByClassroom(classroom);
@@ -80,7 +134,5 @@ public class TeacherClassroomServiceImpl implements TeacherClassroomService {
 
         return response;
     }
-
-
 
 }

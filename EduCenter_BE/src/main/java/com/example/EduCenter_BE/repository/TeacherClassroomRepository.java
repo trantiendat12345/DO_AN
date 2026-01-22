@@ -18,5 +18,9 @@ public interface TeacherClassroomRepository extends JpaRepository<TeacherClassro
 
     boolean existsByClassroomAndTeacherRole(Classroom classroom, TeacherRole role);
 
+    List<TeacherClassroom> findByClassroomInAndIsDeletedFalse(
+            List<Classroom> classrooms
+    );
+
 
 }
