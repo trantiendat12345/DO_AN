@@ -18,11 +18,11 @@ export function useTeacher() {
         try {
             const data = await TeacherService.getAllTeachers(
                 page.value,
-                size.value
+                size.value,
             );
             teachers.value = data.content;
             totalPages.value = data.totalPages;
-        } catch {
+        } catch (e: any) {
             error(e.response?.data || Message.TEACHER_FETCH_ERROR);
         } finally {
             loading.value = false;
