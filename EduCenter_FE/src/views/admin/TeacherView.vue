@@ -34,7 +34,7 @@
         />
     </div>
 
-    <AddTeacherModal @submit="onAddTeacher" />
+    <AddTeacherModal :key="modalKey" @submit="onAddTeacher" />
 </template>
 
 <script setup lang="ts">

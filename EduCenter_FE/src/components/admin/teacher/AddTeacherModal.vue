@@ -40,7 +40,14 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-primary">Lưu</button>
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                    >
+                        Hủy
+                    </button>
+                    <button class="btn btn-primary">Lưu giáo viên</button>
                 </div>
             </form>
         </div>
