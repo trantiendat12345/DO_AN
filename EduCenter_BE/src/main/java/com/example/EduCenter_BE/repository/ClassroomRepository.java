@@ -43,4 +43,6 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
 
     Page<Classroom> findByIsDeletedFalse(Pageable pageable);
 
+    Classroom findByNameAndIsDeletedFalse(String name);
+
 }

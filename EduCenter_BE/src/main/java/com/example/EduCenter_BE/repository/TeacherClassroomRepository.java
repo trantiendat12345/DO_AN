@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TeacherClassroomRepository extends JpaRepository<TeacherClassroom, Long> {
@@ -22,5 +23,8 @@ public interface TeacherClassroomRepository extends JpaRepository<TeacherClassro
             List<Classroom> classrooms
     );
 
+    Optional<TeacherClassroom> findByClassroomAndTeacherAndIsDeletedFalse(Classroom classroom, Teacher teacher);
+
+    Optional<TeacherClassroom> findByClassroomAndTeacherRoleAndIsDeletedFalse(Classroom classroom, TeacherRole teacherRole);
 
 }

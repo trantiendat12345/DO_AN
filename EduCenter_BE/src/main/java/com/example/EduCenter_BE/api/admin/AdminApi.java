@@ -15,6 +15,7 @@ import com.example.EduCenter_BE.request.student.CreateStudentRequest;
 import com.example.EduCenter_BE.request.student.UpdateStudentRequest;
 import com.example.EduCenter_BE.request.teacher.AssignTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.CreateTeacherRequest;
+import com.example.EduCenter_BE.request.teacher.UpdateAssignTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.UpdateTeacherRequest;
 import com.example.EduCenter_BE.response.*;
 import org.springframework.data.domain.Page;
@@ -75,6 +76,9 @@ public interface AdminApi {
 
     @RequestMapping(value = URI.UPDATE_COURSE, method = RequestMethod.PUT)
     ResponseEntity<CourseResponse> updateCourse(@PathVariable("nameCourse") String nameCourse, @RequestBody UpdateCourseRequest request);
+
+    @RequestMapping(value = URI.UPDATE_ASSIGN_TEACHER, method = RequestMethod.PUT)
+    ResponseEntity<AssignTeacherResponse> updateAssignTeacher(@PathVariable("name") String className, @RequestBody UpdateAssignTeacherRequest request);
 
     // GET
     @RequestMapping(value = URI.GET_ALL_STUDENTS, method = RequestMethod.GET)

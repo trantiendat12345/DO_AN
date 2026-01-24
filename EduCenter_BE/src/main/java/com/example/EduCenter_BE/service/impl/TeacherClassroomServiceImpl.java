@@ -10,6 +10,7 @@ import com.example.EduCenter_BE.repository.ClassroomRepository;
 import com.example.EduCenter_BE.repository.TeacherClassroomRepository;
 import com.example.EduCenter_BE.repository.TeacherRepository;
 import com.example.EduCenter_BE.request.teacher.AssignTeacherRequest;
+import com.example.EduCenter_BE.request.teacher.UpdateAssignTeacherRequest;
 import com.example.EduCenter_BE.response.AssignTeacherResponse;
 import com.example.EduCenter_BE.response.TeacherResponse;
 import com.example.EduCenter_BE.service.interfaces.TeacherClassroomService;
@@ -112,6 +113,61 @@ public class TeacherClassroomServiceImpl implements TeacherClassroomService {
                 classroomPage.getTotalElements()
         );
     }
+
+    @Override
+    public AssignTeacherResponse updateAssignTeacherByClassName(
+            String className,
+            UpdateAssignTeacherRequest request) {
+
+        // 1️⃣ Tìm lớp (chưa bị xoá)
+        Classroom classroom = classroomRepository
+                .findByNameAndIsDeletedFalse(className);
+
+        if (classroom == null) {
+            throw new BusinessException(Message.CLASSROOM_DOES_NOT_EXIST);
+        }
+
+        // 2️⃣ Tìm giáo viên (chưa bị xoá)
+        Teacher teacher = teacherRepository
+                .findByTeacherCodeAndIsDeletedFalse(request.getTeacherCode());
+
+        if (teacher == null) {
+            throw new BusinessException(Message.TEACHER_DOES_NOT_EXIST);
+        }
+
+        // 3️⃣ Tìm quan hệ teacher_classroom
+        TeacherClassroom teacherClassroom =
+                teacherClassroomRepository
+                        .findByClassroomAndTeacherAndIsDeletedFalse(
+                                classroom, teacher
+                        )
+                        .orElseThrow(() ->
+                                new BusinessException(
+                                        Message.TEACHER_NOT_IN_THIS_CLASS
+                                )
+                        );
+
+        // 4️⃣ Nếu set MAIN → xử lý giáo viên chính cũ
+        if (request.getTeacherRole() == TeacherRole.MAIN) {
+
+            teacherClassroomRepository
+                    .findByClassroomAndTeacherRoleAndIsDeletedFalse(
+                            classroom, TeacherRole.MAIN
+                    )
+                    .ifPresent(oldMain -> {
+                        oldMain.setTeacherRole(TeacherRole.ASSISTANT);
+                        teacherClassroomRepository.save(oldMain);
+                    });
+        }
+
+        // 5️⃣ Update role mới
+        teacherClassroom.setTeacherRole(request.getTeacherRole());
+        teacherClassroomRepository.save(teacherClassroom);
+
+        // 6️⃣ Build & return response
+        return buildAssignTeacherResponse(classroom);
+    }
+
 
 
     private AssignTeacherResponse buildAssignTeacherResponse(Classroom classroom) {

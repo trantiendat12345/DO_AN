@@ -77,6 +77,8 @@ public class URI {
 
     public final static String UPDATE_COURSE = "/update-course/{nameCourse}";
 
+    public final static String UPDATE_ASSIGN_TEACHER = "/update-assign-teacher/{name}";
+
     // URI PARAM DELETE
     public final static String DELETE_STUDENT = "/delete-student/{code}";
 

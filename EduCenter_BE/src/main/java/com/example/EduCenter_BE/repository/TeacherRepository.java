@@ -26,4 +26,6 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     @Query("SELECT COUNT(*) FROM Teacher AS t WHERE t.isDeleted = false")
     Long countAllTeachers();
 
+    Teacher findByTeacherCodeAndIsDeletedFalse(String teacherCode);
+
 }

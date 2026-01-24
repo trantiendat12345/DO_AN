@@ -56,4 +56,6 @@ public class Message {
 
     public final static String THE_CLASS_ALREADY_HAS_A_MAIN_TEACHER ="LỚP ĐÃ CÓ GIÁO VIÊN CHÍNH";
 
+    public final static String TEACHER_NOT_IN_THIS_CLASS = "Giáo viên không ở trong lớp này";
+
 }

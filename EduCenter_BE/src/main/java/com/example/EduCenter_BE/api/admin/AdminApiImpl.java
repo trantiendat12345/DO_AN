@@ -15,6 +15,7 @@ import com.example.EduCenter_BE.request.student.CreateStudentRequest;
 import com.example.EduCenter_BE.request.student.UpdateStudentRequest;
 import com.example.EduCenter_BE.request.teacher.AssignTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.CreateTeacherRequest;
+import com.example.EduCenter_BE.request.teacher.UpdateAssignTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.UpdateTeacherRequest;
 import com.example.EduCenter_BE.response.*;
 import com.example.EduCenter_BE.service.interfaces.*;
@@ -143,6 +144,12 @@ public class AdminApiImpl implements AdminApi {
     @Override
     public ResponseEntity<CourseResponse> updateCourse(String nameCourse, UpdateCourseRequest request) {
         CourseResponse response = courseService.updateCourseByNameCourse(nameCourse, request);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<AssignTeacherResponse> updateAssignTeacher(String className, UpdateAssignTeacherRequest request) {
+        AssignTeacherResponse response = teacherClassroomService.updateAssignTeacherByClassName(className, request);
         return ResponseEntity.ok().body(response);
     }
 
