@@ -7,7 +7,7 @@
                     <th>Tên lớp</th>
                     <th>Giáo viên chính</th>
                     <th>Giáo viên phụ</th>
-                    <th width="150">Hành động</th>
+                    <!-- <th width="150">Hành động</th> -->
                 </tr>
             </thead>
 
@@ -41,7 +41,7 @@
                             Chi tiết
                         </button>
                     </td>
-                    <td>
+                    <!-- <td>
                         <button
                             class="btn btn-sm btn-warning me-1"
                             @click="$emit('edit', at)"
@@ -54,7 +54,7 @@
                         >
                             Xóa
                         </button>
-                    </td>
+                    </td> -->
                 </tr>
 
                 <tr v-if="!assignTeacher.length">
