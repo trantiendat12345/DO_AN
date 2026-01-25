@@ -38,6 +38,7 @@
                                 type="number"
                                 class="form-control"
                                 placeholder="Thời lượng (buổi)"
+                                required
                             />
                         </div>
 

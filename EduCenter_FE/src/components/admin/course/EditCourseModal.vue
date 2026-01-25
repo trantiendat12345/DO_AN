@@ -38,6 +38,7 @@
                                 type="number"
                                 class="form-control"
                                 placeholder="Thời lượng (buổi)"
+                                required
                             />
                         </div>
 
@@ -94,7 +95,7 @@ watch(
             form.value = { ...val };
         }
     },
-    { immediate: true }
+    { immediate: true },
 );
 
 function submit() {
