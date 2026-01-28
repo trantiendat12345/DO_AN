@@ -23,6 +23,10 @@ public class Fee extends BaseEntity {
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "classroom_id", nullable = false)
+    private Classroom classroom;
+
     @Column(name = "amount", nullable = false)
     private Float amount;
 

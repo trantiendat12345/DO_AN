@@ -6,4 +6,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FeeRepository extends JpaRepository<Fee, Long> {
+
+    boolean existsByStudentIdAndClassroomIdAndIsDeletedFalse(
+            Long studentId,
+            Long classroomId
+    );
+
 }

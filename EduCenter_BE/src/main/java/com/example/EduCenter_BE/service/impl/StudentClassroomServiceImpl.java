@@ -1,11 +1,11 @@
 package com.example.EduCenter_BE.service.impl;
 
+import com.example.EduCenter_BE.constant.enums.FeeStatus;
 import com.example.EduCenter_BE.constant.message.Message;
-import com.example.EduCenter_BE.entity.Classroom;
-import com.example.EduCenter_BE.entity.Student;
-import com.example.EduCenter_BE.entity.StudentClassroom;
+import com.example.EduCenter_BE.entity.*;
 import com.example.EduCenter_BE.exception.BusinessException;
 import com.example.EduCenter_BE.repository.ClassroomRepository;
+import com.example.EduCenter_BE.repository.FeeRepository;
 import com.example.EduCenter_BE.repository.StudentClassroomRepository;
 import com.example.EduCenter_BE.repository.StudentRepository;
 import com.example.EduCenter_BE.request.student.AddStudentToClassRequest;
@@ -14,6 +14,7 @@ import com.example.EduCenter_BE.service.interfaces.StudentClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Service
@@ -27,6 +28,9 @@ public class StudentClassroomServiceImpl implements StudentClassroomService {
 
     @Autowired
     private StudentClassroomRepository studentClassroomRepository;
+
+    @Autowired
+    private FeeRepository feeRepository;
 
     @Override
     public StudentResponse addStudentToClassroom(AddStudentToClassRequest request) {
@@ -47,6 +51,23 @@ public class StudentClassroomServiceImpl implements StudentClassroomService {
         studentClassroom.setClassroom(classroom);
         studentClassroom.setStudent(student);
         studentClassroomRepository.save(studentClassroom);
+
+        //TẠO HỌC PHÍ
+        if (!feeRepository
+                .existsByStudentIdAndClassroomIdAndIsDeletedFalse(
+                        student.getId(), classroom.getId())) {
+
+            Course course = classroom.getCourse();
+
+            Fee fee = new Fee();
+            fee.setStudent(student);
+            fee.setClassroom(classroom);
+            fee.setAmount(course.getPrice());
+            fee.setStatus(FeeStatus.UNPAID);
+            fee.setDueDate(LocalDate.now().plusDays(30));
+
+            feeRepository.save(fee);
+        }
 
         return new StudentResponse(student, classroom);
     }
