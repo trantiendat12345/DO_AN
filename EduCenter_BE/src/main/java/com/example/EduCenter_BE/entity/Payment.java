@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,7 +26,7 @@ public class Payment extends BaseEntity {
     private Fee fee;
 
     @Column(name = "amount_paid", nullable = false)
-    private Float amountPaid;
+    private BigDecimal amountPaid;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_method", nullable = false, length = 50)

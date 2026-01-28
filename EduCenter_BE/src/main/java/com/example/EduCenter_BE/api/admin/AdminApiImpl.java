@@ -57,6 +57,9 @@ public class AdminApiImpl implements AdminApi {
     @Autowired
     private TeacherClassroomService teacherClassroomService;
 
+    @Autowired
+    private FeeService feeService;
+
     @Override
     public ResponseEntity<StudentResponse> createStudent (CreateStudentRequest request) {
         Student student = studentService.createStudent(request);
@@ -252,6 +255,12 @@ public class AdminApiImpl implements AdminApi {
     @Override
     public ResponseEntity<Page<AssignTeacherResponse>> getAllAssignedTeacher(Pageable pageable) {
         Page<AssignTeacherResponse> responses = teacherClassroomService.getAllAssignedTeacher(pageable);
+        return ResponseEntity.ok().body(responses);
+    }
+
+    @Override
+    public ResponseEntity<Page<FeeResponse>> getAllFees(Pageable pageable) {
+        Page<FeeResponse> responses = feeService.getAllFees(pageable);
         return ResponseEntity.ok().body(responses);
     }
 

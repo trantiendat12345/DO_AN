@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -28,7 +29,7 @@ public class Fee extends BaseEntity {
     private Classroom classroom;
 
     @Column(name = "amount", nullable = false)
-    private Float amount;
+    private BigDecimal amount;
 
     @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;

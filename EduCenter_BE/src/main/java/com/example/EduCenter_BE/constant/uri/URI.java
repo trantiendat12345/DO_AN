@@ -57,6 +57,8 @@ public class URI {
 
     public final static String GET_ALL_ASSIGNED_TEACHER = "/get-all-assigned-teacher";
 
+    public final static String GET_ALL_FEES = "/get-all-fees";
+
     // TOTAL
     public final static String TOTAL_STUDENT = "/total-student";
 

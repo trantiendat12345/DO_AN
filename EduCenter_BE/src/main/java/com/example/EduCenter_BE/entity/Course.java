@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -23,7 +25,7 @@ public class Course extends BaseEntity {
     private String duration; // VD: "3 months", "12 weeks"
 
     @Column(name = "price", nullable = false)
-    private Float price;
+    private BigDecimal price;
 
     @Column(name = "description")
     private String description;
