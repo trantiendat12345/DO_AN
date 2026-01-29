@@ -52,6 +52,11 @@ const router = createRouter({
                     component: () =>
                         import("../views/admin/AssignTeacherView.vue"),
                 },
+                {
+                    path: "fee",
+                    component: () =>
+                        import("../views/admin/FeeManagementView.vue"),
+                },
             ],
         },
     ],
