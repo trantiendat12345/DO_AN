@@ -116,7 +116,7 @@
             </li>
             <li class="nav-item">
                 <RouterLink
-                    to="/admin/tuition"
+                    to="/admin/fee"
                     class="nav-link"
                     active-class="active"
                 >
