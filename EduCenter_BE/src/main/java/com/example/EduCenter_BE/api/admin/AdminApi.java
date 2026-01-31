@@ -19,6 +19,7 @@ import com.example.EduCenter_BE.request.teacher.CreateTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.UpdateAssignTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.UpdateTeacherRequest;
 import com.example.EduCenter_BE.response.*;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -35,57 +36,57 @@ public interface AdminApi {
 
     // CREATE
     @RequestMapping(value = URI.CREATE_STUDENT, method = RequestMethod.POST)
-    ResponseEntity<StudentResponse> createStudent(@RequestBody CreateStudentRequest request);
+    ResponseEntity<StudentResponse> createStudent(@Valid @RequestBody CreateStudentRequest request);
 
     @RequestMapping(value = URI.CREATE_ROLE, method = RequestMethod.POST)
-    ResponseEntity<RoleResponse> createRole(@RequestBody CreateRoleRequest request);
+    ResponseEntity<RoleResponse> createRole(@Valid @RequestBody CreateRoleRequest request);
 
     @RequestMapping(value = URI.CREATE_COURSE, method = RequestMethod.POST)
-    ResponseEntity<CourseResponse> createCourse(@RequestBody CreateCourseRequest request);
+    ResponseEntity<CourseResponse> createCourse(@Valid @RequestBody CreateCourseRequest request);
 
     @RequestMapping(value = URI.CREATE_PARENT, method = RequestMethod.POST)
-    ResponseEntity<ParentResponse> createParent(@RequestBody CreateParentRequest request);
+    ResponseEntity<ParentResponse> createParent(@Valid @RequestBody CreateParentRequest request);
 
     @RequestMapping(value = URI.CREATE_TEACHER, method = RequestMethod.POST)
-    ResponseEntity<TeacherResponse> createTeacher(@RequestBody CreateTeacherRequest request);
+    ResponseEntity<TeacherResponse> createTeacher(@Valid @RequestBody CreateTeacherRequest request);
 
     @RequestMapping(value = URI.CREATE_CLASSROOM, method = RequestMethod.POST)
-    ResponseEntity<ClassroomResponse> createClassroom(@RequestBody CreateClassroomRequest request);
+    ResponseEntity<ClassroomResponse> createClassroom(@Valid @RequestBody CreateClassroomRequest request);
 
     @RequestMapping(value = URI.CREATE_ACCOUNT, method = RequestMethod.POST)
-    ResponseEntity<AccountResponse> createAccount(@RequestBody CreateAccountRequest request);
+    ResponseEntity<AccountResponse> createAccount(@Valid @RequestBody CreateAccountRequest request);
 
     @RequestMapping(value = URI.CREATE_PAYMENT, method = RequestMethod.POST)
-    ResponseEntity<PaymentResponse> createPayment(@RequestBody CreatePaymentRequest request);
+    ResponseEntity<PaymentResponse> createPayment(@Valid @RequestBody CreatePaymentRequest request);
 
     @RequestMapping(value = URI.CONFIRM_PAYMENT, method = RequestMethod.POST)
     ResponseEntity<ApiResponse> confirmPayment(@PathVariable("paymentId") Long paymentId);
 
     // ADD
     @RequestMapping(value = URI.ADD_STUDENT_TO_CLASSROOM, method = RequestMethod.POST)
-    ResponseEntity<StudentResponse> addStudentToClass(@RequestBody AddStudentToClassRequest request);
+    ResponseEntity<StudentResponse> addStudentToClass(@Valid @RequestBody AddStudentToClassRequest request);
 
     @RequestMapping(value = URI.ASSIGN_TEACHER, method = RequestMethod.POST)
-    ResponseEntity<AssignTeacherResponse> assignTeacher(@RequestBody AssignTeacherRequest request);
+    ResponseEntity<AssignTeacherResponse> assignTeacher(@Valid @RequestBody AssignTeacherRequest request);
 
     // UPDATE
     @RequestMapping(value = URI.UPDATE_STUDENT, method = RequestMethod.PUT)
-    ResponseEntity<StudentResponse> updateStudent(@RequestBody UpdateStudentRequest request, @PathVariable("code") String studentCode);
+    ResponseEntity<StudentResponse> updateStudent(@Valid @RequestBody UpdateStudentRequest request, @PathVariable("code") String studentCode);
 
     @RequestMapping(value = URI.UPDATE_TEACHER, method = RequestMethod.PUT)
-    ResponseEntity<TeacherResponse> updateTeacher(@RequestBody UpdateTeacherRequest request, @PathVariable("code") String teacherCode);
+    ResponseEntity<TeacherResponse> updateTeacher(@Valid @RequestBody UpdateTeacherRequest request, @PathVariable("code") String teacherCode);
 
     @RequestMapping(value = URI.UPDATE_CLASSROOM, method = RequestMethod.PUT)
-    ResponseEntity<ClassroomResponse> updateClassroom(@RequestBody UpdateClassroomRequest request, @PathVariable("name") String name);
+    ResponseEntity<ClassroomResponse> updateClassroom(@Valid @RequestBody UpdateClassroomRequest request, @PathVariable("name") String name);
 
     @RequestMapping(value = URI.UPDATE_ACCOUNT, method = RequestMethod.PUT)
-    ResponseEntity<AccountResponse> updateAccount(@PathVariable("username") String username, @RequestBody UpdateAccountRequest request);
+    ResponseEntity<AccountResponse> updateAccount(@PathVariable("username") String username, @Valid @RequestBody UpdateAccountRequest request);
 
     @RequestMapping(value = URI.UPDATE_COURSE, method = RequestMethod.PUT)
-    ResponseEntity<CourseResponse> updateCourse(@PathVariable("nameCourse") String nameCourse, @RequestBody UpdateCourseRequest request);
+    ResponseEntity<CourseResponse> updateCourse(@PathVariable("nameCourse") String nameCourse, @Valid @RequestBody UpdateCourseRequest request);
 
     @RequestMapping(value = URI.UPDATE_ASSIGN_TEACHER, method = RequestMethod.PUT)
-    ResponseEntity<AssignTeacherResponse> updateAssignTeacher(@PathVariable("name") String className, @RequestBody UpdateAssignTeacherRequest request);
+    ResponseEntity<AssignTeacherResponse> updateAssignTeacher(@PathVariable("name") String className, @Valid @RequestBody UpdateAssignTeacherRequest request);
 
     // GET
     @RequestMapping(value = URI.GET_ALL_STUDENTS, method = RequestMethod.GET)
