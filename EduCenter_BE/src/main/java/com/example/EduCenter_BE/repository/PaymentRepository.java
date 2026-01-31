@@ -15,7 +15,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
         SELECT COALESCE(SUM(p.amountPaid), 0)
         FROM Payment p
         WHERE p.fee.id = :feeId
-          AND p.status = 'SUCCESS'
+          AND p.status = 'PAID'
           AND p.isDeleted = false
     """)
     BigDecimal sumPaidAmountByFeeId(@Param("feeId") Long feeId);

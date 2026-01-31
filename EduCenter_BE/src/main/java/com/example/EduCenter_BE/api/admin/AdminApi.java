@@ -7,6 +7,7 @@ import com.example.EduCenter_BE.request.classroom.UpdateClassroomRequest;
 import com.example.EduCenter_BE.request.course.CreateCourseRequest;
 import com.example.EduCenter_BE.request.course.UpdateCourseRequest;
 import com.example.EduCenter_BE.request.parent.CreateParentRequest;
+import com.example.EduCenter_BE.request.payment.CreatePaymentRequest;
 import com.example.EduCenter_BE.request.role.CreateRoleRequest;
 import com.example.EduCenter_BE.request.student.AddStudentToClassRequest;
 import com.example.EduCenter_BE.request.account.CreateAccountRequest;
@@ -53,6 +54,12 @@ public interface AdminApi {
 
     @RequestMapping(value = URI.CREATE_ACCOUNT, method = RequestMethod.POST)
     ResponseEntity<AccountResponse> createAccount(@RequestBody CreateAccountRequest request);
+
+    @RequestMapping(value = URI.CREATE_PAYMENT, method = RequestMethod.POST)
+    ResponseEntity<PaymentResponse> createPayment(@RequestBody CreatePaymentRequest request);
+
+    @RequestMapping(value = URI.CONFIRM_PAYMENT, method = RequestMethod.POST)
+    ResponseEntity<ApiResponse> confirmPayment(@PathVariable("paymentId") Long paymentId);
 
     // ADD
     @RequestMapping(value = URI.ADD_STUDENT_TO_CLASSROOM, method = RequestMethod.POST)

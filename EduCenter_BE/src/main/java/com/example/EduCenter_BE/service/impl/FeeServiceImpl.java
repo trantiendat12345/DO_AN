@@ -38,6 +38,7 @@ public class FeeServiceImpl implements FeeService {
                     totalFee.subtract(paidAmount);
 
             return new FeeResponse(
+                    fee.getId(),
                     fee.getStudent().getStudentCode(),
                     fee.getStudent().getFullName(),
                     totalFee,

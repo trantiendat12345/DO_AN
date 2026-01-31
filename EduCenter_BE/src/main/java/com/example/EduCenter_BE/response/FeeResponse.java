@@ -8,13 +8,15 @@ import java.math.BigDecimal;
 @Data
 public class FeeResponse {
 
+    private Long feeId;
     private String studentCode;
     private String fullName;
     private BigDecimal amount;
     private BigDecimal paidAmount;
     private BigDecimal remaining;
 
-    public FeeResponse(String studentCode, String studentName, BigDecimal amount, BigDecimal paidAmount, BigDecimal remaining) {
+    public FeeResponse(Long feeId, String studentCode, String studentName, BigDecimal amount, BigDecimal paidAmount, BigDecimal remaining) {
+        this.feeId = feeId;
         this.studentCode = studentCode;
         this.fullName = studentName;
         this.amount = amount;

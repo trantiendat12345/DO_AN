@@ -8,6 +8,7 @@ import com.example.EduCenter_BE.request.classroom.UpdateClassroomRequest;
 import com.example.EduCenter_BE.request.course.CreateCourseRequest;
 import com.example.EduCenter_BE.request.course.UpdateCourseRequest;
 import com.example.EduCenter_BE.request.parent.CreateParentRequest;
+import com.example.EduCenter_BE.request.payment.CreatePaymentRequest;
 import com.example.EduCenter_BE.request.role.CreateRoleRequest;
 import com.example.EduCenter_BE.request.student.AddStudentToClassRequest;
 import com.example.EduCenter_BE.request.account.CreateAccountRequest;
@@ -60,6 +61,9 @@ public class AdminApiImpl implements AdminApi {
     @Autowired
     private FeeService feeService;
 
+    @Autowired
+    private PaymentService paymentService;
+
     @Override
     public ResponseEntity<StudentResponse> createStudent (CreateStudentRequest request) {
         Student student = studentService.createStudent(request);
@@ -106,6 +110,18 @@ public class AdminApiImpl implements AdminApi {
     public ResponseEntity<AccountResponse> createAccount(CreateAccountRequest request) {
         AccountResponse response = accountService.createAccount(request);
         return  ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<PaymentResponse> createPayment(CreatePaymentRequest request) {
+        PaymentResponse response = paymentService.createPayment(request);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<ApiResponse> confirmPayment(Long paymentId) {
+        ApiResponse response = paymentService.confirmPayment(paymentId);
+        return ResponseEntity.ok().body(response);
     }
 
     @Override

@@ -25,6 +25,8 @@ public class URI {
 
     public final static String CREATE_CLASSROOM = "/create-classroom";
 
+    public final static String CREATE_PAYMENT = "/create-payment";
+
     // URI PARAM ADD
     public final static String ADD_STUDENT_TO_CLASSROOM = "/add-student-to-classroom";
 
@@ -91,5 +93,8 @@ public class URI {
     public final static String DELETE_ACCOUNT = "/delete-account/{username}";
 
     public final static String DELETE_COURSE = "/delete-course/{nameCourse}";
+
+    // CONFIRM
+    public final static String CONFIRM_PAYMENT = "/confirm-payment/{paymentId}";
 
 }
