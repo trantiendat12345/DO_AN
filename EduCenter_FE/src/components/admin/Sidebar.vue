@@ -1,175 +1,156 @@
 <template>
-    <nav class="col-md-3 col-lg-2 d-md-block sidebar py-3 px-3">
+    <nav class="sidebar py-4 px-3">
         <!-- LOGO -->
-        <div class="d-flex align-items-center mb-3">
-            <div class="admin-avatar me-2">EC</div>
+        <div class="d-flex align-items-center mb-4 px-2">
+            <div class="sidebar-logo me-3">
+                <span class="logo-icon">🎓</span>
+            </div>
             <div>
-                <div class="fw-semibold">English Center</div>
-                <small class="text-secondary" style="color: #dbeafe !important">
-                    Admin Panel
-                </small>
+                <div class="fw-bold text-white" style="font-size: 1.1rem">
+                    English Center
+                </div>
+                <small class="text-cyan-light"> Admin Panel </small>
             </div>
         </div>
 
         <ul class="nav flex-column mb-4">
             <!-- TỔNG QUAN -->
             <li class="nav-item mt-2">
-                <span class="text-uppercase fw-bold">Tổng quan</span>
+                <span class="nav-section-title">Tổng quan</span>
             </li>
             <li class="nav-item">
-                <RouterLink
+                <router-link
                     to="/admin/dashboard"
                     class="nav-link"
                     active-class="active"
                 >
-                    🏠 Dashboard
-                </RouterLink>
+                    <span class="nav-icon">📊</span> Dashboard
+                </router-link>
             </li>
 
             <!-- QUẢN LÝ NGƯỜI DÙNG -->
             <li class="nav-item mt-3">
-                <span class="text-uppercase fw-bold">Quản lý người dùng</span>
+                <span class="nav-section-title">Quản lý người dùng</span>
             </li>
             <li class="nav-item">
-                <RouterLink
+                <router-link
                     to="/admin/students"
                     class="nav-link"
                     active-class="active"
                 >
-                    👨‍🎓 Học sinh
-                </RouterLink>
+                    <span class="nav-icon">👨‍🎓</span> Học sinh
+                </router-link>
             </li>
             <li class="nav-item">
-                <RouterLink
+                <router-link
                     to="/admin/teachers"
                     class="nav-link"
                     active-class="active"
                 >
-                    👨‍🏫 Giáo viên
-                </RouterLink>
+                    <span class="nav-icon">👨‍🏫</span> Giáo viên
+                </router-link>
             </li>
-            <!-- <li class="nav-item">
-        <RouterLink to="/admin/parents" class="nav-link" active-class="active">
-          👨‍👩‍👧 Phụ huynh
-        </RouterLink>
-      </li> -->
 
             <!-- QUẢN LÝ HỆ THỐNG -->
             <li class="nav-item mt-3">
-                <span class="text-uppercase fw-bold">Quản lý hệ thống</span>
+                <span class="nav-section-title">Quản lý hệ thống</span>
             </li>
             <li class="nav-item">
-                <RouterLink
+                <router-link
                     to="/admin/accounts"
                     class="nav-link"
                     active-class="active"
                 >
-                    👥 Tài khoản
-                </RouterLink>
+                    <span class="nav-icon">👥</span> Tài khoản
+                </router-link>
             </li>
+
             <!-- ĐÀO TẠO -->
             <li class="nav-item mt-3">
-                <span class="text-uppercase fw-bold">Đào tạo</span>
+                <span class="nav-section-title">Đào tạo</span>
             </li>
             <li class="nav-item">
-                <RouterLink
+                <router-link
                     to="/admin/classrooms"
                     class="nav-link"
                     active-class="active"
                 >
-                    🏫 Lớp học
-                </RouterLink>
+                    <span class="nav-icon">🏫</span> Lớp học
+                </router-link>
             </li>
             <li class="nav-item">
-                <RouterLink
+                <router-link
                     to="/admin/courses"
                     class="nav-link"
                     active-class="active"
                 >
-                    📚 Khóa học
-                </RouterLink>
+                    <span class="nav-icon">📚</span> Khóa học
+                </router-link>
             </li>
             <li class="nav-item">
-                <RouterLink
+                <router-link
                     to="/admin/assign-teachers"
                     class="nav-link"
                     active-class="active"
                 >
-                    📋 Phân công giáo viên
-                </RouterLink>
-            </li>
-            <li class="nav-item">
-                <RouterLink
-                    to="/admin/schedules"
-                    class="nav-link"
-                    active-class="active"
-                >
-                    📅 Lịch học
-                </RouterLink>
+                    <span class="nav-icon">📋</span> Phân công giáo viên
+                </router-link>
             </li>
 
-            <!-- TÀI CHÍNH & HỌC TẬP -->
+            <!-- TÀI CHÍNH -->
             <li class="nav-item mt-3">
-                <span class="text-uppercase fw-bold"
-                    >Tài chính &amp; Học tập</span
-                >
+                <span class="nav-section-title">Tài chính</span>
             </li>
             <li class="nav-item">
-                <RouterLink
+                <router-link
                     to="/admin/fee"
                     class="nav-link"
                     active-class="active"
                 >
-                    💰 Học phí
-                </RouterLink>
+                    <span class="nav-icon">💰</span> Học phí
+                </router-link>
             </li>
-            <li class="nav-item">
-                <RouterLink
-                    to="/admin/grades"
-                    class="nav-link"
-                    active-class="active"
-                >
-                    📊 Điểm số tổng hợp
-                </RouterLink>
-            </li>
-            <li class="nav-item">
-                <RouterLink
-                    to="/admin/documents"
-                    class="nav-link"
-                    active-class="active"
-                >
-                    📂 Tài liệu học tập
-                </RouterLink>
-            </li>
-
-            <!-- BÁO CÁO -->
-            <!-- <li class="nav-item mt-3">
-                <span class="text-uppercase fw-bold"
-                    >Báo cáo &amp; Thông báo</span
-                >
-            </li>
-            <li class="nav-item">
-                <RouterLink
-                    to="/admin/reports"
-                    class="nav-link"
-                    active-class="active"
-                >
-                    📈 Báo cáo
-                </RouterLink>
-            </li>
-            <li class="nav-item">
-                <RouterLink
-                    to="/admin/notifications"
-                    class="nav-link"
-                    active-class="active"
-                >
-                    🔔 Quản lý thông báo
-                </RouterLink>
-            </li> -->
         </ul>
     </nav>
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
+// router-link is globally registered by vue-router
 </script>
+
+<style scoped>
+.sidebar-logo {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+}
+
+.logo-icon {
+    font-size: 1.5rem;
+}
+
+.text-cyan-light {
+    color: #67e8f9 !important;
+    font-size: 0.8rem;
+}
+
+.nav-section-title {
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #64748b;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 1rem;
+    display: block;
+}
+
+.nav-icon {
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+</style>

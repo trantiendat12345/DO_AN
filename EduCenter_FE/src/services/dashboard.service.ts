@@ -11,7 +11,3 @@ export function getTotalTeachers() {
 export function getTotalClassrooms() {
     return api.get("/admin/total-classroom").then((res) => res.data);
 }
-
-export function getTotalParents() {
-    return api.get("/admin/total-parent").then((res) => res.data);
-}

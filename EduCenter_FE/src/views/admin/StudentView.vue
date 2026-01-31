@@ -4,13 +4,17 @@
         subtitle="Danh sách học viên đang theo học tại trung tâm"
     />
 
-    <button
-        class="btn btn-primary mb-3"
-        data-bs-toggle="modal"
-        data-bs-target="#addStudentModal"
-    >
-        + Thêm học sinh
-    </button>
+    <div class="page-actions mb-4">
+        <button
+            class="btn btn-primary btn-add"
+            data-bs-toggle="modal"
+            data-bs-target="#addStudentModal"
+        >
+            <span class="btn-icon">➕</span>
+            Thêm học sinh
+        </button>
+    </div>
+
     <div class="table-wrapper">
         <StudentTable
             :students="students"
@@ -57,7 +61,7 @@ const {
     deleteStudent,
 } = useStudents();
 
-const modalKey = ref(0); // Để reset modal mỗi lần mở
+const modalKey = ref(0);
 
 const editingStudent = ref<Student | null>(null);
 
@@ -67,15 +71,14 @@ async function onAddStudent(student: Partial<Student>) {
     try {
         await createStudent(student);
 
-        // ✅ chỉ đóng modal khi thành công
         const modalEl = document.getElementById("addStudentModal");
         if (modalEl) {
             const modal = Modal.getInstance(modalEl);
             modal?.hide();
         }
-        modalKey.value += 1; // Reset modal
+        modalKey.value += 1;
     } catch {
-        // ❌ lỗi → KHÔNG đóng modal
+        // lỗi đã có toast
     }
 }
 
@@ -92,7 +95,6 @@ function onEditStudent(student: Student) {
 async function onUpdateStudent(student: Student) {
     try {
         await updateStudent(student);
-        // ✅ Đóng modal
         const modalEl = document.getElementById("editStudentModal");
         if (modalEl) {
             const modal = Modal.getInstance(modalEl);
