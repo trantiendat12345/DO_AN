@@ -18,6 +18,7 @@
     <!-- PAYMENT MODAL -->
     <PaymentModal
         :student="selectedStudent"
+        :show-qr="showQr"
         @submit="handleSubmitPayment"
         @confirm-paid="handleConfirmQr"
     />
@@ -39,6 +40,7 @@ import { usePayments } from "../../composables/usePayment";
 
 const selectedStudent = ref<any>(null);
 const currentPaymentId = ref<number | null>(null);
+const showQr = ref(false);
 
 /* ================= COMPOSABLE ================= */
 
@@ -50,6 +52,7 @@ const { payByCash, createQrPayment, confirmQrPayment } = usePayments();
 function openPaymentModal(student: any) {
     selectedStudent.value = student;
     currentPaymentId.value = null;
+    showQr.value = false;
 
     const modalEl = document.getElementById("paymentModal");
     modalEl && new Modal(modalEl).show();
@@ -76,7 +79,15 @@ async function handleSubmitPayment(payment: any) {
 
     // QR → tạo payment PENDING
     const res = await createQrPayment(payment);
-    currentPaymentId.value = res.paymentId;
+    console.log("Payment created response:", res);
+    // Handle different response structures
+    currentPaymentId.value = res?.paymentId || res?.data?.paymentId || res?.id;
+    if (!currentPaymentId.value) {
+        console.error("paymentId not found in response:", res);
+    } else {
+        // Show QR after payment is created successfully
+        showQr.value = true;
+    }
 }
 
 /**
@@ -90,6 +101,7 @@ async function handleConfirmQr() {
 
     await confirmQrPayment(currentPaymentId.value);
     await fetchFees();
+    showQr.value = false;
     closePaymentModal();
 }
 </script>

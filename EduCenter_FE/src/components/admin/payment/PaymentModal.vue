@@ -22,9 +22,9 @@
                     <!-- Method -->
                     <select v-model="payment.paymentMethod" class="form-select">
                         <option value="CASH">Tiền mặt</option>
-                        <option value="BANK">Ngân hàng</option>
+                        <option value="BANK_TRANSFER">Ngân hàng</option>
                         <option value="MOMO">MoMo</option>
-                        <option value="ZALOPAY">ZaloPay</option>
+                        <option value="ZALO_PAY">ZaloPay</option>
                     </select>
 
                     <!-- Amount -->
@@ -77,7 +77,10 @@ import { formatPrice } from "../../../util/formats";
 import type { PaymentRequest } from "../../../types/Payment";
 
 /* PROPS + EMIT */
-const props = defineProps<{ student: any }>();
+const props = defineProps<{ 
+    student: any;
+    showQr?: boolean;
+}>();
 const emit = defineEmits(["submit", "confirm-paid"]);
 
 /* STATE */
@@ -114,17 +117,15 @@ const canSubmit = computed(() => {
 });
 
 const shouldShowQr = computed(() => {
-    return confirmed.value && payment.value.paymentMethod !== "CASH";
+    return (props.showQr || confirmed.value) && payment.value.paymentMethod !== "CASH";
 });
 
 /* ===== ACTION ===== */
 
 function submit() {
-    if (payment.value.paymentMethod === "CASH") {
-        emit("submit", payment.value);
-    } else {
-        confirmed.value = true;
-    }
+    emit("submit", payment.value);
+    // For CASH, payment is completed immediately
+    // For QR payments, parent will control showQr prop after payment is created
 }
 
 function confirmPaid() {
