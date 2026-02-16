@@ -12,7 +12,7 @@ public class LoginRequest {
     private String username;
 
     @NotBlank(message = "Password không được để trống")
-    @Size(min = 4, max = 100, message = "Password phải từ 6 đến 100 ký tự")
+    @Size(min = 4, max = 100, message = "Password phải từ 4 đến 100 ký tự")
     private String password;
 
 }
