@@ -50,4 +50,13 @@ export class Message {
     static readonly ASSIGN_TEACHER_SUCCESS =
         "Phân công giáo viên thành công 🎉";
     static readonly ASSIGN_TEACHER_FAILED = "Phân công giáo viên thất bại";
+
+    // SCORE
+    static readonly SCORE_ADD_SUCCESS = "Thêm điểm thành công 🎉";
+    static readonly SCORE_FETCH_ERROR = "Không tải được danh sách điểm";
+    static readonly SCORE_UPDATE_SUCCESS = "Cập nhật điểm thành công 🎉";
+    static readonly SCORE_DELETE_SUCCESS = "Xóa điểm thành công 🎉";
+    static readonly SCORE_DELETE_ERROR = "Xóa điểm thất bại";
+    static readonly SCORE_UPDATE_ERROR = "Cập nhật điểm thất bại";
+    static readonly SCORE_CREATE_ERROR = "Thêm điểm thất bại";
 }

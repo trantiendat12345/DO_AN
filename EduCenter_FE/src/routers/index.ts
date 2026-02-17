@@ -57,6 +57,10 @@ const router = createRouter({
                     component: () =>
                         import("../views/admin/FeeManagementView.vue"),
                 },
+                {
+                    path: "scores",
+                    component: () => import("../views/admin/ScoreView.vue"),
+                },
             ],
         },
     ],

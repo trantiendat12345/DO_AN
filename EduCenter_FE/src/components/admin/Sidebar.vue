@@ -96,6 +96,15 @@
                     <span class="nav-icon">📋</span> Phân công giáo viên
                 </router-link>
             </li>
+            <li class="nav-item">
+                <router-link
+                    to="/admin/scores"
+                    class="nav-link"
+                    active-class="active"
+                >
+                    <span class="nav-icon">📊</span> Quản lý điểm
+                </router-link>
+            </li>
 
             <!-- TÀI CHÍNH -->
             <li class="nav-item mt-3">
