@@ -19,6 +19,8 @@ import com.example.EduCenter_BE.request.teacher.CreateTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.UpdateAssignTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.UpdateTeacherRequest;
 import com.example.EduCenter_BE.response.*;
+import com.example.EduCenter_BE.request.score.CreateScoreRequest;
+import com.example.EduCenter_BE.request.score.UpdateScoreRequest;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -71,22 +73,28 @@ public interface AdminApi {
 
     // UPDATE
     @RequestMapping(value = URI.UPDATE_STUDENT, method = RequestMethod.PUT)
-    ResponseEntity<StudentResponse> updateStudent(@Valid @RequestBody UpdateStudentRequest request, @PathVariable("code") String studentCode);
+    ResponseEntity<StudentResponse> updateStudent(@Valid @RequestBody UpdateStudentRequest request,
+            @PathVariable("code") String studentCode);
 
     @RequestMapping(value = URI.UPDATE_TEACHER, method = RequestMethod.PUT)
-    ResponseEntity<TeacherResponse> updateTeacher(@Valid @RequestBody UpdateTeacherRequest request, @PathVariable("code") String teacherCode);
+    ResponseEntity<TeacherResponse> updateTeacher(@Valid @RequestBody UpdateTeacherRequest request,
+            @PathVariable("code") String teacherCode);
 
     @RequestMapping(value = URI.UPDATE_CLASSROOM, method = RequestMethod.PUT)
-    ResponseEntity<ClassroomResponse> updateClassroom(@Valid @RequestBody UpdateClassroomRequest request, @PathVariable("name") String name);
+    ResponseEntity<ClassroomResponse> updateClassroom(@Valid @RequestBody UpdateClassroomRequest request,
+            @PathVariable("name") String name);
 
     @RequestMapping(value = URI.UPDATE_ACCOUNT, method = RequestMethod.PUT)
-    ResponseEntity<AccountResponse> updateAccount(@PathVariable("username") String username, @Valid @RequestBody UpdateAccountRequest request);
+    ResponseEntity<AccountResponse> updateAccount(@PathVariable("username") String username,
+            @Valid @RequestBody UpdateAccountRequest request);
 
     @RequestMapping(value = URI.UPDATE_COURSE, method = RequestMethod.PUT)
-    ResponseEntity<CourseResponse> updateCourse(@PathVariable("nameCourse") String nameCourse, @Valid @RequestBody UpdateCourseRequest request);
+    ResponseEntity<CourseResponse> updateCourse(@PathVariable("nameCourse") String nameCourse,
+            @Valid @RequestBody UpdateCourseRequest request);
 
     @RequestMapping(value = URI.UPDATE_ASSIGN_TEACHER, method = RequestMethod.PUT)
-    ResponseEntity<AssignTeacherResponse> updateAssignTeacher(@PathVariable("name") String className, @Valid @RequestBody UpdateAssignTeacherRequest request);
+    ResponseEntity<AssignTeacherResponse> updateAssignTeacher(@PathVariable("name") String className,
+            @Valid @RequestBody UpdateAssignTeacherRequest request);
 
     // GET
     @RequestMapping(value = URI.GET_ALL_STUDENTS, method = RequestMethod.GET)
@@ -158,5 +166,29 @@ public interface AdminApi {
 
     @RequestMapping(value = URI.DELETE_COURSE, method = RequestMethod.DELETE)
     ResponseEntity<String> deleteCourse(@PathVariable("nameCourse") String nameCourse);
+
+    // SCORE
+    @RequestMapping(value = URI.CREATE_SCORE, method = RequestMethod.POST)
+    ResponseEntity<ScoreResponse> createScore(@Valid @RequestBody CreateScoreRequest request);
+
+    @RequestMapping(value = URI.GET_ALL_SCORES, method = RequestMethod.GET)
+    ResponseEntity<Page<ScoreResponse>> getAllScores(Pageable pageable);
+
+    @RequestMapping(value = URI.GET_SCORE_BY_ID, method = RequestMethod.GET)
+    ResponseEntity<ScoreResponse> getScoreById(@PathVariable("id") Long id);
+
+    @RequestMapping(value = URI.GET_SCORES_BY_STUDENT, method = RequestMethod.GET)
+    ResponseEntity<List<ScoreResponse>> getScoresByStudent(@PathVariable("code") String studentCode);
+
+    @RequestMapping(value = URI.GET_SCORES_BY_CLASSROOM, method = RequestMethod.GET)
+    ResponseEntity<Page<ScoreResponse>> getScoresByClassroom(@PathVariable("name") String classroomName,
+            Pageable pageable);
+
+    @RequestMapping(value = URI.UPDATE_SCORE, method = RequestMethod.PUT)
+    ResponseEntity<ScoreResponse> updateScore(@PathVariable("id") Long id,
+            @Valid @RequestBody UpdateScoreRequest request);
+
+    @RequestMapping(value = URI.DELETE_SCORE, method = RequestMethod.DELETE)
+    ResponseEntity<String> deleteScore(@PathVariable("id") Long id);
 
 }

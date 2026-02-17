@@ -7,10 +7,10 @@ public class URI {
 
     public final static String ADMIN = "/admin";
 
-    //LOGIN
+    // LOGIN
     public final static String LOGIN = "/login";
 
-    //URI PARAM CREATE
+    // URI PARAM CREATE
     public final static String CREATE_STUDENT = "/create-student";
 
     public final static String CREATE_ACCOUNT = "/create-account";
@@ -96,5 +96,20 @@ public class URI {
 
     // CONFIRM
     public final static String CONFIRM_PAYMENT = "/confirm-payment/{paymentId}";
+
+    // SCORE
+    public final static String CREATE_SCORE = "/create-score";
+
+    public final static String GET_ALL_SCORES = "/get-all-scores";
+
+    public final static String GET_SCORE_BY_ID = "/get-score/{id}";
+
+    public final static String GET_SCORES_BY_STUDENT = "/get-scores-by-student/{code}";
+
+    public final static String GET_SCORES_BY_CLASSROOM = "/get-scores-by-classroom/{name}";
+
+    public final static String UPDATE_SCORE = "/update-score/{id}";
+
+    public final static String DELETE_SCORE = "/delete-score/{id}";
 
 }

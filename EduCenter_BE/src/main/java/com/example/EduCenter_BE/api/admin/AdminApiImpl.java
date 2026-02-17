@@ -18,8 +18,11 @@ import com.example.EduCenter_BE.request.teacher.AssignTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.CreateTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.UpdateAssignTeacherRequest;
 import com.example.EduCenter_BE.request.teacher.UpdateTeacherRequest;
+import com.example.EduCenter_BE.request.score.CreateScoreRequest;
+import com.example.EduCenter_BE.request.score.UpdateScoreRequest;
 import com.example.EduCenter_BE.response.*;
 import com.example.EduCenter_BE.service.interfaces.*;
+import com.example.EduCenter_BE.service.interfaces.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -65,7 +68,7 @@ public class AdminApiImpl implements AdminApi {
     private PaymentService paymentService;
 
     @Override
-    public ResponseEntity<StudentResponse> createStudent (CreateStudentRequest request) {
+    public ResponseEntity<StudentResponse> createStudent(CreateStudentRequest request) {
         Student student = studentService.createStudent(request);
         StudentResponse response = new StudentResponse(student);
         return ResponseEntity.ok().body(response);
@@ -109,7 +112,7 @@ public class AdminApiImpl implements AdminApi {
     @Override
     public ResponseEntity<AccountResponse> createAccount(CreateAccountRequest request) {
         AccountResponse response = accountService.createAccount(request);
-        return  ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(response);
     }
 
     @Override
@@ -167,7 +170,8 @@ public class AdminApiImpl implements AdminApi {
     }
 
     @Override
-    public ResponseEntity<AssignTeacherResponse> updateAssignTeacher(String className, UpdateAssignTeacherRequest request) {
+    public ResponseEntity<AssignTeacherResponse> updateAssignTeacher(String className,
+            UpdateAssignTeacherRequest request) {
         AssignTeacherResponse response = teacherClassroomService.updateAssignTeacherByClassName(className, request);
         return ResponseEntity.ok().body(response);
     }
@@ -310,5 +314,50 @@ public class AdminApiImpl implements AdminApi {
         return ResponseEntity.ok().body(response);
     }
 
+    // SCORE
+    @Autowired
+    private ScoreService scoreService;
+
+    @Override
+    public ResponseEntity<ScoreResponse> createScore(CreateScoreRequest request) {
+        ScoreResponse response = scoreService.createScore(request);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<Page<ScoreResponse>> getAllScores(Pageable pageable) {
+        Page<ScoreResponse> responses = scoreService.getAllScores(pageable);
+        return ResponseEntity.ok().body(responses);
+    }
+
+    @Override
+    public ResponseEntity<ScoreResponse> getScoreById(Long id) {
+        ScoreResponse response = scoreService.getScoreById(id);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<List<ScoreResponse>> getScoresByStudent(String studentCode) {
+        List<ScoreResponse> responses = scoreService.getScoresByStudentCode(studentCode);
+        return ResponseEntity.ok().body(responses);
+    }
+
+    @Override
+    public ResponseEntity<Page<ScoreResponse>> getScoresByClassroom(String classroomName, Pageable pageable) {
+        Page<ScoreResponse> responses = scoreService.getScoresByClassroom(classroomName, pageable);
+        return ResponseEntity.ok().body(responses);
+    }
+
+    @Override
+    public ResponseEntity<ScoreResponse> updateScore(Long id, UpdateScoreRequest request) {
+        ScoreResponse response = scoreService.updateScore(id, request);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteScore(Long id) {
+        String response = scoreService.deleteScore(id);
+        return ResponseEntity.ok().body(response);
+    }
 
 }

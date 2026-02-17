@@ -2,7 +2,7 @@ package com.example.EduCenter_BE.constant.message;
 
 public class Message {
 
-    //EXISTED
+    // EXISTED
     public final static String STUDENT_EXISTED = "HỌC VIÊN ĐÃ TỒN TẠI";
 
     public final static String ROLE_EXISTED = "VAI TRÒ ĐÃ TỒN TẠI";
@@ -42,7 +42,7 @@ public class Message {
     // STATUS
     public final static String DELETED_SUCCESSFULLY = "XOÁ THÀNH CÔNG";
 
-    //LOGIN
+    // LOGIN
     public final static String USERNAME_OR_PASSWORD_INCORRECT = "SAI TÀI KHOẢN HOẶC MẬT KHẨU";
 
     public final static String ACCOUNT_DISABLE = "TÀI KHOẢN BỊ VÔ HIỆU HOÁ";
@@ -54,8 +54,11 @@ public class Message {
 
     public final static String TEACHER_WHO_TAUGHT_THIS_CLASS = "GIÁO VIÊN ĐÃ DẠY LỚP NÀY";
 
-    public final static String THE_CLASS_ALREADY_HAS_A_MAIN_TEACHER ="LỚP ĐÃ CÓ GIÁO VIÊN CHÍNH";
+    public final static String THE_CLASS_ALREADY_HAS_A_MAIN_TEACHER = "LỚP ĐÃ CÓ GIÁO VIÊN CHÍNH";
 
     public final static String TEACHER_NOT_IN_THIS_CLASS = "Giáo viên không ở trong lớp này";
+
+    // SCORE
+    public final static String SCORE_DOES_NOT_EXIST = "ĐIỂM KHÔNG TỒN TẠI";
 
 }
