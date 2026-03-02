@@ -28,6 +28,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -72,6 +73,12 @@ public class AdminApiImpl implements AdminApi {
         Student student = studentService.createStudent(request);
         StudentResponse response = new StudentResponse(student);
         return ResponseEntity.ok().body(response);
+    }
+
+    @Override
+    public ResponseEntity<String> importStudents(MultipartFile file) {
+        String result = studentService.importStudents(file);
+        return ResponseEntity.ok().body(result);
     }
 
     @Override

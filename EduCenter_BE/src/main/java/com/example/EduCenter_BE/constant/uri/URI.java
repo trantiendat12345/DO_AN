@@ -31,6 +31,9 @@ public class URI {
 
     public final static String CREATE_PAYMENT = "/create-payment";
 
+    // IMPORT
+    public final static String IMPORT_STUDENTS = "/import-students";
+
     // URI PARAM ADD
     public final static String ADD_STUDENT_TO_CLASSROOM = "/add-student-to-classroom";
 

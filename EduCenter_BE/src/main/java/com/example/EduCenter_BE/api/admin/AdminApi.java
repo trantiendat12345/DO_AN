@@ -27,6 +27,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -36,159 +37,162 @@ import java.util.List;
 @PreAuthorize("hasRole('ADMIN')")
 public interface AdminApi {
 
-    // CREATE
-    @RequestMapping(value = URI.CREATE_STUDENT, method = RequestMethod.POST)
-    ResponseEntity<StudentResponse> createStudent(@Valid @RequestBody CreateStudentRequest request);
+        // CREATE
+        @RequestMapping(value = URI.CREATE_STUDENT, method = RequestMethod.POST)
+        ResponseEntity<StudentResponse> createStudent(@Valid @RequestBody CreateStudentRequest request);
 
-    @RequestMapping(value = URI.CREATE_ROLE, method = RequestMethod.POST)
-    ResponseEntity<RoleResponse> createRole(@Valid @RequestBody CreateRoleRequest request);
+        @RequestMapping(value = URI.IMPORT_STUDENTS, method = RequestMethod.POST)
+        ResponseEntity<String> importStudents(@RequestParam("file") MultipartFile file);
 
-    @RequestMapping(value = URI.CREATE_COURSE, method = RequestMethod.POST)
-    ResponseEntity<CourseResponse> createCourse(@Valid @RequestBody CreateCourseRequest request);
+        @RequestMapping(value = URI.CREATE_ROLE, method = RequestMethod.POST)
+        ResponseEntity<RoleResponse> createRole(@Valid @RequestBody CreateRoleRequest request);
 
-    @RequestMapping(value = URI.CREATE_PARENT, method = RequestMethod.POST)
-    ResponseEntity<ParentResponse> createParent(@Valid @RequestBody CreateParentRequest request);
+        @RequestMapping(value = URI.CREATE_COURSE, method = RequestMethod.POST)
+        ResponseEntity<CourseResponse> createCourse(@Valid @RequestBody CreateCourseRequest request);
 
-    @RequestMapping(value = URI.CREATE_TEACHER, method = RequestMethod.POST)
-    ResponseEntity<TeacherResponse> createTeacher(@Valid @RequestBody CreateTeacherRequest request);
+        @RequestMapping(value = URI.CREATE_PARENT, method = RequestMethod.POST)
+        ResponseEntity<ParentResponse> createParent(@Valid @RequestBody CreateParentRequest request);
 
-    @RequestMapping(value = URI.CREATE_CLASSROOM, method = RequestMethod.POST)
-    ResponseEntity<ClassroomResponse> createClassroom(@Valid @RequestBody CreateClassroomRequest request);
+        @RequestMapping(value = URI.CREATE_TEACHER, method = RequestMethod.POST)
+        ResponseEntity<TeacherResponse> createTeacher(@Valid @RequestBody CreateTeacherRequest request);
 
-    @RequestMapping(value = URI.CREATE_ACCOUNT, method = RequestMethod.POST)
-    ResponseEntity<AccountResponse> createAccount(@Valid @RequestBody CreateAccountRequest request);
+        @RequestMapping(value = URI.CREATE_CLASSROOM, method = RequestMethod.POST)
+        ResponseEntity<ClassroomResponse> createClassroom(@Valid @RequestBody CreateClassroomRequest request);
 
-    @RequestMapping(value = URI.CREATE_PAYMENT, method = RequestMethod.POST)
-    ResponseEntity<PaymentResponse> createPayment(@Valid @RequestBody CreatePaymentRequest request);
+        @RequestMapping(value = URI.CREATE_ACCOUNT, method = RequestMethod.POST)
+        ResponseEntity<AccountResponse> createAccount(@Valid @RequestBody CreateAccountRequest request);
 
-    @RequestMapping(value = URI.CONFIRM_PAYMENT, method = RequestMethod.POST)
-    ResponseEntity<ApiResponse> confirmPayment(@PathVariable("paymentId") Long paymentId);
+        @RequestMapping(value = URI.CREATE_PAYMENT, method = RequestMethod.POST)
+        ResponseEntity<PaymentResponse> createPayment(@Valid @RequestBody CreatePaymentRequest request);
 
-    // ADD
-    @RequestMapping(value = URI.ADD_STUDENT_TO_CLASSROOM, method = RequestMethod.POST)
-    ResponseEntity<StudentResponse> addStudentToClass(@Valid @RequestBody AddStudentToClassRequest request);
+        @RequestMapping(value = URI.CONFIRM_PAYMENT, method = RequestMethod.POST)
+        ResponseEntity<ApiResponse> confirmPayment(@PathVariable("paymentId") Long paymentId);
 
-    @RequestMapping(value = URI.ASSIGN_TEACHER, method = RequestMethod.POST)
-    ResponseEntity<AssignTeacherResponse> assignTeacher(@Valid @RequestBody AssignTeacherRequest request);
+        // ADD
+        @RequestMapping(value = URI.ADD_STUDENT_TO_CLASSROOM, method = RequestMethod.POST)
+        ResponseEntity<StudentResponse> addStudentToClass(@Valid @RequestBody AddStudentToClassRequest request);
 
-    // UPDATE
-    @RequestMapping(value = URI.UPDATE_STUDENT, method = RequestMethod.PUT)
-    ResponseEntity<StudentResponse> updateStudent(@Valid @RequestBody UpdateStudentRequest request,
-            @PathVariable("code") String studentCode);
+        @RequestMapping(value = URI.ASSIGN_TEACHER, method = RequestMethod.POST)
+        ResponseEntity<AssignTeacherResponse> assignTeacher(@Valid @RequestBody AssignTeacherRequest request);
 
-    @RequestMapping(value = URI.UPDATE_TEACHER, method = RequestMethod.PUT)
-    ResponseEntity<TeacherResponse> updateTeacher(@Valid @RequestBody UpdateTeacherRequest request,
-            @PathVariable("code") String teacherCode);
+        // UPDATE
+        @RequestMapping(value = URI.UPDATE_STUDENT, method = RequestMethod.PUT)
+        ResponseEntity<StudentResponse> updateStudent(@Valid @RequestBody UpdateStudentRequest request,
+                        @PathVariable("code") String studentCode);
 
-    @RequestMapping(value = URI.UPDATE_CLASSROOM, method = RequestMethod.PUT)
-    ResponseEntity<ClassroomResponse> updateClassroom(@Valid @RequestBody UpdateClassroomRequest request,
-            @PathVariable("name") String name);
+        @RequestMapping(value = URI.UPDATE_TEACHER, method = RequestMethod.PUT)
+        ResponseEntity<TeacherResponse> updateTeacher(@Valid @RequestBody UpdateTeacherRequest request,
+                        @PathVariable("code") String teacherCode);
 
-    @RequestMapping(value = URI.UPDATE_ACCOUNT, method = RequestMethod.PUT)
-    ResponseEntity<AccountResponse> updateAccount(@PathVariable("username") String username,
-            @Valid @RequestBody UpdateAccountRequest request);
+        @RequestMapping(value = URI.UPDATE_CLASSROOM, method = RequestMethod.PUT)
+        ResponseEntity<ClassroomResponse> updateClassroom(@Valid @RequestBody UpdateClassroomRequest request,
+                        @PathVariable("name") String name);
 
-    @RequestMapping(value = URI.UPDATE_COURSE, method = RequestMethod.PUT)
-    ResponseEntity<CourseResponse> updateCourse(@PathVariable("nameCourse") String nameCourse,
-            @Valid @RequestBody UpdateCourseRequest request);
+        @RequestMapping(value = URI.UPDATE_ACCOUNT, method = RequestMethod.PUT)
+        ResponseEntity<AccountResponse> updateAccount(@PathVariable("username") String username,
+                        @Valid @RequestBody UpdateAccountRequest request);
 
-    @RequestMapping(value = URI.UPDATE_ASSIGN_TEACHER, method = RequestMethod.PUT)
-    ResponseEntity<AssignTeacherResponse> updateAssignTeacher(@PathVariable("name") String className,
-            @Valid @RequestBody UpdateAssignTeacherRequest request);
+        @RequestMapping(value = URI.UPDATE_COURSE, method = RequestMethod.PUT)
+        ResponseEntity<CourseResponse> updateCourse(@PathVariable("nameCourse") String nameCourse,
+                        @Valid @RequestBody UpdateCourseRequest request);
 
-    // GET
-    @RequestMapping(value = URI.GET_ALL_STUDENTS, method = RequestMethod.GET)
-    ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable);
+        @RequestMapping(value = URI.UPDATE_ASSIGN_TEACHER, method = RequestMethod.PUT)
+        ResponseEntity<AssignTeacherResponse> updateAssignTeacher(@PathVariable("name") String className,
+                        @Valid @RequestBody UpdateAssignTeacherRequest request);
 
-    @RequestMapping(value = URI.GET_STUDENT_BY_CODE, method = RequestMethod.GET)
-    ResponseEntity<StudentResponse> getStudent(@PathVariable("code") String studentCode);
+        // GET
+        @RequestMapping(value = URI.GET_ALL_STUDENTS, method = RequestMethod.GET)
+        ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable);
 
-    @RequestMapping(value = URI.GET_ALL_TEACHERS, method = RequestMethod.GET)
-    ResponseEntity<Page<TeacherResponse>> getAllTeachers(Pageable pageable);
+        @RequestMapping(value = URI.GET_STUDENT_BY_CODE, method = RequestMethod.GET)
+        ResponseEntity<StudentResponse> getStudent(@PathVariable("code") String studentCode);
 
-    @RequestMapping(value = URI.GET_TEACHER_BY_CODE, method = RequestMethod.GET)
-    ResponseEntity<TeacherResponse> getTeacher(@PathVariable("code") String teacherCode);
+        @RequestMapping(value = URI.GET_ALL_TEACHERS, method = RequestMethod.GET)
+        ResponseEntity<Page<TeacherResponse>> getAllTeachers(Pageable pageable);
 
-    @RequestMapping(value = URI.TOTAL_STUDENT, method = RequestMethod.GET)
-    ResponseEntity<Long> totalStudent();
+        @RequestMapping(value = URI.GET_TEACHER_BY_CODE, method = RequestMethod.GET)
+        ResponseEntity<TeacherResponse> getTeacher(@PathVariable("code") String teacherCode);
 
-    @RequestMapping(value = URI.TOTAL_TEACHER, method = RequestMethod.GET)
-    ResponseEntity<Long> totalTeacher();
+        @RequestMapping(value = URI.TOTAL_STUDENT, method = RequestMethod.GET)
+        ResponseEntity<Long> totalStudent();
 
-    @RequestMapping(value = URI.TOTAL_CLASSROOM, method = RequestMethod.GET)
-    ResponseEntity<Long> totalClass();
+        @RequestMapping(value = URI.TOTAL_TEACHER, method = RequestMethod.GET)
+        ResponseEntity<Long> totalTeacher();
 
-    @RequestMapping(value = URI.TOTAL_PARENT, method = RequestMethod.GET)
-    ResponseEntity<Long> totalParent();
+        @RequestMapping(value = URI.TOTAL_CLASSROOM, method = RequestMethod.GET)
+        ResponseEntity<Long> totalClass();
 
-    @RequestMapping(value = URI.GET_ALL_CLASSROOMS, method = RequestMethod.GET)
-    ResponseEntity<Page<ClassroomResponse>> getAllClassrooms(Pageable pageable);
+        @RequestMapping(value = URI.TOTAL_PARENT, method = RequestMethod.GET)
+        ResponseEntity<Long> totalParent();
 
-    @RequestMapping(value = URI.GET_CLASSROOM_BY_NAME, method = RequestMethod.GET)
-    ResponseEntity<ClassroomResponse> getClassroom(@PathVariable("name") String name);
+        @RequestMapping(value = URI.GET_ALL_CLASSROOMS, method = RequestMethod.GET)
+        ResponseEntity<Page<ClassroomResponse>> getAllClassrooms(Pageable pageable);
 
-    @RequestMapping(value = URI.GET_ALL_ACCOUNTS, method = RequestMethod.GET)
-    ResponseEntity<Page<AccountResponse>> getAllAccounts(Pageable pageable);
+        @RequestMapping(value = URI.GET_CLASSROOM_BY_NAME, method = RequestMethod.GET)
+        ResponseEntity<ClassroomResponse> getClassroom(@PathVariable("name") String name);
 
-    @RequestMapping(value = URI.GET_ACCOUNT_BY_CODE, method = RequestMethod.GET)
-    ResponseEntity<AccountResponse> getAccountByCode(@RequestParam UserType type, @RequestParam String userCode);
+        @RequestMapping(value = URI.GET_ALL_ACCOUNTS, method = RequestMethod.GET)
+        ResponseEntity<Page<AccountResponse>> getAllAccounts(Pageable pageable);
 
-    @RequestMapping(value = URI.GET_ACCOUNT_BY_USERNAME, method = RequestMethod.GET)
-    ResponseEntity<AccountResponse> getAccountByUsername(@PathVariable("username") String username);
+        @RequestMapping(value = URI.GET_ACCOUNT_BY_CODE, method = RequestMethod.GET)
+        ResponseEntity<AccountResponse> getAccountByCode(@RequestParam UserType type, @RequestParam String userCode);
 
-    @RequestMapping(value = URI.GET_ALL_COURSES, method = RequestMethod.GET)
-    ResponseEntity<Page<CourseResponse>> getAllCourses(Pageable pageable);
+        @RequestMapping(value = URI.GET_ACCOUNT_BY_USERNAME, method = RequestMethod.GET)
+        ResponseEntity<AccountResponse> getAccountByUsername(@PathVariable("username") String username);
 
-    @RequestMapping(value = URI.GET_COURSE_BY_NAME, method = RequestMethod.GET)
-    ResponseEntity<CourseResponse> getCourseByName(String courseName);
+        @RequestMapping(value = URI.GET_ALL_COURSES, method = RequestMethod.GET)
+        ResponseEntity<Page<CourseResponse>> getAllCourses(Pageable pageable);
 
-    @RequestMapping(value = URI.GET_ALL_STUDENTS_IN_CLASSROOM, method = RequestMethod.GET)
-    ResponseEntity<List<StudentResponse>> getAllStudentInClassroom(@PathVariable("name") String name);
+        @RequestMapping(value = URI.GET_COURSE_BY_NAME, method = RequestMethod.GET)
+        ResponseEntity<CourseResponse> getCourseByName(String courseName);
 
-    @RequestMapping(value = URI.GET_ALL_ASSIGNED_TEACHER, method = RequestMethod.GET)
-    ResponseEntity<Page<AssignTeacherResponse>> getAllAssignedTeacher(Pageable pageable);
+        @RequestMapping(value = URI.GET_ALL_STUDENTS_IN_CLASSROOM, method = RequestMethod.GET)
+        ResponseEntity<List<StudentResponse>> getAllStudentInClassroom(@PathVariable("name") String name);
 
-    @RequestMapping(value = URI.GET_ALL_FEES, method = RequestMethod.GET)
-    ResponseEntity<Page<FeeResponse>> getAllFees(Pageable pageable);
+        @RequestMapping(value = URI.GET_ALL_ASSIGNED_TEACHER, method = RequestMethod.GET)
+        ResponseEntity<Page<AssignTeacherResponse>> getAllAssignedTeacher(Pageable pageable);
 
-    // DELETE
-    @RequestMapping(value = URI.DELETE_STUDENT, method = RequestMethod.DELETE)
-    ResponseEntity<String> deleteStudent(@PathVariable("code") String studentCode);
+        @RequestMapping(value = URI.GET_ALL_FEES, method = RequestMethod.GET)
+        ResponseEntity<Page<FeeResponse>> getAllFees(Pageable pageable);
 
-    @RequestMapping(value = URI.DELETE_TEACHER, method = RequestMethod.DELETE)
-    ResponseEntity<String> deleteTeacher(@PathVariable("code") String teacherCode);
+        // DELETE
+        @RequestMapping(value = URI.DELETE_STUDENT, method = RequestMethod.DELETE)
+        ResponseEntity<String> deleteStudent(@PathVariable("code") String studentCode);
 
-    @RequestMapping(value = URI.DELETE_CLASSROOM, method = RequestMethod.DELETE)
-    ResponseEntity<String> deleteClassroom(@PathVariable("name") String name);
+        @RequestMapping(value = URI.DELETE_TEACHER, method = RequestMethod.DELETE)
+        ResponseEntity<String> deleteTeacher(@PathVariable("code") String teacherCode);
 
-    @RequestMapping(value = URI.DELETE_ACCOUNT, method = RequestMethod.DELETE)
-    ResponseEntity<String> deleteAccount(@PathVariable("username") String username);
+        @RequestMapping(value = URI.DELETE_CLASSROOM, method = RequestMethod.DELETE)
+        ResponseEntity<String> deleteClassroom(@PathVariable("name") String name);
 
-    @RequestMapping(value = URI.DELETE_COURSE, method = RequestMethod.DELETE)
-    ResponseEntity<String> deleteCourse(@PathVariable("nameCourse") String nameCourse);
+        @RequestMapping(value = URI.DELETE_ACCOUNT, method = RequestMethod.DELETE)
+        ResponseEntity<String> deleteAccount(@PathVariable("username") String username);
 
-    // SCORE
-    @RequestMapping(value = URI.CREATE_SCORE, method = RequestMethod.POST)
-    ResponseEntity<ScoreResponse> createScore(@Valid @RequestBody CreateScoreRequest request);
+        @RequestMapping(value = URI.DELETE_COURSE, method = RequestMethod.DELETE)
+        ResponseEntity<String> deleteCourse(@PathVariable("nameCourse") String nameCourse);
 
-    @RequestMapping(value = URI.GET_ALL_SCORES, method = RequestMethod.GET)
-    ResponseEntity<Page<ScoreResponse>> getAllScores(Pageable pageable);
+        // SCORE
+        @RequestMapping(value = URI.CREATE_SCORE, method = RequestMethod.POST)
+        ResponseEntity<ScoreResponse> createScore(@Valid @RequestBody CreateScoreRequest request);
 
-    @RequestMapping(value = URI.GET_SCORE_BY_ID, method = RequestMethod.GET)
-    ResponseEntity<ScoreResponse> getScoreById(@PathVariable("id") Long id);
+        @RequestMapping(value = URI.GET_ALL_SCORES, method = RequestMethod.GET)
+        ResponseEntity<Page<ScoreResponse>> getAllScores(Pageable pageable);
 
-    @RequestMapping(value = URI.GET_SCORES_BY_STUDENT, method = RequestMethod.GET)
-    ResponseEntity<List<ScoreResponse>> getScoresByStudent(@PathVariable("code") String studentCode);
+        @RequestMapping(value = URI.GET_SCORE_BY_ID, method = RequestMethod.GET)
+        ResponseEntity<ScoreResponse> getScoreById(@PathVariable("id") Long id);
 
-    @RequestMapping(value = URI.GET_SCORES_BY_CLASSROOM, method = RequestMethod.GET)
-    ResponseEntity<Page<ScoreResponse>> getScoresByClassroom(@PathVariable("name") String classroomName,
-            Pageable pageable);
+        @RequestMapping(value = URI.GET_SCORES_BY_STUDENT, method = RequestMethod.GET)
+        ResponseEntity<List<ScoreResponse>> getScoresByStudent(@PathVariable("code") String studentCode);
 
-    @RequestMapping(value = URI.UPDATE_SCORE, method = RequestMethod.PUT)
-    ResponseEntity<ScoreResponse> updateScore(@PathVariable("id") Long id,
-            @Valid @RequestBody UpdateScoreRequest request);
+        @RequestMapping(value = URI.GET_SCORES_BY_CLASSROOM, method = RequestMethod.GET)
+        ResponseEntity<Page<ScoreResponse>> getScoresByClassroom(@PathVariable("name") String classroomName,
+                        Pageable pageable);
 
-    @RequestMapping(value = URI.DELETE_SCORE, method = RequestMethod.DELETE)
-    ResponseEntity<String> deleteScore(@PathVariable("id") Long id);
+        @RequestMapping(value = URI.UPDATE_SCORE, method = RequestMethod.PUT)
+        ResponseEntity<ScoreResponse> updateScore(@PathVariable("id") Long id,
+                        @Valid @RequestBody UpdateScoreRequest request);
+
+        @RequestMapping(value = URI.DELETE_SCORE, method = RequestMethod.DELETE)
+        ResponseEntity<String> deleteScore(@PathVariable("id") Long id);
 
 }

@@ -6,6 +6,7 @@ import com.example.EduCenter_BE.request.student.UpdateStudentRequest;
 import com.example.EduCenter_BE.response.StudentResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface StudentService {
 
@@ -20,5 +21,7 @@ public interface StudentService {
     String deleteStudent(String studentCode);
 
     Long totalStudentCount();
+
+    String importStudents(MultipartFile file);
 
 }
