@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoginView from "../views/LoginView.vue";
 import AdminLayout from "../layouts/AdminLayout.vue";
 import StudentLayout from "../layouts/StudentLayout.vue";
+import TeacherLayout from "../layouts/TeacherLayout.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -86,6 +87,34 @@ const router = createRouter({
                 },
             ],
         },
+
+        // TEACHER (có sidebar) - Cổng giáo viên
+        {
+            path: "/teacher",
+            component: TeacherLayout,
+            meta: { requiresAuth: true, role: "ROLE_TEACHER" },
+            redirect: "/teacher/dashboard",
+            children: [
+                {
+                    path: "dashboard",
+                    name: "teacher-dashboard",
+                    component: () =>
+                        import("../views/teacher/TeacherDashboardView.vue"),
+                },
+                {
+                    path: "classrooms",
+                    name: "teacher-classrooms",
+                    component: () =>
+                        import("../views/teacher/TeacherClassroomsView.vue"),
+                },
+                {
+                    path: "schedule",
+                    name: "teacher-schedule",
+                    component: () =>
+                        import("../views/teacher/TeacherScheduleView.vue"),
+                },
+            ],
+        },
     ],
 });
 
@@ -114,6 +143,8 @@ router.beforeEach((to, from, next) => {
                 next("/admin/dashboard");
             } else if (userRole === "ROLE_STUDENT") {
                 next("/student/dashboard");
+            } else if (userRole === "ROLE_TEACHER") {
+                next("/teacher/dashboard");
             } else {
                 // Role không hợp lệ -> logout
                 next({ name: "login" });
