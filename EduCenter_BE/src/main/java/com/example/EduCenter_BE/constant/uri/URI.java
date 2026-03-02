@@ -9,6 +9,8 @@ public class URI {
 
     public final static String STUDENT = "/student";
 
+    public final static String TEACHER = "/teacher";
+
     // LOGIN
     public final static String LOGIN = "/login";
 
@@ -118,5 +120,16 @@ public class URI {
     public final static String GET_STUDENT_INFO = "/info";
 
     public final static String GET_MY_SCORES = "/my-scores";
+
+    // TEACHER PORTAL API
+    public final static String GET_TEACHER_INFO = "/info";
+
+    public final static String GET_MY_CLASSROOMS = "/my-classrooms";
+
+    public final static String GET_MY_SCHEDULE = "/my-schedule";
+
+    public final static String GET_STUDENTS_IN_CLASS = "/students-in-class/{name}";
+
+    public final static String GET_SCORES_IN_CLASS = "/scores-in-class/{name}";
 
 }
