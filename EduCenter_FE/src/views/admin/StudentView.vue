@@ -13,6 +13,14 @@
             <span class="btn-icon">➕</span>
             Thêm học sinh
         </button>
+        <button
+            class="btn btn-success btn-add ms-3"
+            data-bs-toggle="modal"
+            data-bs-target="#importStudentModal"
+        >
+            <span class="btn-icon">📥</span>
+            Import Excel
+        </button>
     </div>
 
     <div class="table-wrapper">
@@ -37,6 +45,7 @@
     </div>
 
     <AddStudentModal :key="modalKey" @submit="onAddStudent" />
+    <ImportStudentModal ref="importModalRef" @submit="onImportStudents" />
 </template>
 
 <script setup lang="ts">
@@ -44,6 +53,7 @@ import { Modal } from "bootstrap";
 import AdminHeader from "../../components/admin/AdminHeader.vue";
 import StudentTable from "../../components/admin/student/StudentTable.vue";
 import AddStudentModal from "../../components/admin/student/AddStudentModal.vue";
+import ImportStudentModal from "../../components/admin/student/ImportStudentModal.vue";
 import Pagination from "../../components/common/Pagination.vue";
 import { useStudents } from "../../composables/useStudent";
 import type { Student } from "../../types/Student";
@@ -59,6 +69,7 @@ const {
     createStudent,
     updateStudent,
     deleteStudent,
+    importStudents,
 } = useStudents();
 
 const modalKey = ref(0);
@@ -66,6 +77,10 @@ const modalKey = ref(0);
 const editingStudent = ref<Student | null>(null);
 
 const selectedStudent = ref<Student | null>(null);
+
+const importModalRef = ref<InstanceType<typeof ImportStudentModal> | null>(
+    null,
+);
 
 async function onAddStudent(student: Partial<Student>) {
     try {
@@ -122,6 +137,25 @@ async function onConfirmDelete(studentCode: string) {
         }
     } catch {
         // lỗi đã có toast → không đóng modal
+    }
+}
+
+async function onImportStudents(file: File) {
+    try {
+        await importStudents(file);
+
+        const modalEl = document.getElementById("importStudentModal");
+        if (modalEl) {
+            const modal = Modal.getInstance(modalEl);
+            modal?.hide();
+        }
+
+        // Reset form trong modal
+        if (importModalRef.value) {
+            importModalRef.value.resetForm();
+        }
+    } catch {
+        // lỗi đã có toast
     }
 }
 </script>

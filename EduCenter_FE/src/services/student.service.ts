@@ -23,6 +23,16 @@ export function deleteStudent(code: string) {
     return api.delete(`/admin/delete-student/${code}`);
 }
 
+export function importStudents(file: File) {
+    const formData = new FormData();
+    formData.append("file", file);
+    return api.post("/admin/import-students", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+}
+
 // ============================================
 // STUDENT PORTAL APIs - Cổng học viên
 // ============================================

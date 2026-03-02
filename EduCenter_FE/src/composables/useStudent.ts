@@ -18,7 +18,7 @@ export function useStudents() {
         try {
             const data = await StudentService.getAllStudents(
                 page.value,
-                size.value
+                size.value,
             );
             students.value = data.content;
             totalPages.value = data.totalPages;
@@ -87,6 +87,21 @@ export function useStudents() {
         }
     }
 
+    async function importStudents(file: File) {
+        loading.value = true;
+        try {
+            await StudentService.importStudents(file);
+            success("Import danh sách học viên thành công!");
+            page.value = 0;
+            await fetchStudents();
+        } catch (err: any) {
+            error(err.response?.data || "Import học viên thất bại!");
+            throw err;
+        } finally {
+            loading.value = false;
+        }
+    }
+
     onMounted(fetchStudents);
 
     return {
@@ -97,5 +112,6 @@ export function useStudents() {
         createStudent,
         updateStudent,
         deleteStudent,
+        importStudents,
     };
 }
