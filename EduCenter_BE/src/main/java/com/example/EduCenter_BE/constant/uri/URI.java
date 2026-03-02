@@ -7,6 +7,8 @@ public class URI {
 
     public final static String ADMIN = "/admin";
 
+    public final static String STUDENT = "/student";
+
     // LOGIN
     public final static String LOGIN = "/login";
 
@@ -111,5 +113,10 @@ public class URI {
     public final static String UPDATE_SCORE = "/update-score/{id}";
 
     public final static String DELETE_SCORE = "/delete-score/{id}";
+
+    // STUDENT PORTAL API
+    public final static String GET_STUDENT_INFO = "/info";
+
+    public final static String GET_MY_SCORES = "/my-scores";
 
 }
