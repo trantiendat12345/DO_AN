@@ -34,10 +34,10 @@
                     <td class="text-muted">{{ s.email }}</td>
                     <td>
                         <span
-                            class="badge status-badge"
+                            class="status-badge"
                             :class="getStatusClass(s.status)"
                         >
-                            {{ s.status }}
+                            {{ getStatusLabel(s.status) }}
                         </span>
                     </td>
                     <td>
@@ -93,11 +93,18 @@ defineEmits<{
 
 function getStatusClass(status: string) {
     const statusMap: Record<string, string> = {
-        "Đang học": "status-active",
-        "Nghỉ học": "status-inactive",
-        "Hoàn thành": "status-completed",
+        ACTIVE: "status-active",
+        INACTIVE: "status-inactive",
     };
     return statusMap[status] || "status-default";
+}
+
+function getStatusLabel(status: string) {
+    const labelMap: Record<string, string> = {
+        ACTIVE: "Đang học",
+        INACTIVE: "Nghỉ học",
+    };
+    return labelMap[status] || status;
 }
 </script>
 

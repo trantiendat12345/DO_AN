@@ -21,9 +21,12 @@
                     <td>{{ a.userCode }}</td>
                     <td>{{ a.userType }}</td>
                     <td>
-                        <span class="badge bg-success">{{
-                            a.accountStatus
-                        }}</span>
+                        <span
+                            class="status-badge"
+                            :class="getStatusClass(a.accountStatus)"
+                        >
+                            {{ getStatusLabel(a.accountStatus) }}
+                        </span>
                     </td>
                     <td>
                         <button
@@ -61,4 +64,48 @@ defineProps<{
 }>();
 
 defineEmits(["edit", "delete"]);
+
+function getStatusClass(status: string) {
+    const statusMap: Record<string, string> = {
+        ACTIVE: "status-active",
+        INACTIVE: "status-inactive",
+        LOCKED: "status-locked",
+    };
+    return statusMap[status] || "status-default";
+}
+
+function getStatusLabel(status: string) {
+    const labelMap: Record<string, string> = {
+        ACTIVE: "Hoạt động",
+        INACTIVE: "Không hoạt động",
+        LOCKED: "Đã khóa",
+    };
+    return labelMap[status] || status;
+}
 </script>
+
+<style scoped>
+.status-badge {
+    padding: 0.35rem 0.7rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: inline-block;
+}
+.status-active {
+    background: rgba(34, 197, 94, 0.15);
+    color: #16a34a;
+}
+.status-inactive {
+    background: rgba(100, 116, 139, 0.15);
+    color: #475569;
+}
+.status-locked {
+    background: rgba(239, 68, 68, 0.15);
+    color: #dc2626;
+}
+.status-default {
+    background: rgba(100, 116, 139, 0.15);
+    color: #475569;
+}
+</style>
