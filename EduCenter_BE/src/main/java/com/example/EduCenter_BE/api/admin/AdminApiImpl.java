@@ -184,8 +184,8 @@ public class AdminApiImpl implements AdminApi {
     }
 
     @Override
-    public ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable) {
-        Page<StudentResponse> response = studentService.getAllStudents(pageable);
+    public ResponseEntity<Page<StudentResponse>> getAllStudents(String keyword, Pageable pageable) {
+        Page<StudentResponse> response = studentService.searchStudents(keyword, pageable);
         return ResponseEntity.ok().body(response);
     }
 
@@ -196,8 +196,8 @@ public class AdminApiImpl implements AdminApi {
     }
 
     @Override
-    public ResponseEntity<Page<TeacherResponse>> getAllTeachers(Pageable pageable) {
-        Page<TeacherResponse> response = teacherService.getAllTeachers(pageable);
+    public ResponseEntity<Page<TeacherResponse>> getAllTeachers(String keyword, Pageable pageable) {
+        Page<TeacherResponse> response = teacherService.searchTeachers(keyword, pageable);
         return ResponseEntity.ok().body(response);
     }
 
@@ -232,8 +232,8 @@ public class AdminApiImpl implements AdminApi {
     }
 
     @Override
-    public ResponseEntity<Page<ClassroomResponse>> getAllClassrooms(Pageable pageable) {
-        Page<ClassroomResponse> responses = classroomService.getAllClassrooms(pageable);
+    public ResponseEntity<Page<ClassroomResponse>> getAllClassrooms(String keyword, Pageable pageable) {
+        Page<ClassroomResponse> responses = classroomService.searchClassrooms(keyword, pageable);
         return ResponseEntity.ok().body(responses);
     }
 
@@ -244,8 +244,8 @@ public class AdminApiImpl implements AdminApi {
     }
 
     @Override
-    public ResponseEntity<Page<AccountResponse>> getAllAccounts(Pageable pageable) {
-        Page<AccountResponse> responses = accountService.getAllAccounts(pageable);
+    public ResponseEntity<Page<AccountResponse>> getAllAccounts(String keyword, Pageable pageable) {
+        Page<AccountResponse> responses = accountService.searchAccounts(keyword, pageable);
         return ResponseEntity.ok().body(responses);
     }
 
@@ -262,8 +262,8 @@ public class AdminApiImpl implements AdminApi {
     }
 
     @Override
-    public ResponseEntity<Page<CourseResponse>> getAllCourses(Pageable pageable) {
-        Page<CourseResponse> responses = courseService.getAllCourses(pageable);
+    public ResponseEntity<Page<CourseResponse>> getAllCourses(String keyword, Pageable pageable) {
+        Page<CourseResponse> responses = courseService.searchCourses(keyword, pageable);
         return ResponseEntity.ok().body(responses);
     }
 

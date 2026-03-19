@@ -22,7 +22,6 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
-
     @Override
     public Course createCourse(CreateCourseRequest request) {
         String name = request.getNameCourse();
@@ -47,6 +46,14 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public Page<CourseResponse> searchCourses(String keyword, Pageable pageable) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return getAllCourses(pageable);
+        }
+        return courseRepository.searchCourses(keyword.trim(), pageable).map(CourseResponse::new);
+    }
+
+    @Override
     public CourseResponse getCourseByCourseName(String courseName) {
         Course course = courseRepository.findCourseByName(courseName);
 
@@ -60,8 +67,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseResponse updateCourseByNameCourse(
             String nameCourse,
-            UpdateCourseRequest request
-    ) {
+            UpdateCourseRequest request) {
         Course course = courseRepository.findCourseByName(nameCourse);
 
         if (course == null) {
@@ -100,7 +106,6 @@ public class CourseServiceImpl implements CourseService {
 
         return new CourseResponse(savedCourse);
     }
-
 
     @Override
     public String deleteCourse(String courseName) {

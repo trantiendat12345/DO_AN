@@ -32,7 +32,8 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher checkTeacherByEmail = teacherRepository.findTeacherByEmail(teacherEmail);
         Teacher checkTeacherByPhone = teacherRepository.findTeacherByPhone(teacherPhone);
 
-        if (!Objects.isNull(checkTeacherByCode) || !Objects.isNull(checkTeacherByEmail) || !Objects.isNull(checkTeacherByPhone)) {
+        if (!Objects.isNull(checkTeacherByCode) || !Objects.isNull(checkTeacherByEmail)
+                || !Objects.isNull(checkTeacherByPhone)) {
             throw new BusinessException(Message.TEACHER_EXISTED);
         }
 
@@ -48,6 +49,14 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Page<TeacherResponse> getAllTeachers(Pageable pageable) {
         return teacherRepository.findAllTeachers(pageable).map(TeacherResponse::new);
+    }
+
+    @Override
+    public Page<TeacherResponse> searchTeachers(String keyword, Pageable pageable) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return getAllTeachers(pageable);
+        }
+        return teacherRepository.searchTeachers(keyword.trim(), pageable).map(TeacherResponse::new);
     }
 
     @Override

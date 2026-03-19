@@ -20,6 +20,8 @@ public interface ClassroomService {
 
     Page<ClassroomResponse> getAllClassrooms(Pageable pageable);
 
+    Page<ClassroomResponse> searchClassrooms(String keyword, Pageable pageable);
+
     ClassroomResponse getClassroom(String name);
 
     String deleteClassroom(String name);

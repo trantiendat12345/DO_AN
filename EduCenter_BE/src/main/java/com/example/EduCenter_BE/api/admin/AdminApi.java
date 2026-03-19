@@ -102,13 +102,15 @@ public interface AdminApi {
 
         // GET
         @RequestMapping(value = URI.GET_ALL_STUDENTS, method = RequestMethod.GET)
-        ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable);
+        ResponseEntity<Page<StudentResponse>> getAllStudents(@RequestParam(required = false) String keyword,
+                        Pageable pageable);
 
         @RequestMapping(value = URI.GET_STUDENT_BY_CODE, method = RequestMethod.GET)
         ResponseEntity<StudentResponse> getStudent(@PathVariable("code") String studentCode);
 
         @RequestMapping(value = URI.GET_ALL_TEACHERS, method = RequestMethod.GET)
-        ResponseEntity<Page<TeacherResponse>> getAllTeachers(Pageable pageable);
+        ResponseEntity<Page<TeacherResponse>> getAllTeachers(@RequestParam(required = false) String keyword,
+                        Pageable pageable);
 
         @RequestMapping(value = URI.GET_TEACHER_BY_CODE, method = RequestMethod.GET)
         ResponseEntity<TeacherResponse> getTeacher(@PathVariable("code") String teacherCode);
@@ -126,13 +128,15 @@ public interface AdminApi {
         ResponseEntity<Long> totalParent();
 
         @RequestMapping(value = URI.GET_ALL_CLASSROOMS, method = RequestMethod.GET)
-        ResponseEntity<Page<ClassroomResponse>> getAllClassrooms(Pageable pageable);
+        ResponseEntity<Page<ClassroomResponse>> getAllClassrooms(@RequestParam(required = false) String keyword,
+                        Pageable pageable);
 
         @RequestMapping(value = URI.GET_CLASSROOM_BY_NAME, method = RequestMethod.GET)
         ResponseEntity<ClassroomResponse> getClassroom(@PathVariable("name") String name);
 
         @RequestMapping(value = URI.GET_ALL_ACCOUNTS, method = RequestMethod.GET)
-        ResponseEntity<Page<AccountResponse>> getAllAccounts(Pageable pageable);
+        ResponseEntity<Page<AccountResponse>> getAllAccounts(@RequestParam(required = false) String keyword,
+                        Pageable pageable);
 
         @RequestMapping(value = URI.GET_ACCOUNT_BY_CODE, method = RequestMethod.GET)
         ResponseEntity<AccountResponse> getAccountByCode(@RequestParam UserType type, @RequestParam String userCode);
@@ -141,7 +145,8 @@ public interface AdminApi {
         ResponseEntity<AccountResponse> getAccountByUsername(@PathVariable("username") String username);
 
         @RequestMapping(value = URI.GET_ALL_COURSES, method = RequestMethod.GET)
-        ResponseEntity<Page<CourseResponse>> getAllCourses(Pageable pageable);
+        ResponseEntity<Page<CourseResponse>> getAllCourses(@RequestParam(required = false) String keyword,
+                        Pageable pageable);
 
         @RequestMapping(value = URI.GET_COURSE_BY_NAME, method = RequestMethod.GET)
         ResponseEntity<CourseResponse> getCourseByName(String courseName);

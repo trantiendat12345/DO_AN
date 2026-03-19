@@ -23,6 +23,9 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     @Query("SELECT t FROM Teacher AS t WHERE t.isDeleted = false ORDER BY t.createdAt DESC")
     Page<Teacher> findAllTeachers(Pageable pageable);
 
+    @Query("SELECT t FROM Teacher AS t WHERE t.isDeleted = false AND (LOWER(t.fullName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(t.teacherCode) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(t.email) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(t.phone) LIKE LOWER(CONCAT('%', :keyword, '%'))) ORDER BY t.createdAt DESC")
+    Page<Teacher> searchTeachers(@Param("keyword") String keyword, Pageable pageable);
+
     @Query("SELECT COUNT(*) FROM Teacher AS t WHERE t.isDeleted = false")
     Long countAllTeachers();
 

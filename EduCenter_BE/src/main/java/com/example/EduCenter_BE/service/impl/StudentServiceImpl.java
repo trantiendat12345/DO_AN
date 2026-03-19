@@ -69,6 +69,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Page<StudentResponse> searchStudents(String keyword, Pageable pageable) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return getAllStudents(pageable);
+        }
+        return studentRepository.searchStudents(keyword.trim(), pageable).map(StudentResponse::new);
+    }
+
+    @Override
     public StudentResponse getStudentByCode(String studentCode) {
         Student student = studentRepository.findStudentByCode(studentCode);
 

@@ -109,7 +109,18 @@ public class ClassroomServiceImpl extends BaseService implements ClassroomServic
     public Page<ClassroomResponse> getAllClassrooms(Pageable pageable) {
         return classroomRepository.findAllClassroom(pageable).map((c) -> {
             Integer currentStudentCount = classroomRepository.countStudentClassroom(c.getId());
-            return new ClassroomResponse(c,  currentStudentCount);
+            return new ClassroomResponse(c, currentStudentCount);
+        });
+    }
+
+    @Override
+    public Page<ClassroomResponse> searchClassrooms(String keyword, Pageable pageable) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return getAllClassrooms(pageable);
+        }
+        return classroomRepository.searchClassrooms(keyword.trim(), pageable).map((c) -> {
+            Integer currentStudentCount = classroomRepository.countStudentClassroom(c.getId());
+            return new ClassroomResponse(c, currentStudentCount);
         });
     }
 

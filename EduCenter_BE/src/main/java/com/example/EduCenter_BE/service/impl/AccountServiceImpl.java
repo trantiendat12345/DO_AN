@@ -55,15 +55,15 @@ public class AccountServiceImpl implements AccountService {
         Role checkRole = roleRepository.findRoleByName(roleName);
         Account checkAccount = accountRepository.findAccountByUsername(username);
 
-        if (Objects.isNull(checkRole)){
+        if (Objects.isNull(checkRole)) {
             throw new BusinessException(Message.ROLE_DOES_NOT_EXIST);
         }
 
-        if (!Objects.isNull(checkAccount)){
+        if (!Objects.isNull(checkAccount)) {
             throw new BusinessException(Message.ACCOUNT_EXISTED);
         }
 
-        if (userCode.isEmpty() && userType.equals(UserType.ADMIN)){
+        if (userCode.isEmpty() && userType.equals(UserType.ADMIN)) {
             Account account = new Account();
             account.setUsername(username);
             account.setPassword(passwordEncoder.encode(password));
@@ -112,10 +112,34 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Page<AccountResponse> searchAccounts(String keyword, Pageable pageable) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return getAllAccounts(pageable);
+        }
+        return accountRepository.searchAccounts(keyword.trim(), pageable)
+                .map(account -> {
+                    AccountResponse response = new AccountResponse(account);
+                    String userCode = null;
+                    switch (account.getType()) {
+                        case STUDENT -> userCode = studentRepository
+                                .findById(account.getUserId())
+                                .map(Student::getStudentCode)
+                                .orElse(null);
+                        case TEACHER -> userCode = teacherRepository
+                                .findById(account.getUserId())
+                                .map(Teacher::getTeacherCode)
+                                .orElse(null);
+                    }
+                    response.setUserCode(userCode);
+                    return response;
+                });
+    }
+
+    @Override
     public AccountResponse getAccountByUsername(String username) {
         Account account = accountRepository.findAccountByUsername(username);
 
-        if (Objects.isNull(account)){
+        if (Objects.isNull(account)) {
             throw new BusinessException(Message.ACCOUNT_DOES_NOT_EXIST);
         }
 
@@ -127,25 +151,27 @@ public class AccountServiceImpl implements AccountService {
         Long userId = 0L;
 
         switch (type) {
-            case STUDENT: Student student = studentRepository.findStudentByCode(code);
-            if (Objects.isNull(student)){
-                throw new BusinessException(Message.STUDENT_DOES_NOT_EXIST);
-            }
-            userId = student.getId();
-            break;
-            case TEACHER: Teacher teacher = teacherRepository.findTeacherByCode(code);
-            if (Objects.isNull(teacher)){
-                throw new BusinessException(Message.TEACHER_DOES_NOT_EXIST);
-            }
-            userId = teacher.getId();
-            break;
+            case STUDENT:
+                Student student = studentRepository.findStudentByCode(code);
+                if (Objects.isNull(student)) {
+                    throw new BusinessException(Message.STUDENT_DOES_NOT_EXIST);
+                }
+                userId = student.getId();
+                break;
+            case TEACHER:
+                Teacher teacher = teacherRepository.findTeacherByCode(code);
+                if (Objects.isNull(teacher)) {
+                    throw new BusinessException(Message.TEACHER_DOES_NOT_EXIST);
+                }
+                userId = teacher.getId();
+                break;
             default:
                 throw new BusinessException(Message.INVALID_USER_TYPE);
         }
 
         Account account = accountRepository.findAccountByUserIdAndType(userId, type);
 
-        if (Objects.isNull(account)){
+        if (Objects.isNull(account)) {
             throw new BusinessException(Message.ACCOUNT_DOES_NOT_EXIST);
         }
 
@@ -155,8 +181,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountResponse updateAccountByUsername(
             String username,
-            UpdateAccountRequest request
-    ) {
+            UpdateAccountRequest request) {
         Account account = accountRepository.findAccountByUsername(username);
 
         if (account == null) {
@@ -166,8 +191,7 @@ public class AccountServiceImpl implements AccountService {
         // UPDATE PASSWORD (chỉ khi có nhập)
         if (request.getPassword() != null && !request.getPassword().isBlank()) {
             account.setPassword(
-                    passwordEncoder.encode(request.getPassword())
-            );
+                    passwordEncoder.encode(request.getPassword()));
         }
 
         // UPDATE ROLE
@@ -186,15 +210,14 @@ public class AccountServiceImpl implements AccountService {
 
         Account savedAccount = accountRepository.save(account);
 
-        return new  AccountResponse(savedAccount);
+        return new AccountResponse(savedAccount);
     }
-
 
     @Override
     public String deleteAccountByUsername(String username) {
         Account account = accountRepository.findAccountByUsername(username);
 
-        if (Objects.isNull(account)){
+        if (Objects.isNull(account)) {
             throw new BusinessException(Message.ACCOUNT_DOES_NOT_EXIST);
         }
 
@@ -240,6 +263,5 @@ public class AccountServiceImpl implements AccountService {
 
         throw new BadRequestException("UserType không hợp lệ");
     }
-
 
 }

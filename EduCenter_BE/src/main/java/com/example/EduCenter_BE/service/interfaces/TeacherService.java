@@ -13,6 +13,8 @@ public interface TeacherService {
 
     Page<TeacherResponse> getAllTeachers(Pageable pageable);
 
+    Page<TeacherResponse> searchTeachers(String keyword, Pageable pageable);
+
     TeacherResponse getTeacherByCode(String code);
 
     TeacherResponse updateTeacher(UpdateTeacherRequest request, String teacherCode);

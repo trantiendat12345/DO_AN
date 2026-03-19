@@ -13,6 +13,8 @@ public interface CourseService {
 
     Page<CourseResponse> getAllCourses(Pageable pageable);
 
+    Page<CourseResponse> searchCourses(String keyword, Pageable pageable);
+
     CourseResponse getCourseByCourseName(String courseName);
 
     CourseResponse updateCourseByNameCourse(String nameCourse, UpdateCourseRequest request);

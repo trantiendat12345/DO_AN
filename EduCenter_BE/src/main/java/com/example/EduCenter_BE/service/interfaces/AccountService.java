@@ -13,6 +13,8 @@ public interface AccountService {
 
     Page<AccountResponse> getAllAccounts(Pageable pageable);
 
+    Page<AccountResponse> searchAccounts(String keyword, Pageable pageable);
+
     AccountResponse getAccountByUsername(String username);
 
     AccountResponse getAccountByUserCode(UserType type, String code);

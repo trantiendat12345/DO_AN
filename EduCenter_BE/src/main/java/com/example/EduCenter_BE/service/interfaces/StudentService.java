@@ -14,6 +14,8 @@ public interface StudentService {
 
     Page<StudentResponse> getAllStudents(Pageable pageable);
 
+    Page<StudentResponse> searchStudents(String keyword, Pageable pageable);
+
     StudentResponse getStudentByCode(String studentCode);
 
     StudentResponse updateStudent(UpdateStudentRequest request, String studentCode);

@@ -24,4 +24,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @Query("SELECT a FROM Account AS a WHERE a.isDeleted = false ORDER BY a.createdAt DESC")
     Page<Account> finAllAccount(Pageable pageable);
 
+    @Query("SELECT a FROM Account AS a WHERE a.isDeleted = false AND LOWER(a.username) LIKE LOWER(CONCAT('%', :keyword, '%')) ORDER BY a.createdAt DESC")
+    Page<Account> searchAccounts(@Param("keyword") String keyword, Pageable pageable);
+
 }

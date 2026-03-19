@@ -18,4 +18,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query("SELECT c FROM Course AS c WHERE c.isDeleted = false ORDER BY c.createdAt DESC")
     Page<Course> findAllCourses(Pageable pageable);
 
+    @Query("SELECT c FROM Course AS c WHERE c.isDeleted = false AND LOWER(c.name) LIKE LOWER(CONCAT('%', :keyword, '%')) ORDER BY c.createdAt DESC")
+    Page<Course> searchCourses(@Param("keyword") String keyword, Pageable pageable);
+
 }
