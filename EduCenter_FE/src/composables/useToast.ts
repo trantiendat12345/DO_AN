@@ -20,7 +20,11 @@ export function useToast() {
             message.value = msgOrError;
         } else {
             // Nếu là object từ response.data, lấy message property
-            message.value = msgOrError?.message || "";
+            // message.value = msgOrError?.message || "";
+            message.value =
+                msgOrError?.errors?.[0]?.message ||
+                msgOrError?.message ||
+                "Đã xảy ra lỗi";
         }
         type.value = "error";
         show.value = true;

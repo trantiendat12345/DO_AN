@@ -6,12 +6,35 @@
         </div>
 
         <div class="flex-grow-1 me-4">
-            <div class="search-wrapper">
+            <div class="search-wrapper" ref="searchWrapperRef">
                 <span class="search-icon">🔍</span>
                 <input
                     class="form-control search-input"
                     placeholder="Tìm kiếm học sinh, giáo viên, lớp học..."
+                    v-model="searchQuery"
+                    @input="onSearchInput"
+                    @keyup.enter="onSearchEnter"
+                    @focus="showDropdown = true"
                 />
+                <div
+                    v-if="showDropdown && searchQuery.trim()"
+                    class="search-dropdown"
+                >
+                    <div class="search-dropdown-header">
+                        Tìm "{{ searchQuery }}" trong:
+                    </div>
+                    <a
+                        v-for="item in searchTargets"
+                        :key="item.path"
+                        class="search-dropdown-item"
+                        @mousedown.prevent="navigateToSearch(item.path)"
+                    >
+                        <span class="search-dropdown-icon">{{
+                            item.icon
+                        }}</span>
+                        <span>{{ item.label }}</span>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -65,11 +88,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+import { useRouter } from "vue-router";
 import { logout } from "../../composables/useLogout";
+
+const router = useRouter();
 
 const currentUsername = ref<string>("");
 const currentRole = ref<string>("");
+const searchQuery = ref("");
+const showDropdown = ref(false);
+const searchWrapperRef = ref<HTMLElement | null>(null);
+
+const searchTargets = [
+    { path: "/admin/accounts", label: "Tài khoản", icon: "🔑" },
+    { path: "/admin/students", label: "Học sinh", icon: "🎓" },
+    { path: "/admin/teachers", label: "Giáo viên", icon: "👨‍🏫" },
+    { path: "/admin/classrooms", label: "Lớp học", icon: "🏫" },
+    { path: "/admin/courses", label: "Khoá học", icon: "📚" },
+];
 
 const userInitial = computed(() => {
     return currentUsername.value?.charAt(0).toUpperCase() || "A";
@@ -80,12 +117,48 @@ defineProps<{
     subtitle?: string;
 }>();
 
+function onSearchInput() {
+    showDropdown.value = true;
+}
+
+function onSearchEnter() {
+    if (!searchQuery.value.trim()) return;
+    // Mặc định search ở trang hiện tại, hoặc trang đầu tiên phù hợp
+    const currentPath = router.currentRoute.value.path;
+    const matchedTarget = searchTargets.find((t) =>
+        currentPath.startsWith(t.path),
+    );
+    const targetPath =
+        matchedTarget?.path ?? searchTargets[0]?.path ?? "/admin/accounts";
+    navigateToSearch(targetPath);
+}
+
+function navigateToSearch(path: string) {
+    showDropdown.value = false;
+    router.push({ path, query: { search: searchQuery.value.trim() } });
+}
+
+function handleClickOutside(event: MouseEvent) {
+    if (
+        searchWrapperRef.value &&
+        !searchWrapperRef.value.contains(event.target as Node)
+    ) {
+        showDropdown.value = false;
+    }
+}
+
 onMounted(() => {
     const username = localStorage.getItem("username") || "";
     const role = localStorage.getItem("role") || "";
 
     currentUsername.value = username;
     currentRole.value = role === "ROLE_ADMIN" ? "Quản trị viên" : role;
+
+    document.addEventListener("click", handleClickOutside);
+});
+
+onBeforeUnmount(() => {
+    document.removeEventListener("click", handleClickOutside);
 });
 </script>
 
@@ -132,6 +205,47 @@ onMounted(() => {
 .search-input:focus {
     border-color: #06b6d4;
     box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1);
+}
+
+.search-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.search-dropdown-header {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.search-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+    color: #334155;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.search-dropdown-item:hover {
+    background: #f0fdfa;
+    color: #0891b2;
+}
+
+.search-dropdown-icon {
+    font-size: 1.1rem;
 }
 
 .notification-btn {

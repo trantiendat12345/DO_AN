@@ -1,8 +1,9 @@
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import * as StudentService from "../services/student.service";
 import { useToast } from "./useToast";
 import type { Student } from "../types/Student";
 import { Message } from "../constant/Message";
+import { useRoute } from "vue-router";
 
 export function useStudents() {
     const students = ref<Student[]>([]);
@@ -10,7 +11,9 @@ export function useStudents() {
     const size = ref(10);
     const totalPages = ref(0);
     const loading = ref(false);
+    const keyword = ref("");
 
+    const route = useRoute();
     const { success, error } = useToast();
 
     async function fetchStudents() {
@@ -19,6 +22,7 @@ export function useStudents() {
             const data = await StudentService.getAllStudents(
                 page.value,
                 size.value,
+                keyword.value || undefined,
             );
             students.value = data.content;
             totalPages.value = data.totalPages;
@@ -32,6 +36,12 @@ export function useStudents() {
     function goToPage(p: number) {
         if (p < 0 || p >= totalPages.value) return;
         page.value = p;
+        fetchStudents();
+    }
+
+    function searchByKeyword(kw: string) {
+        keyword.value = kw;
+        page.value = 0;
         fetchStudents();
     }
 
@@ -102,16 +112,34 @@ export function useStudents() {
         }
     }
 
-    onMounted(fetchStudents);
+    onMounted(() => {
+        const search = route.query.search as string;
+        if (search) {
+            keyword.value = search;
+        }
+        fetchStudents();
+    });
+
+    watch(
+        () => route.query.search,
+        (newSearch) => {
+            const kw = (newSearch as string) || "";
+            keyword.value = kw;
+            page.value = 0;
+            fetchStudents();
+        },
+    );
 
     return {
         students,
         page,
         totalPages,
+        keyword,
         goToPage,
         createStudent,
         updateStudent,
         deleteStudent,
         importStudents,
+        searchByKeyword,
     };
 }

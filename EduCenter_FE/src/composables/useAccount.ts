@@ -1,8 +1,9 @@
 import type { Account } from "./../types/Account";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import * as AccountService from "../services/account.service";
 import { useToast } from "./useToast";
 import { Message } from "../constant/Message";
+import { useRoute } from "vue-router";
 
 export function useAccounts() {
     const accounts = ref<Account[]>([]);
@@ -10,7 +11,9 @@ export function useAccounts() {
     const size = ref(10);
     const totalPages = ref(0);
     const loading = ref(false);
+    const keyword = ref("");
 
+    const route = useRoute();
     const { success, error } = useToast();
 
     async function fetchAccount() {
@@ -18,7 +21,8 @@ export function useAccounts() {
         try {
             const data = await AccountService.getAllAccounts(
                 page.value,
-                size.value
+                size.value,
+                keyword.value || undefined,
             );
             accounts.value = data.content;
             totalPages.value = data.totalPages;
@@ -32,6 +36,12 @@ export function useAccounts() {
     function goToPage(p: number) {
         if (p < 0 || p >= totalPages.value) return;
         page.value = p;
+        fetchAccount();
+    }
+
+    function searchByKeyword(kw: string) {
+        keyword.value = kw;
+        page.value = 0;
         fetchAccount();
     }
 
@@ -71,7 +81,23 @@ export function useAccounts() {
         }
     }
 
-    onMounted(fetchAccount);
+    onMounted(() => {
+        const search = route.query.search as string;
+        if (search) {
+            keyword.value = search;
+        }
+        fetchAccount();
+    });
+
+    watch(
+        () => route.query.search,
+        (newSearch) => {
+            const kw = (newSearch as string) || "";
+            keyword.value = kw;
+            page.value = 0;
+            fetchAccount();
+        },
+    );
 
     return {
         accounts,
@@ -79,9 +105,11 @@ export function useAccounts() {
         size,
         totalPages,
         loading,
+        keyword,
         goToPage,
         createAccount,
         updateAccount,
         deleteAccount,
+        searchByKeyword,
     };
 }

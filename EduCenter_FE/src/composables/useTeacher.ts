@@ -1,8 +1,9 @@
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import * as TeacherService from "../services/teacher.service";
 import { useToast } from "./useToast";
 import type { Teacher } from "../types/Teacher";
 import { Message } from "../constant/Message";
+import { useRoute } from "vue-router";
 
 export function useTeacher() {
     const teachers = ref<Teacher[]>([]);
@@ -10,7 +11,9 @@ export function useTeacher() {
     const size = ref(10);
     const totalPages = ref(0);
     const loading = ref(false);
+    const keyword = ref("");
 
+    const route = useRoute();
     const { success, error } = useToast();
 
     async function fetchTeachers() {
@@ -19,6 +22,7 @@ export function useTeacher() {
             const data = await TeacherService.getAllTeachers(
                 page.value,
                 size.value,
+                keyword.value || undefined,
             );
             teachers.value = data.content;
             totalPages.value = data.totalPages;
@@ -32,6 +36,12 @@ export function useTeacher() {
     function goToPage(p: number) {
         if (p < 0 || p >= totalPages.value) return;
         page.value = p;
+        fetchTeachers();
+    }
+
+    function searchByKeyword(kw: string) {
+        keyword.value = kw;
+        page.value = 0;
         fetchTeachers();
     }
 
@@ -81,7 +91,23 @@ export function useTeacher() {
         }
     }
 
-    onMounted(fetchTeachers);
+    onMounted(() => {
+        const search = route.query.search as string;
+        if (search) {
+            keyword.value = search;
+        }
+        fetchTeachers();
+    });
+
+    watch(
+        () => route.query.search,
+        (newSearch) => {
+            const kw = (newSearch as string) || "";
+            keyword.value = kw;
+            page.value = 0;
+            fetchTeachers();
+        },
+    );
 
     return {
         teachers,
@@ -89,9 +115,11 @@ export function useTeacher() {
         size,
         totalPages,
         loading,
+        keyword,
         goToPage,
         createTeacher,
         updateTeacher,
         deleteTeacher,
+        searchByKeyword,
     };
 }

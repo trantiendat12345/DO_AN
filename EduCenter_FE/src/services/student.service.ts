@@ -5,9 +5,11 @@ import type { Student } from "../types/Student";
 // ADMIN APIs - Quản lý học sinh
 // ============================================
 
-export function getAllStudents(page = 0, size = 10) {
+export function getAllStudents(page = 0, size = 10, keyword?: string) {
     return api
-        .get("/admin/get-all-students", { params: { page, size } })
+        .get("/admin/get-all-students", {
+            params: { page, size, ...(keyword ? { keyword } : {}) },
+        })
         .then((res) => res.data);
 }
 

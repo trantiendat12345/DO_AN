@@ -2,10 +2,10 @@ import api from "../api/axios";
 import type { Teacher } from "../types/Teacher";
 
 // GET ALL (PAGINATION)
-export function getAllTeachers(page = 0, size = 10) {
+export function getAllTeachers(page = 0, size = 10, keyword?: string) {
     return api
         .get("/admin/get-all-teachers", {
-            params: { page, size },
+            params: { page, size, ...(keyword ? { keyword } : {}) },
         })
         .then((res) => res.data);
 }

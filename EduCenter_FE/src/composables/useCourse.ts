@@ -1,8 +1,9 @@
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import * as CourseService from "../services/course.service";
 import type { Course } from "../types/Course";
 import { useToast } from "./useToast";
 import { Message } from "../constant/Message";
+import { useRoute } from "vue-router";
 
 export function useCourses() {
     const courses = ref<Course[]>([]);
@@ -10,13 +11,19 @@ export function useCourses() {
     const size = ref(10);
     const totalPages = ref(0);
     const loading = ref(false);
+    const keyword = ref("");
 
+    const route = useRoute();
     const { success, error } = useToast();
 
     async function fetchCourses() {
         loading.value = true;
         try {
-            const data = await CourseService.getCourses(page.value, size.value);
+            const data = await CourseService.getCourses(
+                page.value,
+                size.value,
+                keyword.value || undefined,
+            );
             courses.value = data.content;
             totalPages.value = data.totalPages;
         } catch {
@@ -29,6 +36,12 @@ export function useCourses() {
     function goToPage(p: number) {
         if (p < 0 || p >= totalPages.value) return;
         page.value = p;
+        fetchCourses();
+    }
+
+    function searchByKeyword(kw: string) {
+        keyword.value = kw;
+        page.value = 0;
         fetchCourses();
     }
 
@@ -68,7 +81,23 @@ export function useCourses() {
         }
     }
 
-    onMounted(fetchCourses);
+    onMounted(() => {
+        const search = route.query.search as string;
+        if (search) {
+            keyword.value = search;
+        }
+        fetchCourses();
+    });
+
+    watch(
+        () => route.query.search,
+        (newSearch) => {
+            const kw = (newSearch as string) || "";
+            keyword.value = kw;
+            page.value = 0;
+            fetchCourses();
+        },
+    );
 
     return {
         courses,
@@ -76,9 +105,11 @@ export function useCourses() {
         size,
         totalPages,
         loading,
+        keyword,
         goToPage,
         createCourse,
         updateCourse,
         deleteCourse,
+        searchByKeyword,
     };
 }

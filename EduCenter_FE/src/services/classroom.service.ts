@@ -2,10 +2,10 @@ import api from "../api/axios";
 import type { Classroom } from "../types/Classroom";
 
 // GET PAGED
-export function getClassrooms(page = 0, size = 10) {
+export function getClassrooms(page = 0, size = 10, keyword?: string) {
     return api
         .get("/admin/get-all-classrooms", {
-            params: { page, size },
+            params: { page, size, ...(keyword ? { keyword } : {}) },
         })
         .then((res) => res.data);
 }
